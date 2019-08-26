@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="@drawable/registration">
+    >
 
     <include
         android:id="@+id/include"
@@ -23,7 +23,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/Group_1"
+        android:background="@drawable/group_1"
+        android:onClick="Student"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/Group_2"
+        android:background="@drawable/group_2"
+        android:onClick="Teacher"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +58,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/Group_3"
+        android:background="@drawable/group_3"
+        android:onClick="Parent"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +75,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/Group_4"
+        android:background="@drawable/group_4"
+        android:onClick="Administrator"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +96,7 @@
         app:layout_constraintStart_toStartOf="@+id/include"
         app:layout_constraintTop_toTopOf="@+id/include"
         app:layout_constraintVertical_bias="0.188"
-        app:srcCompat="@drawable/Регистрация" />
+        app:srcCompat="@drawable/registration" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -109,7 +113,7 @@
         app:layout_constraintStart_toStartOf="@+id/include"
         app:layout_constraintTop_toTopOf="@+id/include"
         app:layout_constraintVertical_bias="0.358"
-        app:srcCompat="@drawable/зарегистрироваться_как" />
+        app:srcCompat="@drawable/register_as" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -124,7 +128,7 @@
         app:layout_constraintStart_toStartOf="@+id/include"
         app:layout_constraintTop_toTopOf="@+id/include"
         app:layout_constraintVertical_bias="0.907"
-        app:srcCompat="@drawable/у_меня_есть_аккаунт" />
+        app:srcCompat="@drawable/i_already_have_account" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
