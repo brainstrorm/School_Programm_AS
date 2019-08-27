@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "948794775735",
+    "firebase_url": "https://school-c6f44.firebaseio.com",
+    "project_id": "school-c6f44",
+    "storage_bucket": "school-c6f44.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948794775735:android:000b31f49582859e",
+        "android_client_info": {
+          "package_name": "com.example.school"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948794775735-3d0ni8dm7ik1eng5vvr53ss1ieipk0th.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.school",
+            "certificate_hash": "ed2bde8ed118abc9cd17345bb35cd8076aa1b5b4"
+          }
+        },
+        {
+          "client_id": "948794775735-m20vvcbgqncrh6j2gjvh1jiqjv6m2i3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC21EkYKiVhLGfItZQfLf-vLUgefYyx_fI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948794775735-m20vvcbgqncrh6j2gjvh1jiqjv6m2i3f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "948794775735-d90jjspbdfng62ba15uu3t9ndap5jq5b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "jonyvee.school"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
