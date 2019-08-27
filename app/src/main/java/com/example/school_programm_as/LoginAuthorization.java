@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-public class Login_Authorization extends AppCompatActivity {
+public class LoginAuthorization extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
     @Override
@@ -18,29 +18,30 @@ public class Login_Authorization extends AppCompatActivity {
     }
 
     public void Student(View view){
-        Intent intentStudent = new Intent(this, Login.class);
+        Intent intentStudent = new Intent(this, LoginFormActivity.class);
         String message = "student";
         intentStudent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentStudent);
     }
     public void Teacher(View view){
-        Intent intentTeacher = new Intent(this, Login.class);
+        Intent intentTeacher = new Intent(this, LoginFormActivity.class);
         String message = "teacher";
         intentTeacher.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentTeacher);
     }
     public void Parent(View view){
-        Intent intentParent = new Intent(this, Login.class);
+        Intent intentParent = new Intent(this, LoginFormActivity.class);
         String message = "parent";
         intentParent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentParent);
     }
     public void Administrator(View view){
-        Intent intentAdministrator = new Intent(this, Login.class);
+        Intent intentAdministrator = new Intent(this, LoginFormActivity.class);
         String message = "administrator";
         intentAdministrator.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentAdministrator);
     }
+
 
 
 }
