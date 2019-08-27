@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,4 +43,8 @@ public class Login extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View view) {
+
+    }
 }
