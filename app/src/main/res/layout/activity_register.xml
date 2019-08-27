@@ -84,13 +84,13 @@
         app:layout_constraintVertical_bias="0.748" />
 
     <ImageView
-        android:id="@+id/imageView13"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/registration_student"
+        android:background="@drawable/registration"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/include"
         app:layout_constraintHorizontal_bias="0.479"
