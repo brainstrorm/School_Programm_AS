@@ -42,5 +42,10 @@ public class Login_Authorization extends AppCompatActivity {
         startActivity(intentAdministrator);
     }
 
+    public void Register(View view){
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
 
 }

@@ -37,7 +37,7 @@ public class RegistrationFormActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
-        ImageView imageView =  findViewById(R.id.imageView3);
+        ImageView imageView =  findViewById(R.id.imageView13);
 
         if(message.equals("teacher")){
             String imageName = "registration_" + message;
