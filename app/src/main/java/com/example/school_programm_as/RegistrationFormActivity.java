@@ -37,22 +37,22 @@ public class RegistrationFormActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
-        ImageView imageView =  findViewById(R.id.imageView3);
+        ImageView imageView =  findViewById(R.id.imageViewRegisterAs);
 
         if(message.equals("teacher")){
             String imageName = "registration_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + imageName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + imageName, null, null);
             imageView.setImageResource(id);
         }
 
         if(message.equals("parent")){
             String imageName = "registration_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + imageName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + imageName, null, null);
             imageView.setImageResource(id);
         }
         if(message.equals("administrator")){
             String imageName = "registration_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + imageName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + imageName, null, null);
             imageView.setImageResource(id);
         }
 
