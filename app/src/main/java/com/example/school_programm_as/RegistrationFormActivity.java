@@ -53,20 +53,16 @@ public class RegistrationFormActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
-        ImageView imageView =  findViewById(R.id.imageView3);
+        ImageView imageView =  findViewById(R.id.imageViewRegisterAs);
         ETEmail = (EditText)findViewById(R.id.editText4);
         ETPassword = (EditText)findViewById(R.id.editText5);
         ETName = (EditText)findViewById(R.id.editText);
         ETSurname = (EditText)findViewById(R.id.editText2);
         ETPathronimic = (EditText)findViewById(R.id.editText3);
         if(message.equals("student")) {
-            //user = new Pupil(ETName.getText().toString().trim(), ETSurname.getText().toString().trim(), ETPathronimic.getText().toString().trim(),
-                    //"pupil", ETEmail.getText().toString().trim(), ETPassword.getText().toString().trim(), "", 123, "");
            role = "pupil";
         }
         if(message.equals("teacher")){
-            //user = new User(ETName.getText().toString().trim(), ETSurname.getText().toString().trim(), ETPathronimic.getText().toString().trim(),
-                    //"teacher", ETEmail.getText().toString().trim(), ETPassword.getText().toString().trim(), "");
             role = message;
             String imageName = "registration_" + message;
             int id = getResources().getIdentifier("com.example.school:drawable/" + imageName, null, null);
@@ -74,16 +70,12 @@ public class RegistrationFormActivity extends AppCompatActivity{
         }
 
         if(message.equals("parent")){
-            //user = new User(ETName.getText().toString().trim(), ETSurname.getText().toString().trim(), ETPathronimic.getText().toString().trim(),
-                    //"parents", ETEmail.getText().toString().trim(), ETPassword.getText().toString().trim(), "");
             role = message+"s";
             String imageName = "registration_" + message;
             int id = getResources().getIdentifier("com.example.school:drawable/" + imageName, null, null);
             imageView.setImageResource(id);
         }
         if(message.equals("administrator")){
-            //user = new User(ETName.getText().toString().trim(), ETSurname.getText().toString().trim(), ETPathronimic.getText().toString().trim(),
-                    //"administrator", ETEmail.getText().toString().trim(), ETPassword.getText().toString().trim(), "");
             role = message;
             String imageName = "registration_" + message;
             int id = getResources().getIdentifier("com.example.school:drawable/" + imageName, null, null);
@@ -113,8 +105,6 @@ public class RegistrationFormActivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Map<String, Object> user = new HashMap<>();
-                            //User user;
-                            //Pupil pupil;
                             if(role.equals("pupil")) {
                                 user.put("name", Name);
                                 user.put("surname", Surname);
@@ -124,51 +114,27 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                 user.put("password", Password);
                                 user.put("bill", 0);
                                 user.put("group", "");
+                                user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                user.put("parentId", "");
                                 mFirestore.collection("users")
                                         .add(user)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
                                             public void onSuccess(DocumentReference documentReference) {
                                                 //Log.d(RegistrationFormActivity.this, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 //Log.w(TAG, "Error adding document", e);
+                                                Toast.makeText(RegistrationFormActivity.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
+
                                             }
                                         });
-                                /*user = new User(Name, Surname, Pathronimic, role, Email, Password, mAuth.getInstance().getCurrentUser().getUid());
-                                FirebaseDatabase.getInstance().getReference("users")
-                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(RegistrationFormActivity.this, "Регистрация ученика прошла успешно",
-                                                    Toast.LENGTH_SHORT).show();
-                                        }else{
-                                            Toast.makeText(RegistrationFormActivity.this, "Говно",
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });*/
                             }else{
-                                /*pupil = new Pupil(Name, Surname, Pathronimic, role, Email, Password, mAuth.getInstance().getCurrentUser().getUid(), 123,"dfsdf");
-                                FirebaseDatabase.getInstance().getReference("users")
-                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(pupil).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(RegistrationFormActivity.this, "Регистрация пользователя прошла успешно",
-                                                    Toast.LENGTH_SHORT).show();
-                                        }else{
-                                            Toast.makeText(RegistrationFormActivity.this, "Говно",
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });*/
+
                             }
                         } else {
 
