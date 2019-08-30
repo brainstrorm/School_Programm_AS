@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intentAdministrator);
     }
     public void alreadyHaveAccount(View view){
-        Intent alreadyHaveAccount = new Intent(this, LoginFormActivity.class);
+        Intent alreadyHaveAccount = new Intent(this, LoginAuthorization.class);
         String message = "user already have account";
         alreadyHaveAccount.putExtra(EXTRA_MESSAGE, message);
         startActivity(alreadyHaveAccount);
