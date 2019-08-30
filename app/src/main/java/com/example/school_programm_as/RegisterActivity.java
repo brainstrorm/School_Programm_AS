@@ -23,7 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        alreadyHaveAccountButton.findViewById(R.id.imageView6);
+        //alreadyHaveAccountButton.findViewById(R.id.imageView6);
         Intent intent = getIntent();
 
     }
