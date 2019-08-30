@@ -38,18 +38,18 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
         if(message.equals("teacher")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
 
         if(message.equals("parent")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
         if(message.equals("administrator")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
 

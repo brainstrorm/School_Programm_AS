@@ -76,7 +76,7 @@ public class RegistrationFormActivity extends AppCompatActivity{
             imageView.setImageResource(id);
         }
         if(message.equals("administrator")){
-            role = message;
+            role = "administration";
             String imageName = "registration_" + message;
             int id = getResources().getIdentifier("com.example.school:drawable/" + imageName, null, null);
             imageView.setImageResource(id);
@@ -133,8 +133,30 @@ public class RegistrationFormActivity extends AppCompatActivity{
 
                                             }
                                         });
-                            }else{
-
+                            }else if(role.equals("teacher")){
+                                user.put("name", Name);
+                                user.put("surname", Surname);
+                                user.put("pathronimic", Pathronimic);
+                                user.put("role", role);
+                                user.put("email", Email);
+                                user.put("password", Password);
+                                user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            }else if(role.equals("parents")){
+                                user.put("name", Name);
+                                user.put("surname", Surname);
+                                user.put("pathronimic", Pathronimic);
+                                user.put("role", role);
+                                user.put("email", Email);
+                                user.put("password", Password);
+                                user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            }else if(role.equals("administration")){
+                                user.put("name", Name);
+                                user.put("surname", Surname);
+                                user.put("pathronimic", Pathronimic);
+                                user.put("role", role);
+                                user.put("email", Email);
+                                user.put("password", Password);
+                                user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
                             }
                         } else {
 
