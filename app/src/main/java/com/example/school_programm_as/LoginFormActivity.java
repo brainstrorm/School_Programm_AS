@@ -13,7 +13,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,7 +28,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     private FirebaseAuth mAuth;
     private EditText ETEmail;
     private EditText ETPassword;
-
+    private FirebaseFirestore mFirestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,18 +65,37 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void signin(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            Toast.makeText(LoginFormActivity.this, "Регистрация прошла успешно",
+                            Toast.makeText(LoginFormActivity.this, "Аутентификация прошла успешно",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
+                            String userId = user.getUid();
+                            mFirestore.collection("users")
+                                 .whereEqualTo("userId", userId);
+                                 /*.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                     @Override
+                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                         if (task.isSuccessful()) {
+                                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                                 Toast.makeText(LoginFormActivity.this, "Аутентификация прошла успешно",
+                                                         Toast.LENGTH_SHORT).show();
+                                                 //Log.d(TAG, document.getId() + " => " + document.getData());
+                                             }
+                                         } else {
+                                             Toast.makeText(LoginFormActivity.this, "Аутентификация провалена",
+                                                     Toast.LENGTH_SHORT).show();
+                                             //Log.w(TAG, "Error getting documents.", task.getException());
+                                         }
+                                     }
+                                 });*/
                         } else {
 
 
-                            Toast.makeText(LoginFormActivity.this, "Регистрация провалена",
+                            Toast.makeText(LoginFormActivity.this, "Аутентификация провалена",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

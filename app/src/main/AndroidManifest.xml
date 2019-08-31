@@ -9,12 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginFormActivity"></activity>
-
+        <activity
+            android:name="com.example.school_programm_as.TeacherMainActivity"
+            android:label="@string/title_activity_teacher_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginFormActivity" />
         <activity
             android:name=".RegistrationFormActivity"
             android:label="@string/title_activity_registration_form"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
