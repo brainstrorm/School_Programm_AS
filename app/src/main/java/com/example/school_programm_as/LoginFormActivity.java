@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +26,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_form);
         Intent intent = getIntent();
 
         mAuth = FirebaseAuth.getInstance();
@@ -38,18 +36,18 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
         if(message.equals("teacher")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
 
         if(message.equals("parent")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
         if(message.equals("administrator")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
 
@@ -61,7 +59,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void signin(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -82,7 +80,14 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
 
-            signin(ETEmail.getText().toString(), ETPassword.getText().toString());
+           // signin(ETEmail.getText().toString(), ETPassword.getText().toString());
+            Intent intentEnter = new Intent(this, StudentProfile.class);
+            startActivity(intentEnter);
+    }
+
+    public void Back(View view){
+        Intent intentBack = new Intent(this, LoginAuthorization.class);
+        startActivity(intentBack);
     }
 
 }

@@ -19,4 +19,12 @@ public class StudentTimetableDay extends AppCompatActivity {
         Intent intentBack = new Intent(this, StudentProfile.class);
         startActivity(intentBack);
     }
+
+
+    public void Mondey(View view){
+        Intent intentBack = new Intent(this, StudentTimetable.class);
+        startActivity(intentBack);
+    }
+
+
 }
