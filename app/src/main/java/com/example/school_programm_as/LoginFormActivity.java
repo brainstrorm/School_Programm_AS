@@ -13,6 +13,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -24,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class LoginFormActivity extends AppCompatActivity implements View.OnClickListener {
+    public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
 
     private FirebaseAuth mAuth;
     private EditText ETEmail;
@@ -60,7 +63,6 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
         ETEmail = (EditText) findViewById(R.id.btn_sign_in_email);
         ETPassword = (EditText) findViewById(R.id.btn_sign_in_password);
 
-        findViewById(R.id.btn_enter).setOnClickListener(this);
 
     }
 
@@ -72,26 +74,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
                             Toast.makeText(LoginFormActivity.this, "Аутентификация прошла успешно",
                                     Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            String userId = user.getUid();
-                            mFirestore.collection("users")
-                                 .whereEqualTo("userId", userId);
-                                 /*.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                     @Override
-                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                         if (task.isSuccessful()) {
-                                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                                 Toast.makeText(LoginFormActivity.this, "Аутентификация прошла успешно",
-                                                         Toast.LENGTH_SHORT).show();
-                                                 //Log.d(TAG, document.getId() + " => " + document.getData());
-                                             }
-                                         } else {
-                                             Toast.makeText(LoginFormActivity.this, "Аутентификация провалена",
-                                                     Toast.LENGTH_SHORT).show();
-                                             //Log.w(TAG, "Error getting documents.", task.getException());
-                                         }
-                                     }
-                                 });*/
+
                         } else {
 
 
@@ -104,8 +87,13 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-
             signin(ETEmail.getText().toString(), ETPassword.getText().toString());
+            Intent intentTeacherMainActivity = new Intent(this, TeacherMainActivity.class);
+            FirebaseUser user = mAuth.getInstance().getCurrentUser();
+            String message = user.getUid();
+            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
+            intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intentTeacherMainActivity);
     }
 
 }
