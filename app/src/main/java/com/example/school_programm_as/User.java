@@ -21,7 +21,7 @@ public class User {
         this.password = Password;
         this.userId = UserID;
     }
-    /*public String getName(){
+    public String getName(){
         return name;
     }
     public String getSurname(){
@@ -41,5 +41,5 @@ public class User {
     }
     public String getUserId(){
         return userId;
-    }*/
+    }
 }

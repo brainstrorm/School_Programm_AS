@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,6 +35,9 @@ public class TeacherMainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
     private String name;
+    private String surname;
+    private String teacherId;
+    private String groupId;
     private TextView Name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +45,11 @@ public class TeacherMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_main);
 
         Intent intent = getIntent();
-        String userId = intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
+        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        mFirestore = FirebaseFirestore.getInstance();
 
         Name = findViewById(R.id.textView);
 
-        //FirebaseUser user = mAuth.getCurrentUser();
-        //String userId = user.getUid();
         mFirestore = FirebaseFirestore.getInstance();
         DocumentReference docRef = mFirestore.collection("users").document(userId);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -54,7 +57,9 @@ public class TeacherMainActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user_ = documentSnapshot.toObject(Pupil.class);
                 name = user_.name;
-                Name.setText(name);
+                surname = user_.surname;
+                teacherId = user_.userId;
+                Name.setText(surname+" "+name);
             }
         });
 
@@ -62,10 +67,37 @@ public class TeacherMainActivity extends AppCompatActivity {
     }
 
     public void createClass(View view){
+        //Создание новой ячейки в Firestore в коллекции groups и заполнение ее полей
+        Map<String, Object> group = new HashMap<>();
+        group.put("group", "");
+        group.put("name", "");
+        group.put("teacherName", "");
+        group.put("teacherId", "");
+        DocumentReference docRefGroup = mFirestore.collection("groups")
+                .add(group)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        //Log.d(RegistrationFormActivity.this, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Toast.makeText(TeacherMainActivity.this, ":)", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //Log.w(TAG, "Error adding document", e);
+                        Toast.makeText(TeacherMainActivity.this, ":(", Toast.LENGTH_SHORT).show();
+
+                    }
+                }).getResult();
+        groupId = docRefGroup.getId();
+        docRefGroup.update("group", groupId, "teacherName", surname + " " + name, "teacherId", teacherId);
+
         Intent intentCreateClass = new Intent(this, CreateClassActivity.class);
         String message = "TeacherMainActivity";
         intentCreateClass.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentCreateClass);
+        mFirestore = FirebaseFirestore.getInstance();
     }
 
 }
