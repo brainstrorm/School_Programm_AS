@@ -9,20 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentProfile"></activity>
-        <activity android:name=".MyQR" />
-        <activity android:name=".QRScan" />
-        <activity android:name=".StudentTimetable" />
-        <activity android:name=".StudentTimetableDay" />
-        <activity
-            android:name="com.example.school.Student"
-            android:label="@string/title_activity_student"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginFormActivity" />
+        <activity android:name=".LoginFormActivity"></activity>
+
         <activity
             android:name=".RegistrationFormActivity"
             android:label="@string/title_activity_registration_form"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"

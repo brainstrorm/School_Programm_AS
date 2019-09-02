@@ -1,48 +1,52 @@
 package com.example.school_programm_as;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+
+import com.example.school_programm_as.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 
-
-public class StudentProfile extends AppCompatActivity {
+public class TeacherMainActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
-    private String name,place,teacher;
-    private int bills;
-    private TextView Name,Bills,Place,Teacher;
-
+    private String name;
+    private TextView Name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_profile);
-
+        setContentView(R.layout.activity_teacher_main);
 
         Intent intent = getIntent();
-        String userId = intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
+        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
 
-        Name = findViewById(R.id.studentName);
-        Bills = findViewById(R.id.amountBills);
-        Teacher = findViewById(R.id.studentTeacher);
-        Place = findViewById(R.id.studentClass);
-
+        Name = findViewById(R.id.textView);
 
         //FirebaseUser user = mAuth.getCurrentUser();
         //String userId = user.getUid();
-
         mFirestore = FirebaseFirestore.getInstance();
         DocumentReference docRef = mFirestore.collection("users").document(userId);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -50,24 +54,18 @@ public class StudentProfile extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user_ = documentSnapshot.toObject(Pupil.class);
                 name = user_.name;
-                bills = ((Pupil) user_).bill;
-                place = ((Pupil) user_).group;
-
                 Name.setText(name);
-                Bills.setText(bills);
-                Place.setText(place);
             }
         });
 
+
     }
 
-    public void Enter(View view){
-        Intent intentEnter = new Intent(this, StudentTimetableDay.class);
-        startActivity(intentEnter);
+    public void createClass(View view){
+        Intent intentCreateClass = new Intent(this, CreateClassActivity.class);
+        String message = "TeacherMainActivity";
+        intentCreateClass.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intentCreateClass);
     }
 
-    public void QR(View view){
-        Intent intentEnter = new Intent(this, QRScan.class);
-        startActivity(intentEnter);
-    }
 }
