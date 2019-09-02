@@ -32,6 +32,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     private EditText ETEmail;
     private EditText ETPassword;
     private FirebaseFirestore mFirestore;
+    private String message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,23 +41,23 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
         mAuth = FirebaseAuth.getInstance();
 
-        String message = intent.getStringExtra(LoginAuthorization.EXTRA_MESSAGE);
+        message = intent.getStringExtra(LoginAuthorization.EXTRA_MESSAGE);
         ImageView imageView =  findViewById(R.id.image_authorization);
 
         if(message.equals("teacher")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
 
         if(message.equals("parent")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
         if(message.equals("administrator")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
 
@@ -87,13 +88,41 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-            signin(ETEmail.getText().toString(), ETPassword.getText().toString());
+        signin(ETEmail.getText().toString(), ETPassword.getText().toString());
+
+        if(message.equals("student")){
+            /*Intent intentPupilMainActivity = new Intent(this, PupilMainActivity.class);
+            FirebaseUser user = mAuth.getCurrentUser();
+            String message = user.getUid();
+            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
+            intentPupilMainActivity.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intentPupilMainActivity);
+            */
+        }else if(message.equals("teacher")) {
             Intent intentTeacherMainActivity = new Intent(this, TeacherMainActivity.class);
-            FirebaseUser user = mAuth.getInstance().getCurrentUser();
+            FirebaseUser user = mAuth.getCurrentUser();
             String message = user.getUid();
             Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
             intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, message);
             startActivity(intentTeacherMainActivity);
+        }else if(message.equals("parent")){
+            /*Intent intentParentMainActivity = new Intent(this, ParentMainActivity.class);
+            FirebaseUser user = mAuth.getCurrentUser();
+            String message = user.getUid();
+            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
+            intentParentMainActivity.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intentParentMainActivity);
+            */
+        }
+        else if(message.equals("administrator")){
+            /*Intent intentAdministratorMainActivity = new Intent(this, AdministratorMainActivity.class);
+            FirebaseUser user = mAuth.getCurrentUser();
+            String message = user.getUid();
+            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
+            intentAdministratorMainActivity.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intentAdministratorMainActivity);
+            */
+        }
     }
 
 }
