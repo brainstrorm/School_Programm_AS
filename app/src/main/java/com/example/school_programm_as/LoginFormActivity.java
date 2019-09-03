@@ -91,6 +91,8 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(LoginAuthorization.EXTRA_MESSAGE);
         signin(ETEmail.getText().toString(), ETPassword.getText().toString());
 
         if(message.equals("student")){

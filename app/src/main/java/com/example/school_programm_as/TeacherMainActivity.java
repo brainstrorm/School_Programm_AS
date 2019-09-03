@@ -69,9 +69,8 @@ public class TeacherMainActivity extends AppCompatActivity {
     public void createClass(View view){
         //Создание новой ячейки в Firestore в коллекции groups и заполнение ее полей
         Map<String, Object> group = new HashMap<>();
-        group.put("group", "");
         group.put("name", "");
-        group.put("teacherName", "");
+        group.put("teacherFullName", "");
         group.put("teacherId", "");
         mFirestore.collection("groups")
                 .add(group)
