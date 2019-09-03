@@ -41,8 +41,8 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
         mAuth = FirebaseAuth.getInstance();
 
-        String message = intent.getStringExtra(LoginAuthorization.EXTRA_MESSAGE);
         ImageView imageView =  findViewById(R.id.image_authorization);
+        String message = intent.getStringExtra(LoginAuthorization.EXTRA_MESSAGE);
 
         if(message.equals("teacher")){
             String textName = "authorization_" + message;
@@ -90,15 +90,15 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
 
-            //Intent intentEnter = new Intent(this, StudentProfile.class);
-            //startActivity(intentEnter);
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(LoginAuthorization.EXTRA_MESSAGE);
 
         signin(ETEmail.getText().toString(), ETPassword.getText().toString());
 
         if(message.equals("student")){
             Intent intentPupilMainActivity = new Intent(this, StudentProfile.class);
             FirebaseUser user = mAuth.getCurrentUser();
-            String message = user.getUid();
+             message = user.getUid();
             Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
             intentPupilMainActivity.putExtra(EXTRA_MESSAGE, message);
             startActivity(intentPupilMainActivity);
@@ -106,7 +106,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
         }else if(message.equals("teacher")) {
             Intent intentTeacherMainActivity = new Intent(this, TeacherMainActivity.class);
             FirebaseUser user = mAuth.getCurrentUser();
-            String message = user.getUid();
+             message = user.getUid();
             Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
             intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, message);
             startActivity(intentTeacherMainActivity);
