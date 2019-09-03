@@ -21,9 +21,11 @@ public class StudentProfile extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
-    private String name,place,teacher;
+    private String name,place,teacher,surname;
     private int bills;
     private TextView Name,Bills,Place,Teacher;
+
+    TextView textView[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class StudentProfile extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String userId = intent.getStringExtra(RegisterActivity.EXTRA_MESSAGE);
+        final String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
 
         Name = findViewById(R.id.studentName);
         Bills = findViewById(R.id.amountBills);
@@ -40,24 +42,52 @@ public class StudentProfile extends AppCompatActivity {
         Place = findViewById(R.id.studentClass);
 
 
-        //FirebaseUser user = mAuth.getCurrentUser();
-        //String userId = user.getUid();
 
         mFirestore = FirebaseFirestore.getInstance();
-        DocumentReference docRef = mFirestore.collection("users").document(userId);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        DocumentReference docRef_users = mFirestore.collection("users").document(userId);
+        docRef_users.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User user_ = documentSnapshot.toObject(Pupil.class);
-                name = user_.name;
-                bills = ((Pupil) user_).bill;
-                place = ((Pupil) user_).group;
+                Pupil pupil_ = documentSnapshot.toObject(Pupil.class);
+                name = pupil_.name;
+                surname = pupil_.surname;
+                bills = ((Pupil) pupil_).bill;
+                place ="класс: " + ((Pupil) pupil_).groupid;
 
-                Name.setText(name);
+
+                Name.setText(surname+" "+name);
                 Bills.setText(bills);
                 Place.setText(place);
+
+
+                String groupId = pupil_.groupid;
+                DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
+                docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Group group_ = documentSnapshot.toObject(Group.class);
+
+                        teacher = "преподаватель: " + group_.teacherName;
+
+                    }
+
+                });
+
+                /*DocumentReference docRef_lessons = mFirestore.collection("lessons").document(groupId);
+                docRef_lessons.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Lesson lesson_ = documentSnapshot.toObject(Lesson.class);
+
+                        teacher = "преподаватель: " + group_.teacherName;
+
+                    }
+                });
+                */
             }
         });
+
+
 
     }
 

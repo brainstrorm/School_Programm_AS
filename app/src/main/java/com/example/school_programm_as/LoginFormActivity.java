@@ -17,17 +17,27 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+
+
 public class LoginFormActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
+
 
     private FirebaseAuth mAuth;
     private EditText ETEmail;
     private EditText ETPassword;
+
+    private String message;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_form);
         Intent intent = getIntent();
+
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -80,9 +90,46 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
 
-           // signin(ETEmail.getText().toString(), ETPassword.getText().toString());
             Intent intentEnter = new Intent(this, StudentProfile.class);
             startActivity(intentEnter);
+
+        signin(ETEmail.getText().toString(), ETPassword.getText().toString());
+
+        if(message.equals("student")){
+            Intent intentPupilMainActivity = new Intent(this, StudentProfile.class);
+            FirebaseUser user = mAuth.getCurrentUser();
+            String message = user.getUid();
+            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
+            intentPupilMainActivity.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intentPupilMainActivity);
+
+        }else if(message.equals("teacher")) {
+            Intent intentTeacherMainActivity = new Intent(this, TeacherMainActivity.class);
+            FirebaseUser user = mAuth.getCurrentUser();
+            String message = user.getUid();
+            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
+            intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intentTeacherMainActivity);
+
+        }else if(message.equals("parent")){
+
+            /*Intent intentParentMainActivity = new Intent(this, ParentMainActivity.class);
+            FirebaseUser user = mAuth.getCurrentUser();
+            String message = user.getUid();
+            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
+            intentParentMainActivity.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intentParentMainActivity);
+            */
+        }
+        else if(message.equals("administrator")){
+            /*Intent intentAdministratorMainActivity = new Intent(this, AdministratorMainActivity.class);
+            FirebaseUser user = mAuth.getCurrentUser();
+            String message = user.getUid();
+            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
+            intentAdministratorMainActivity.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intentAdministratorMainActivity);
+            */
+        }
     }
 
     public void Back(View view){

@@ -1,7 +1,7 @@
 package com.example.school_programm_as;
 
 public class Lesson {
-    public String teacherId;
+    public String studentId;
     public String date;
     public String group;
     public String name;
@@ -11,7 +11,7 @@ public class Lesson {
     }
 
     public Lesson(String teacherId, String date, String group, String name, String number) {
-        this.teacherId = teacherId;
+        this.studentId = teacherId;
         this.date = date;
         this.group = group;
         this.name = name;
@@ -19,7 +19,7 @@ public class Lesson {
     }
 
     public String getTeacherId() {
-        return teacherId;
+        return studentId;
     }
 
     public String getName() {

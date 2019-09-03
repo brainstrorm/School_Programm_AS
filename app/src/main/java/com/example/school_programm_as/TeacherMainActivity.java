@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,19 +46,16 @@ public class TeacherMainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
-        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
         mFirestore = FirebaseFirestore.getInstance();
 
         Name = findViewById(R.id.textView);
 
-        //FirebaseUser user = mAuth.getCurrentUser();
-        //String userId = user.getUid();
         mFirestore = FirebaseFirestore.getInstance();
         DocumentReference docRef = mFirestore.collection("users").document(userId);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User user_ = documentSnapshot.toObject(Pupil.class);
+                User user_ = documentSnapshot.toObject(User.class);
                 name = user_.name;
                 surname = user_.surname;
                 teacherId = user_.userId;
