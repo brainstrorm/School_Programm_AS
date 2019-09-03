@@ -37,6 +37,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -105,8 +106,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:id="@+id/imageButton11"
+                android:id="@+id/imageButtonMonday"
                 style="@style/Widget.AppCompat.Button.Borderless"
+                android:onClick="Monday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/monday" />

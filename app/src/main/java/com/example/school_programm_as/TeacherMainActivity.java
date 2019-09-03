@@ -79,7 +79,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(TeacherMainActivity.this, ":)", Toast.LENGTH_SHORT).show();
                         groupId = documentReference.getId();
-                        documentReference.update("group", groupId, "teacherFullName", surname + " " + name, "teacherId", teacherId);
+                        documentReference.update("teacherFullName", surname + " " + name, "teacherId", teacherId);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
