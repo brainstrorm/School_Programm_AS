@@ -60,6 +60,9 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
             int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
+        if(message.equals("logout")){
+            mAuth.signOut();
+        }
 
         ETEmail = (EditText) findViewById(R.id.btn_sign_in_email);
         ETPassword = (EditText) findViewById(R.id.btn_sign_in_password);
@@ -93,33 +96,32 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
         if(message.equals("student")){
             /*Intent intentPupilMainActivity = new Intent(this, PupilMainActivity.class);
             FirebaseUser user = mAuth.getCurrentUser();
-            String message = user.getUid();
-            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
-            intentPupilMainActivity.putExtra(EXTRA_MESSAGE, message);
-            startActivity(intentPupilMainActivity);
-            */
+            String userUid = user.getUid();
+            Toast.makeText(LoginFormActivity.this,userUid, Toast.LENGTH_SHORT).show();
+            intentPupilMainActivity.putExtra(EXTRA_MESSAGE, userUid);
+            startActivity(intentPupilMainActivity);*/
         }else if(message.equals("teacher")) {
             Intent intentTeacherMainActivity = new Intent(this, TeacherMainActivity.class);
             FirebaseUser user = mAuth.getCurrentUser();
-            String message = user.getUid();
-            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
-            intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, message);
+            String userUid = user.getUid();
+            Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
+            intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, userUid);
             startActivity(intentTeacherMainActivity);
         }else if(message.equals("parent")){
             /*Intent intentParentMainActivity = new Intent(this, ParentMainActivity.class);
             FirebaseUser user = mAuth.getCurrentUser();
-            String message = user.getUid();
-            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
-            intentParentMainActivity.putExtra(EXTRA_MESSAGE, message);
+            String userUid = user.getUid();
+            Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
+            intentParentMainActivity.putExtra(EXTRA_MESSAGE, userUid);
             startActivity(intentParentMainActivity);
             */
         }
         else if(message.equals("administrator")){
             /*Intent intentAdministratorMainActivity = new Intent(this, AdministratorMainActivity.class);
             FirebaseUser user = mAuth.getCurrentUser();
-            String message = user.getUid();
-            Toast.makeText(LoginFormActivity.this, message, Toast.LENGTH_SHORT).show();
-            intentAdministratorMainActivity.putExtra(EXTRA_MESSAGE, message);
+            String userUid = user.getUid();
+            Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
+            intentAdministratorMainActivity.putExtra(EXTRA_MESSAGE, userUid);
             startActivity(intentAdministratorMainActivity);
             */
         }
