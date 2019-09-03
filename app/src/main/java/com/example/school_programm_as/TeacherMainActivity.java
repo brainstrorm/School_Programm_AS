@@ -91,8 +91,8 @@ public class TeacherMainActivity extends AppCompatActivity {
                 });
 
         Intent intentCreateClass = new Intent(this, CreateClassActivity.class);
-        String message = "TeacherMainActivity";
-        intentCreateClass.putExtra(EXTRA_MESSAGE, message);
+        intentCreateClass.putExtra(EXTRA_MESSAGE, groupId);
+        Toast.makeText(TeacherMainActivity.this, groupId, Toast.LENGTH_SHORT).show();
         startActivity(intentCreateClass);
         mFirestore = FirebaseFirestore.getInstance();
     }
