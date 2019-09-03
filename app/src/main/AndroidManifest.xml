@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LoginFormActivity"></activity>
-
+        <activity android:name=".StudentProfile"></activity>
         <activity
             android:name=".RegistrationFormActivity"
             android:label="@string/title_activity_registration_form"

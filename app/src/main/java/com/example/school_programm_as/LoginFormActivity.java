@@ -90,8 +90,8 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
 
-            Intent intentEnter = new Intent(this, StudentProfile.class);
-            startActivity(intentEnter);
+            //Intent intentEnter = new Intent(this, StudentProfile.class);
+            //startActivity(intentEnter);
 
         signin(ETEmail.getText().toString(), ETPassword.getText().toString());
 
