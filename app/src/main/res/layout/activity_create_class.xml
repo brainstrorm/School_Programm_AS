@@ -115,6 +115,7 @@
             <ImageButton
                 android:id="@+id/imageButton10"
                 style="@style/Widget.AppCompat.Button.Borderless"
+                android:onClick="Tuesday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/tuesday" />
@@ -122,6 +123,7 @@
             <ImageButton
                 android:id="@+id/imageButton9"
                 style="@style/Widget.AppCompat.Button.Borderless"
+                android:onClick="Wednesday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/wednesday" />
@@ -129,6 +131,7 @@
             <ImageButton
                 android:id="@+id/imageButton8"
                 style="@style/Widget.AppCompat.Button.Borderless"
+                android:onClick="Thursday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/thursday" />
@@ -136,6 +139,7 @@
             <ImageButton
                 android:id="@+id/imageButton7"
                 style="@style/Widget.AppCompat.Button.Borderless"
+                android:onClick="Friday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/friday" />

@@ -14,10 +14,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.school_programm_as.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreateClassActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
+    public final static String DAY_MESSAGE = "com.example.school_programm_AS.MESSAGE";
+    private FirebaseFirestore mFirestore;
     private Button button_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,42 @@ public class CreateClassActivity extends AppCompatActivity {
     }*/
 
     public void Monday(View view){
-        
+        Intent intentMonday = new Intent(this, CreateTimetableActivity.class);
+        String message = "monday";
+        intentMonday.putExtra(DAY_MESSAGE, message);
+        startActivity(intentMonday);
+        mFirestore = FirebaseFirestore.getInstance();
+    }
+
+    public void Tuesday(View view){
+        Intent intentTuesday = new Intent(this, CreateTimetableActivity.class);
+        String message = "tuesday";
+        intentTuesday.putExtra(DAY_MESSAGE, message);
+        startActivity(intentTuesday);
+        mFirestore = FirebaseFirestore.getInstance();
+    }
+
+    public void Wednesday(View view){
+        Intent intentWednesday = new Intent(this, CreateTimetableActivity.class);
+        String message = "wednesday";
+        intentWednesday.putExtra(DAY_MESSAGE, message);
+        startActivity(intentWednesday);
+        mFirestore = FirebaseFirestore.getInstance();
+    }
+
+    public void Thursday(View view){
+        Intent intentThursday = new Intent(this, CreateTimetableActivity.class);
+        String message = "thursday";
+        intentThursday.putExtra(DAY_MESSAGE, message);
+        startActivity(intentThursday);
+        mFirestore = FirebaseFirestore.getInstance();
+    }
+    public void Friday(View view){
+        Intent intentFriday = new Intent(this, CreateTimetableActivity.class);
+        String message = "friday";
+        intentFriday.putExtra(DAY_MESSAGE, message);
+        startActivity(intentFriday);
+        mFirestore = FirebaseFirestore.getInstance();
     }
 
 }
