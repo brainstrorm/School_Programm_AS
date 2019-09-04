@@ -43,6 +43,7 @@ public class StudentProfile extends AppCompatActivity {
 
 
 
+
         mFirestore = FirebaseFirestore.getInstance();
         DocumentReference docRef_users = mFirestore.collection("users").document(userId);
         docRef_users.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -67,7 +68,8 @@ public class StudentProfile extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Group group_ = documentSnapshot.toObject(Group.class);
 
-                        teacher = "преподаватель: " + group_.teacherName;
+                         teacher = "преподаватель: " + group_.teacherFullName;
+                         Teacher.setText(teacher);
 
                     }
 

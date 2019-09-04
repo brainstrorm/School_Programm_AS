@@ -12,12 +12,27 @@
         <activity android:name=".LoginFormActivity"></activity>
         <activity android:name=".StudentProfile"></activity>
         <activity
+            android:name=".CreateTimetableActivity"
+            android:label="@string/title_activity_create_timetable"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".CreateClassActivity"
+            android:label="@string/title_activity_create_class"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TeacherMainActivity"
+            android:label="@string/title_activity_teacher_main"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginFormActivity" />
+        <activity
             android:name=".RegistrationFormActivity"
             android:label="@string/title_activity_registration_form"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LoginAuthorization">
             <intent-filter>

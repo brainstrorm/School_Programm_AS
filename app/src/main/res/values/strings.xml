@@ -3,5 +3,7 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_registration_form">RegistrationFormActivity</string>
-    <string name="title_activity_student">Student</string>
+    <string name="title_activity_teacher_main">TeacherMainActivity</string>
+    <string name="title_activity_create_class">CreateClassActivity</string>
+    <string name="title_activity_create_timetable">CreateTimetableActivity</string>
 </resources>

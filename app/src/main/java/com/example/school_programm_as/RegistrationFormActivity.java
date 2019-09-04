@@ -117,11 +117,10 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                 user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                 user.put("parentId", "");
                                 mFirestore.collection("users")
-                                        .add(user)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                //Log.d(RegistrationFormActivity.this, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                            public void onSuccess(Void aVoid) {
                                                 Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
                                             }
                                         })
@@ -142,11 +141,10 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                 user.put("password", Password);
                                 user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                 mFirestore.collection("users")
-                                        .add(user)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                //Log.d(RegistrationFormActivity.this, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                            public void onSuccess(Void aVoid) {
                                                 Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
                                             }
                                         })
@@ -167,11 +165,10 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                 user.put("password", Password);
                                 user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                 mFirestore.collection("users")
-                                        .add(user)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                //Log.d(RegistrationFormActivity.this, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                            public void onSuccess(Void aVoid) {
                                                 Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
                                             }
                                         })
@@ -192,11 +189,10 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                 user.put("password", Password);
                                 user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                 mFirestore.collection("users")
-                                        .add(user)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                //Log.d(RegistrationFormActivity.this, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                            public void onSuccess(Void aVoid) {
                                                 Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
                                             }
                                         })

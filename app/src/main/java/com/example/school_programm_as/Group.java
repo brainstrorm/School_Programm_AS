@@ -1,23 +1,17 @@
 package com.example.school_programm_as;
 
 public class Group {
-    public String group;
     public String name;
-    public String teacherName;
+    public String teacherFullName;
     public String teacherId;
 
     public Group() {
     }
 
-    public Group(String group, String name, String teacherName, String teacherId) {
-        this.group = group;
+    public Group(String name, String teacherName, String teacherId) {
         this.name = name;
-        this.teacherName = teacherName;
+        this.teacherFullName = teacherName;
         this.teacherId = teacherId;
-    }
-
-    public String getGroupId() {
-        return group;
     }
 
     public String getName() {
@@ -29,6 +23,6 @@ public class Group {
     }
 
     public String getTeacherName() {
-        return teacherName;
+        return teacherFullName;
     }
 }
