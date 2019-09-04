@@ -76,7 +76,6 @@ public class CreateTimetableActivity extends AppCompatActivity {
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         gestureDetector = initGestureDetector();
 
-
         mFirestore = FirebaseFirestore.getInstance();
         TVDay = (TextView) findViewById(R.id.textViewDay);
 
