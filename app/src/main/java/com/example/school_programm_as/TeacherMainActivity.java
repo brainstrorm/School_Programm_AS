@@ -80,6 +80,10 @@ public class TeacherMainActivity extends AppCompatActivity {
                         Toast.makeText(TeacherMainActivity.this, ":)", Toast.LENGTH_SHORT).show();
                         groupId = documentReference.getId();
                         documentReference.update("teacherFullName", surname + " " + name, "teacherId", teacherId);
+                        Intent intentCreateClass = new Intent(TeacherMainActivity.this, CreateClassActivity.class);
+                        intentCreateClass.putExtra(EXTRA_MESSAGE, groupId);
+                        Toast.makeText(TeacherMainActivity.this, groupId, Toast.LENGTH_SHORT).show();
+                        startActivity(intentCreateClass);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -90,11 +94,6 @@ public class TeacherMainActivity extends AppCompatActivity {
                     }
                 });
 
-        Intent intentCreateClass = new Intent(this, CreateClassActivity.class);
-        intentCreateClass.putExtra(EXTRA_MESSAGE, groupId);
-        Toast.makeText(TeacherMainActivity.this, groupId, Toast.LENGTH_SHORT).show();
-        startActivity(intentCreateClass);
-        mFirestore = FirebaseFirestore.getInstance();
     }
 
     public void logOut(View view){

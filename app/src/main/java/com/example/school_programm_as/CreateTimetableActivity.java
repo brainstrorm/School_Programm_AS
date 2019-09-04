@@ -72,7 +72,6 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String day = intent.getStringExtra(CreateClassActivity.DAY_MESSAGE);
-        String groupId = intent.getStringExtra(CreateClassActivity.ID_MESSAGE);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         gestureDetector = initGestureDetector();
 
