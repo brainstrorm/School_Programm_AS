@@ -71,7 +71,7 @@ public class TeacherMainActivity extends AppCompatActivity {
         Map<String, Object> group = new HashMap<>();
         group.put("group", "");
         group.put("name", "");
-        group.put("teacherName", "");
+        group.put("teacherFullName", "");
         group.put("teacherId", "");
         mFirestore.collection("groups")
                 .add(group)
@@ -80,7 +80,11 @@ public class TeacherMainActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(TeacherMainActivity.this, ":)", Toast.LENGTH_SHORT).show();
                         groupId = documentReference.getId();
-                        documentReference.update("group", groupId, "teacherFullName", surname + " " + name, "teacherId", teacherId);
+                        documentReference.update("teacherFullName", surname + " " + name, "teacherId", teacherId);
+                        Intent intentCreateClass = new Intent(TeacherMainActivity.this, CreateClassActivity.class);
+                        intentCreateClass.putExtra(EXTRA_MESSAGE, groupId);
+                        Toast.makeText(TeacherMainActivity.this, groupId, Toast.LENGTH_SHORT).show();
+                        startActivity(intentCreateClass);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -95,13 +99,6 @@ public class TeacherMainActivity extends AppCompatActivity {
         String message = "TeacherMainActivity";
         intentCreateClass.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentCreateClass);
-    }
-
-    public void logOut(View view){
-        Intent intentLogOut = new Intent(this, LoginFormActivity.class);
-        String message = "logout";
-        intentLogOut.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intentLogOut);
         mFirestore = FirebaseFirestore.getInstance();
     }
 
