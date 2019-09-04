@@ -35,7 +35,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
     private TextView TVDay;
     private LinearLayout linearLayout;
     private GestureDetector gestureDetector;
-    private ArrayList<Integer> lessons;
+    private ArrayList<Integer> lessons = new ArrayList<>();
     private EditText ETLesson;
     private GestureDetector initGestureDetector() {
         return new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
@@ -64,7 +64,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
         });
     }
 
-    private int countID = 0;
+    private int countID = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +76,8 @@ public class CreateTimetableActivity extends AppCompatActivity {
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         gestureDetector = initGestureDetector();
 
+
+        mFirestore = FirebaseFirestore.getInstance();
         TVDay = (TextView) findViewById(R.id.textViewDay);
 
         if(day.equals("monday")){
@@ -98,7 +100,10 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
     public void plusLesson(View view){
         EditText lesson = new EditText(getApplicationContext());
+        //Integer id = lesson.generateViewId();
+        //Toast.makeText(CreateTimetableActivity.this, " " + lesson.getId(), Toast.LENGTH_SHORT).show();
         lesson.setId(countID);
+        Toast.makeText(CreateTimetableActivity.this, " " + lesson.getId(), Toast.LENGTH_SHORT).show();
         lesson.setBackgroundResource(R.drawable.lesson_field);
         lesson.setHint("Введите текст");
         lesson.setHintTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -136,13 +141,13 @@ public class CreateTimetableActivity extends AppCompatActivity {
         countID++;
     }
 
-    public void saveLesson(View view){
+    public void saveTimetable(View view){
         Intent intent = getIntent();
         String groupId = intent.getStringExtra(CreateClassActivity.ID_MESSAGE);
         for(int i = 0; i < lessons.size(); i++){
             EditText lessonET = (EditText) findViewById(lessons.get(i));
             Map<String, Object> lesson_ = new HashMap<>();
-            lesson_.put("name", lessonET.getText());
+            lesson_.put("name", lessonET.getText().toString().trim());
             lesson_.put("number", lessonET.getId());
             lesson_.put("group", groupId);
             mFirestore.collection("lessons")

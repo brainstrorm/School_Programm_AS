@@ -91,8 +91,6 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(LoginAuthorization.EXTRA_MESSAGE);
         signin(ETEmail.getText().toString(), ETPassword.getText().toString());
 
         if(message.equals("student")){
@@ -104,8 +102,8 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
             startActivity(intentPupilMainActivity);*/
         }else if(message.equals("teacher")) {
             Intent intentTeacherMainActivity = new Intent(this, TeacherMainActivity.class);
-            FirebaseUser user = mAuth.getCurrentUser();
-            String userUid = user.getUid();
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String userUid = "1F9EKxGjMMZ814zJsmGbyFnqSiu1";
             Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
             intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, userUid);
             startActivity(intentTeacherMainActivity);
