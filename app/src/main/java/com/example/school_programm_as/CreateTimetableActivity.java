@@ -31,6 +31,8 @@ import java.util.Map;
 
 public class CreateTimetableActivity extends AppCompatActivity {
 
+    public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
+
     private FirebaseFirestore mFirestore;
     private TextView TVDay;
     private LinearLayout linearLayout;
@@ -165,6 +167,17 @@ public class CreateTimetableActivity extends AppCompatActivity {
                         }
                     });
         }
+        Intent intentBackToCreateClassActivity = new Intent(this, CreateClassActivity.class);
+        String message = "back";
+        intentBackToCreateClassActivity.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intentBackToCreateClassActivity);
+    }
+
+    public void backToCreateClass(View view){
+        Intent intentBackToCreateClassActivity = new Intent(this, CreateClassActivity.class);
+        String message = "back";
+        intentBackToCreateClassActivity.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intentBackToCreateClassActivity);
     }
 
 }
