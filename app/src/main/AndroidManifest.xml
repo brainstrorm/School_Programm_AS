@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".TodayTimetableActivity"
+            android:label="@string/title_activity_today_timetable"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".CreateTimetableActivity"
             android:label="@string/title_activity_create_timetable"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateClassActivity"
             android:label="@string/title_activity_create_class"

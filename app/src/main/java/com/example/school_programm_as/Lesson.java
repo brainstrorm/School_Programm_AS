@@ -5,12 +5,12 @@ public class Lesson {
     public String date;
     public String group;
     public String name;
-    public String number;
+    public Integer number;
 
     public Lesson() {
     }
 
-    public Lesson(String teacherId, String date, String group, String name, String number) {
+    public Lesson(String teacherId, String date, String group, String name, Integer number) {
         this.teacherId = teacherId;
         this.date = date;
         this.group = group;
@@ -34,7 +34,7 @@ public class Lesson {
         return group;
     }
 
-    public String getNumber() {
+    public Integer getNumber() {
         return number;
     }
 }
