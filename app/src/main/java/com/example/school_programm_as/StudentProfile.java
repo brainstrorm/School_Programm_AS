@@ -102,4 +102,8 @@ public class StudentProfile extends AppCompatActivity {
         Intent intentEnter = new Intent(this, QRScan.class);
         startActivity(intentEnter);
     }
+
+    public void back(View view){
+
+    }
 }
