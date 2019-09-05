@@ -37,7 +37,7 @@ public class StudentProfile extends AppCompatActivity {
         final String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
 
         Name = findViewById(R.id.studentName);
-        Bills = findViewById(R.id.amountBills);
+        //Bills = findViewById(R.id.amountBills);
         Teacher = findViewById(R.id.studentTeacher);
         Place = findViewById(R.id.studentClass);
 
@@ -52,23 +52,23 @@ public class StudentProfile extends AppCompatActivity {
                 Pupil pupil_ = documentSnapshot.toObject(Pupil.class);
                 name = pupil_.name;
                 surname = pupil_.surname;
-                bills = ((Pupil) pupil_).bill;
-                place ="класс: " + ((Pupil) pupil_).groupid;
+                //bills = ((Pupil) pupil_).bill;
+                place ="класс: " + ((Pupil) pupil_).group;
 
 
                 Name.setText(surname+" "+name);
-                Bills.setText(bills);
+                //Bills.setText(bills);
                 Place.setText(place);
 
 
-                String groupId = pupil_.groupid;
+                String groupId = pupil_.group;
                 DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
                 docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Group group_ = documentSnapshot.toObject(Group.class);
 
-                         teacher = "преподаватель: " + group_.teacherFullName;
+                         //teacher = "преподаватель: " + group_.teacherFullName;
                          Teacher.setText(teacher);
 
                     }
