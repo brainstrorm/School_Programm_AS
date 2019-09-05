@@ -2,7 +2,11 @@ package com.example.school_programm_as;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +28,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +46,10 @@ public class TeacherMainActivity extends AppCompatActivity {
     private String teacherId;
     private String groupId;
     private TextView Name;
+    private ScrollView mScrollView;
+    private LinearLayout mLinearLayout;
+    private ArrayList<Group> mGroups = new ArrayList<>();
+    private int id = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +60,8 @@ public class TeacherMainActivity extends AppCompatActivity {
         mFirestore = FirebaseFirestore.getInstance();
 
         Name = findViewById(R.id.textView);
+        mScrollView = (ScrollView) findViewById(R.id.scrollView);
+        mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
         mFirestore = FirebaseFirestore.getInstance();
         DocumentReference docRef = mFirestore.collection("users").document(userId);
@@ -60,10 +73,51 @@ public class TeacherMainActivity extends AppCompatActivity {
                 surname = user_.surname;
                 teacherId = user_.userId;
                 Name.setText(surname+" "+name);
+                Toast.makeText(TeacherMainActivity.this, teacherId, Toast.LENGTH_SHORT ).show();
+                mFirestore.collection("groups").whereEqualTo("teacherId", teacherId)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    for (QueryDocumentSnapshot document : task.getResult()){
+                                        Group group = document.toObject(Group.class);
+                                        //mGroups.add(group);
+                                        Button class_ = new Button(getApplicationContext());
+                                        class_.setId(id);
+                                        class_.setBackgroundResource(R.drawable.class_field);
+                                        class_.setLayoutParams(
+                                                new LinearLayout.LayoutParams(
+                                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                                        LinearLayout.LayoutParams.WRAP_CONTENT
+                                                )
+                                        );
+                                        class_.setText(group.name);
+                                        //mScrollView.addView(class_);
+                                        mLinearLayout.addView(class_);
+                                        Toast.makeText(TeacherMainActivity.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
+                                    }
+                                }else{
+                                    Toast.makeText(TeacherMainActivity.this, "Информация о группах не получена", Toast.LENGTH_SHORT ).show();
+                                }
+                            }
+                        });
+                /*for(Group group: mGroups){
+                    Button class_ = new Button(getApplicationContext());
+                    class_.setId(id);
+                    class_.setBackgroundResource(R.drawable.class_field);
+                    class_.setLayoutParams(
+                            new LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.MATCH_PARENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                    );
+                    class_.setText(group.name);
+                    mScrollView.addView(class_);
+
+                }*/
             }
         });
-
-
     }
 
     public void createClass(View view){
