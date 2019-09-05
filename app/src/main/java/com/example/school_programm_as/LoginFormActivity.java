@@ -86,17 +86,30 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                                     Toast.LENGTH_SHORT).show();
                             if(message.equals("student")){
                                 Intent intentPupilMainActivity = new Intent(LoginFormActivity.this, StudentProfile.class);
+
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                String userUid = user.getUid();
+
+                                    String userUid = user.getUid();
+                                    userUid = userUid.replaceAll("\\s","");
+
                                 Toast.makeText(LoginFormActivity.this,userUid, Toast.LENGTH_SHORT).show();
+
                                 intentPupilMainActivity.putExtra(EXTRA_MESSAGE, userUid);
+
                                 startActivity(intentPupilMainActivity);
                             }else if(message.equals("teacher")) {
                                 Intent intentTeacherMainActivity = new Intent(LoginFormActivity.this, TeacherMainActivity.class);
+
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                String userUid = user.getUid();
+
+                                    String userUid = user.getUid();
+                                    userUid = userUid.replaceAll("\\s","");
+
+
                                 Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
+
                                 intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, userUid);
+
                                 startActivity(intentTeacherMainActivity);
 
                             }else if(message.equals("parent")){
