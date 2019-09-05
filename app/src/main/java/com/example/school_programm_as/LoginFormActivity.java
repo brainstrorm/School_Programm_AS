@@ -31,9 +31,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     private FirebaseAuth mAuth;
     private EditText ETEmail;
     private EditText ETPassword;
-    private FirebaseFirestore mFirestore;
-    private FirebaseUser user;
-    private String userId;
+
     private String message;
 
 
@@ -53,7 +51,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
         if(message.equals("teacher")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
 
@@ -64,7 +62,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
         }
         if(message.equals("administrator")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
         if(message.equals("logout")){
@@ -83,22 +81,26 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            user = mAuth.getCurrentUser();
-                            userId = user.getUid();
-                            //Toast.makeText(LoginFormActivity.this, userId, Toast.LENGTH_SHORT).show();
+
+                            Toast.makeText(LoginFormActivity.this, "Регистрация прошла успешно",
+                                    Toast.LENGTH_SHORT).show();
                             if(message.equals("student")){
-                                /*Intent intentPupilMainActivity = new Intent(this, PupilMainActivity.class);
+                                Intent intentPupilMainActivity = new Intent(LoginFormActivity.this, StudentProfile.class);
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 String userUid = user.getUid();
                                 Toast.makeText(LoginFormActivity.this,userUid, Toast.LENGTH_SHORT).show();
                                 intentPupilMainActivity.putExtra(EXTRA_MESSAGE, userUid);
-                                startActivity(intentPupilMainActivity);*/
+                                startActivity(intentPupilMainActivity);
                             }else if(message.equals("teacher")) {
                                 Intent intentTeacherMainActivity = new Intent(LoginFormActivity.this, TeacherMainActivity.class);
-                                Toast.makeText(LoginFormActivity.this, userId, Toast.LENGTH_SHORT).show();
-                                intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, userId);
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                String userUid = user.getUid();
+                                Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
+                                intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, userUid);
                                 startActivity(intentTeacherMainActivity);
+
                             }else if(message.equals("parent")){
+
                                 /*Intent intentParentMainActivity = new Intent(this, ParentMainActivity.class);
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 String userUid = user.getUid();
@@ -116,13 +118,10 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                                 startActivity(intentAdministratorMainActivity);
                                 */
                             }
-                            Toast.makeText(LoginFormActivity.this, "Аутентификация прошла успешно",
-                                    Toast.LENGTH_SHORT).show();
-
                         } else {
 
 
-                            Toast.makeText(LoginFormActivity.this, "Аутентификация провалена",
+                            Toast.makeText(LoginFormActivity.this, "Регистрация провалена",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
