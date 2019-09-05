@@ -35,16 +35,21 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     private FirebaseUser user;
     private String userId;
     private String message;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_form);
         Intent intent = getIntent();
+
+
 
         mAuth = FirebaseAuth.getInstance();
 
         message = intent.getStringExtra(LoginAuthorization.EXTRA_MESSAGE);
         ImageView imageView =  findViewById(R.id.image_authorization);
+        String message = intent.getStringExtra(LoginAuthorization.EXTRA_MESSAGE);
 
         if(message.equals("teacher")){
             String textName = "authorization_" + message;
@@ -54,7 +59,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
         if(message.equals("parent")){
             String textName = "authorization_" + message;
-            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + textName, null, null);
+            int id = getResources().getIdentifier("com.example.school:drawable/" + textName, null, null);
             imageView.setImageResource(id);
         }
         if(message.equals("administrator")){
@@ -69,6 +74,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
         ETEmail = (EditText) findViewById(R.id.btn_sign_in_email);
         ETPassword = (EditText) findViewById(R.id.btn_sign_in_password);
 
+        findViewById(R.id.btn_enter).setOnClickListener(this);
 
     }
 

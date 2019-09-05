@@ -102,12 +102,5 @@ public class TeacherMainActivity extends AppCompatActivity {
         mFirestore = FirebaseFirestore.getInstance();
     }
 
-    public void logOut(View view){
-        Intent intentLogOut = new Intent(this, LoginFormActivity.class);
-        String message = "logout";
-        intentLogOut.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intentLogOut);
-        mFirestore = FirebaseFirestore.getInstance();
-    }
 
 }
