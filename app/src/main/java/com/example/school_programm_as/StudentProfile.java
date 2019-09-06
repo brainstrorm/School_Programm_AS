@@ -1,5 +1,6 @@
 package com.example.school_programm_as;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +23,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class StudentProfile extends AppCompatActivity {
 
@@ -35,7 +40,10 @@ public class StudentProfile extends AppCompatActivity {
     private LinearLayout mLinearLayout;
 
 
-    TextView textView[];
+
+    Date c = Calendar.getInstance().getTime();
+    SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+    String formattedDate = df.format(c);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +108,8 @@ public class StudentProfile extends AppCompatActivity {
                                     for (QueryDocumentSnapshot document : task.getResult()){
                                         Lesson lesson = document.toObject(Lesson.class);
                                         TextView class_ = new TextView(getApplicationContext());
+                                        class_.setTextSize(20);
+                                        class_.setTextColor(0xFF8E7B89);
 
                                         class_.setLayoutParams(
                                                 new LinearLayout.LayoutParams(
@@ -108,7 +118,10 @@ public class StudentProfile extends AppCompatActivity {
                                                 )
                                         );
 
-                                        class_.setText(lesson.name);
+                                        if (formattedDate.equals(lesson.date)) {
+                                            class_.setText(lesson.name);
+                                        }
+
                                         mLinearLayout = findViewById(R.id.timetable);
                                         mLinearLayout.addView(class_);
                                         Toast.makeText(StudentProfile.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
@@ -132,11 +145,13 @@ public class StudentProfile extends AppCompatActivity {
     }
 
     public void QR(View view){
-        Intent intentEnter = new Intent(this, QRScan.class);
-        startActivity(intentEnter);
+        Intent intentQR = new Intent(this, QRScan.class);
+        startActivity(intentQR);
     }
 
-    public void back(View view){
-
+    public void Back(View view){
+        //need Logout -> error with Docref
+        Intent intentBack = new Intent(this, LoginFormActivity.class);
+        startActivity(intentBack);
     }
 }

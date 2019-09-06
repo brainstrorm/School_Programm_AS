@@ -18,4 +18,9 @@ public class QRScan extends AppCompatActivity {
         Intent intentBack = new Intent(this, StudentProfile.class);
         startActivity(intentBack);
     }
+
+    public void Enter(View view){
+        Intent intentEnter = new Intent(this, MyQR.class);
+        startActivity(intentEnter);
+    }
 }

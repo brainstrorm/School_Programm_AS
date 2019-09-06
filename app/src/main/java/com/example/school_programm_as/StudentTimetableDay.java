@@ -27,4 +27,29 @@ public class StudentTimetableDay extends AppCompatActivity {
     }
 
 
+    public void Tuesday(View view){
+        Intent intentBack = new Intent(this, StudentTimetable.class);
+        startActivity(intentBack);
+    }
+
+
+    public void Wednesday(View view){
+        Intent intentBack = new Intent(this, StudentTimetable.class);
+        startActivity(intentBack);
+    }
+
+
+    public void Thursday(View view){
+        Intent intentBack = new Intent(this, StudentTimetable.class);
+        startActivity(intentBack);
+    }
+
+
+    public void Friday(View view){
+        Intent intentBack = new Intent(this, StudentTimetable.class);
+        startActivity(intentBack);
+    }
+
+
+
 }

@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginFormActivity"></activity>
         <activity android:name=".StudentProfile"></activity>
         <activity
             android:name=".CreateTimetableActivity"
@@ -19,10 +18,7 @@
             android:name=".TodayTimetableActivity"
             android:label="@string/title_activity_today_timetable"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".CreateTimetableActivity"
-            android:label="@string/title_activity_create_timetable"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".CreateClassActivity"
             android:label="@string/title_activity_create_class"
@@ -32,7 +28,18 @@
             android:label="@string/title_activity_teacher_main"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".LoginFormActivity" />
+
+        <activity android:name=".StudentTimetableDay" />
+
+        <activity android:name=".StudentTimetable" />
+
+        <activity android:name=".QRScan" />
+
+        <activity android:name=".MyQR" />
+
+
         <activity
             android:name=".RegistrationFormActivity"
             android:label="@string/title_activity_registration_form"
