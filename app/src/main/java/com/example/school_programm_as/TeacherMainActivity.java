@@ -39,7 +39,7 @@ import java.util.Map;
 public class TeacherMainActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
-
+    public final static String ID_MESSAGE = "id";
     private FirebaseFirestore mFirestore;
     private String name;
     private String surname;
@@ -80,10 +80,10 @@ public class TeacherMainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()){
-                                    for (QueryDocumentSnapshot document : task.getResult()){
-                                        Group group = document.toObject(Group.class);
+                                    for (final QueryDocumentSnapshot document : task.getResult()){
+                                        final Group group = document.toObject(Group.class);
                                         //mGroups.add(group);
-                                        Button class_ = new Button(getApplicationContext());
+                                        final Button class_ = new Button(getApplicationContext());
                                         class_.setId(id);
                                         class_.setBackgroundResource(R.drawable.class_field);
                                         class_.setLayoutParams(
@@ -93,6 +93,15 @@ public class TeacherMainActivity extends AppCompatActivity {
                                                 )
                                         );
                                         class_.setText(group.name);
+                                        class_.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Intent intentTodayTimetableActivity = new Intent(TeacherMainActivity.this, TodayTimetableActivity.class);
+                                                String message = document.getId();
+                                                intentTodayTimetableActivity.putExtra(ID_MESSAGE, message);
+                                                startActivity(intentTodayTimetableActivity);
+                                            }
+                                        });
                                         //mScrollView.addView(class_);
                                         mLinearLayout.addView(class_);
                                         Toast.makeText(TeacherMainActivity.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
@@ -102,20 +111,6 @@ public class TeacherMainActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                /*for(Group group: mGroups){
-                    Button class_ = new Button(getApplicationContext());
-                    class_.setId(id);
-                    class_.setBackgroundResource(R.drawable.class_field);
-                    class_.setLayoutParams(
-                            new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.MATCH_PARENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT
-                            )
-                    );
-                    class_.setText(group.name);
-                    mScrollView.addView(class_);
-
-                }*/
             }
         });
     }
