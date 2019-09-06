@@ -38,6 +38,7 @@ public class StudentProfile extends AppCompatActivity {
     private int bills;
     private TextView Name,Bills,Place,Teacher;
     private LinearLayout mLinearLayout;
+    private String userIdforStudentTimetableDay;
 
 
 
@@ -51,8 +52,11 @@ public class StudentProfile extends AppCompatActivity {
         setContentView(R.layout.activity_student_profile);
 
 
+
+
         Intent intent = getIntent();
         final String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        userIdforStudentTimetableDay = userId;
 
         Name = findViewById(R.id.studentName);
         Bills = findViewById(R.id.amountBills);
@@ -79,7 +83,13 @@ public class StudentProfile extends AppCompatActivity {
 
 
                 String groupId = pupil_.group;
-                groupId = groupId.replaceAll("\\s","");
+
+                Intent intentTimetableMainActivity = new Intent(StudentProfile.this, StudentTimetable.class);
+                intentTimetableMainActivity.putExtra(EXTRA_MESSAGE, groupId);
+
+
+
+                groupId = groupId.replaceAll("\\s",""); //потом можно убрать (был пробел)
 
                 DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
                 docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -141,6 +151,7 @@ public class StudentProfile extends AppCompatActivity {
 
     public void Enter(View view){
         Intent intentEnter = new Intent(this, StudentTimetableDay.class);
+        intentEnter.putExtra(EXTRA_MESSAGE, userIdforStudentTimetableDay);
         startActivity(intentEnter);
     }
 

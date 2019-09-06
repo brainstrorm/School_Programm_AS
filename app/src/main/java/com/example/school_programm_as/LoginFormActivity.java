@@ -87,6 +87,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                             if(message.equals("student")){
                                 Intent intentPupilMainActivity = new Intent(LoginFormActivity.this, StudentProfile.class);
 
+
                                 FirebaseUser user = mAuth.getCurrentUser();
 
                                     String userUid = user.getUid();
@@ -95,6 +96,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                                 Toast.makeText(LoginFormActivity.this,userUid, Toast.LENGTH_SHORT).show();
 
                                 intentPupilMainActivity.putExtra(EXTRA_MESSAGE, userUid);
+
 
                                 startActivity(intentPupilMainActivity);
                             }else if(message.equals("teacher")) {
