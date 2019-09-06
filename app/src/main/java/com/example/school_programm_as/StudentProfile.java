@@ -1,18 +1,26 @@
 package com.example.school_programm_as;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class StudentProfile extends AppCompatActivity {
@@ -24,6 +32,8 @@ public class StudentProfile extends AppCompatActivity {
     private String name,place,teacher,surname;
     private int bills;
     private TextView Name,Bills,Place,Teacher;
+    private LinearLayout mLinearLayout;
+
 
     TextView textView[];
 
@@ -40,6 +50,7 @@ public class StudentProfile extends AppCompatActivity {
         Bills = findViewById(R.id.amountBills);
         Teacher = findViewById(R.id.studentTeacher);
         Place = findViewById(R.id.studentClass);
+
 
 
 
@@ -77,17 +88,37 @@ public class StudentProfile extends AppCompatActivity {
 
                 });
 
-                /*DocumentReference docRef_lessons = mFirestore.collection("lessons").document(groupId);
-                docRef_lessons.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Lesson lesson_ = documentSnapshot.toObject(Lesson.class);
 
-                        teacher = "преподаватель: " + group_.teacherName;
+                mLinearLayout = (LinearLayout) findViewById(R.id.timetable);
 
-                    }
-                });
-                */
+                mFirestore.collection("lessons").whereEqualTo("group", groupId)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    for (QueryDocumentSnapshot document : task.getResult()){
+                                        Lesson lesson = document.toObject(Lesson.class);
+                                        TextView class_ = new TextView(getApplicationContext());
+
+                                        class_.setLayoutParams(
+                                                new LinearLayout.LayoutParams(
+                                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                                        LinearLayout.LayoutParams.WRAP_CONTENT
+                                                )
+                                        );
+
+                                        class_.setText(lesson.name);
+                                        mLinearLayout = findViewById(R.id.timetable);
+                                        mLinearLayout.addView(class_);
+                                        Toast.makeText(StudentProfile.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
+                                    }
+                                }else{
+                                    Toast.makeText(StudentProfile.this, "Информация о группах не получена", Toast.LENGTH_SHORT ).show();
+                                }
+                            }
+                        });
+
             }
         });
 
