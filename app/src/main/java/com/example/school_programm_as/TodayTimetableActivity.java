@@ -24,6 +24,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
+
 public class TodayTimetableActivity extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
@@ -31,6 +34,9 @@ public class TodayTimetableActivity extends AppCompatActivity {
     private TextView TVGroupName;
     private LinearLayout mLinearLayout;
     private int id = 1;
+
+
+    public final static String ID_MESSAGE = "ID";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +90,14 @@ public class TodayTimetableActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+
+    public void QRcode(View view){
+        Intent intentQRCode = new Intent(TodayTimetableActivity.this, MyQRCodeActivity.class);
+        String message = groupId;
+        intentQRCode.putExtra(ID_MESSAGE, message);
+        startActivity(intentQRCode);
     }
 
 }
