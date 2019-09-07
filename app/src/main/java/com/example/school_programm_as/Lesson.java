@@ -1,17 +1,17 @@
 package com.example.school_programm_as;
 
 public class Lesson {
-    public String teacherId;
+    public String studentId;
     public String date;
     public String group;
     public String name;
-    public Integer number;
+    public int number;
 
     public Lesson() {
     }
 
-    public Lesson(String teacherId, String date, String group, String name, Integer number) {
-        this.teacherId = teacherId;
+    public Lesson(String teacherId, String date, String group, String name, int number) {
+        this.studentId = teacherId;
         this.date = date;
         this.group = group;
         this.name = name;
@@ -19,7 +19,7 @@ public class Lesson {
     }
 
     public String getTeacherId() {
-        return teacherId;
+        return studentId;
     }
 
     public String getName() {
@@ -34,7 +34,7 @@ public class Lesson {
         return group;
     }
 
-    public Integer getNumber() {
+    public int getNumber() {
         return number;
     }
 }

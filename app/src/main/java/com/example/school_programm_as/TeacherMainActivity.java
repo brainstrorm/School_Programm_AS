@@ -118,6 +118,7 @@ public class TeacherMainActivity extends AppCompatActivity {
     public void createClass(View view){
         //Создание новой ячейки в Firestore в коллекции groups и заполнение ее полей
         Map<String, Object> group = new HashMap<>();
+        group.put("group", "");
         group.put("name", "");
         group.put("teacherFullName", "");
         group.put("teacherId", "");
@@ -143,14 +144,12 @@ public class TeacherMainActivity extends AppCompatActivity {
                     }
                 });
 
-    }
-
-    public void logOut(View view){
-        Intent intentLogOut = new Intent(this, LoginFormActivity.class);
-        String message = "logout";
-        intentLogOut.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intentLogOut);
+        Intent intentCreateClass = new Intent(this, CreateClassActivity.class);
+        String message = "TeacherMainActivity";
+        intentCreateClass.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intentCreateClass);
         mFirestore = FirebaseFirestore.getInstance();
     }
+
 
 }
