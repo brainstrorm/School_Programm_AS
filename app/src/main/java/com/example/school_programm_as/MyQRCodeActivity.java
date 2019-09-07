@@ -77,7 +77,7 @@ public class MyQRCodeActivity extends AppCompatActivity {
             Toast.makeText(MyQRCodeActivity.this, "Required", Toast.LENGTH_SHORT).show();
         }
 
-        boolean save;
+        /*boolean save;
         String result;
         try {
             save = QRGSaver.save(savePath, groupId, bitmap, QRGContents.ImageType.IMAGE_JPEG);
@@ -85,7 +85,7 @@ public class MyQRCodeActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
 }
