@@ -11,6 +11,14 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".MyQR"></activity>
+        <activity
+            android:name=".StudentTimetableDay"></activity>
+        <activity
+            android:name=".QRScan"></activity>
+        <activity
+            android:name=".StudentProfile"></activity>
+        <activity
             android:name=".MyQRCodeActivity"
             android:label="@string/title_activity_my_qrcode"
             android:theme="@style/AppTheme.NoActionBar"></activity>
