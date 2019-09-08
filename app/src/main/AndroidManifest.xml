@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".StudentTimetable"></activity>
         <activity
             android:name=".MyQR"></activity>
         <activity
