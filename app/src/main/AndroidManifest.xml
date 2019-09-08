@@ -15,6 +15,9 @@
             android:name=".MyQR"></activity>
         <activity
             android:name=".StudentTimetableDay"></activity>
+
+        <activity
+            android:name=".StudentTimetable"></activity>
         <activity
             android:name=".QRScan"></activity>
         <activity

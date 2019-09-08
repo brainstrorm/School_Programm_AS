@@ -35,15 +35,22 @@ public class StudentTimetable extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        final String message = intent.getStringExtra(StudentTimetableDay.EXTRA_MESSAGE);
+         String message = intent.getStringExtra(StudentTimetableDay.EXTRA_MESSAGE);
 
         final String groupId = intent.getStringExtra(StudentProfile.EXTRA_MESSAGE);
 
         TextView day = (TextView) findViewById(R.id.textDay);
         TextView timetable = (TextView) findViewById(R.id.textTimetable);
 
-        day.setText(message);
         timetable.setText("Занятия на " + message);
+
+            message = message.substring(0, 1).toUpperCase() + message.substring(1);
+
+        if (message.equals("Пятницу") || message.equals("Среду")) {
+             message = message.substring(0,message.length()-1) + "а";
+        }
+
+        day.setText(message);
 
         //day.setTypeface(type);
         //timetable.setTypeface(type);

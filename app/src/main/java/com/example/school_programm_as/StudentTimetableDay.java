@@ -30,7 +30,7 @@ public class StudentTimetableDay extends AppCompatActivity {
     public void Mondey(View view){
 
         Intent intentTimetable = new Intent(this, StudentTimetable.class);
-        String message = "Понедельник";
+        String message = "понедельник";
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentTimetable);
 
@@ -40,7 +40,7 @@ public class StudentTimetableDay extends AppCompatActivity {
     public void Tuesday(View view){
 
         Intent intentTimetable = new Intent(this, StudentTimetable.class);
-        String message = "Вторник";
+        String message = "вторник";
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentTimetable);
 
@@ -51,7 +51,7 @@ public class StudentTimetableDay extends AppCompatActivity {
     public void Wednesday(View view){
 
         Intent intentTimetable = new Intent(this, StudentTimetable.class);
-        String message = "Среду";
+        String message = "среду";
 
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentTimetable);
@@ -63,7 +63,7 @@ public class StudentTimetableDay extends AppCompatActivity {
     public void Thursday(View view){
 
         Intent intentTimetable = new Intent(this, StudentTimetable.class);
-        String message = "Четверг";
+        String message = "четверг";
 
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentTimetable);
@@ -75,7 +75,7 @@ public class StudentTimetableDay extends AppCompatActivity {
     public void Friday(View view){
 
         Intent intentTimetable = new Intent(this, StudentTimetable.class);
-        String message = "Пятницу";
+        String message = "пятницу";
 
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentTimetable);

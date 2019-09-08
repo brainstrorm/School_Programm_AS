@@ -45,13 +45,11 @@
 
     <TextView
         android:id="@+id/textDay"
-        android:layout_width="155dp"
+        android:layout_width="204dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text=""
@@ -67,20 +65,21 @@
 
     <TextView
         android:id="@+id/textTimetable"
-        android:layout_width="237dp"
-        android:layout_height="25dp"
+        android:layout_width="363dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text=""
+        android:gravity="center"
         android:textColor="@color/colorPurple"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.253" />
+        app:layout_constraintVertical_bias="0.239" />
 
     <LinearLayout
         android:id="@+id/timetableday"

@@ -71,7 +71,7 @@ public class StudentProfile extends AppCompatActivity {
         DocumentReference docRef_users = mFirestore.collection("users").document(userId);
         docRef_users.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+            public void onSuccess(final DocumentSnapshot documentSnapshot) {
                 Pupil pupil_ = documentSnapshot.toObject(Pupil.class);
                 name = pupil_.name;
                 surname = pupil_.surname;
@@ -128,9 +128,19 @@ public class StudentProfile extends AppCompatActivity {
                                                 )
                                         );
 
-                                        if (formattedDate.equals(lesson.date)) {
-                                            class_.setText(lesson.name);
+                                       // if (formattedDate.equals(lesson.date)) {
+
+                                        class_.setText(lesson.name);
+
+                                            if (document.get(userId).equals("present")) {
+                                                class_.setBackground(getDrawable(R.drawable.group_76));
+                                            }
+
+                                        if (document.get(userId).equals("notpresent")) {
+                                            class_.setBackground(getDrawable(R.drawable.group_14));
                                         }
+
+                                      //  }
 
                                         mLinearLayout = findViewById(R.id.timetable);
                                         mLinearLayout.addView(class_);
