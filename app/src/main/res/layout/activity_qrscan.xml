@@ -111,6 +111,19 @@
             android:layout_height="200dp"
             android:background="@drawable/rectangle"
             />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center|bottom"
+            android:text="TextView" />
+        <ToggleButton
+            android:id="@+id/btn_enable_disable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"/>
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
