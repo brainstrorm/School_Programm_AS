@@ -26,7 +26,7 @@ public class QRScan extends AppCompatActivity {
     private TextView txt_result;
     private SurfaceView surfaceView;
     private QREader qrEader;
-
+    private String groupId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

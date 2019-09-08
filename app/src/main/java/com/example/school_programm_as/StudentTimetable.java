@@ -26,7 +26,7 @@ public class StudentTimetable extends AppCompatActivity {
     private LinearLayout mLinearLayout;
 
 
-
+    private int id = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,25 +35,19 @@ public class StudentTimetable extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-         String message = intent.getStringExtra(StudentTimetableDay.EXTRA_MESSAGE);
+        final String groupId = intent.getStringExtra(StudentTimetableDay.ID_MESSAGE);
+        final String message = intent.getStringExtra(StudentTimetableDay.EXTRA_MESSAGE);
 
-        final String groupId = intent.getStringExtra(StudentProfile.EXTRA_MESSAGE);
 
+        Toast.makeText(StudentTimetable.this, groupId, Toast.LENGTH_SHORT ).show();
         TextView day = (TextView) findViewById(R.id.textDay);
         TextView timetable = (TextView) findViewById(R.id.textTimetable);
 
+        day.setText(message);
         timetable.setText("Занятия на " + message);
 
-            message = message.substring(0, 1).toUpperCase() + message.substring(1);
-
-        if (message.equals("Пятницу") || message.equals("Среду")) {
-             message = message.substring(0,message.length()-1) + "а";
-        }
-
-        day.setText(message);
-
-        //day.setTypeface(type);
-        //timetable.setTypeface(type);
+        day.setTypeface(type);
+        timetable.setTypeface(type);
 
          mLinearLayout = (LinearLayout) findViewById(R.id.timetableday);
 
@@ -65,9 +59,10 @@ public class StudentTimetable extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()){
-                                Lesson lesson = document.toObject(Lesson.class);
-                                TextView class_ = new TextView(getApplicationContext());
+                            for (final QueryDocumentSnapshot document : task.getResult()){
+                                final Lesson lesson = document.toObject(Lesson.class);
+                                final TextView class_ = new TextView(getApplicationContext());
+                                class_.setId(id);
                                 class_.setTextSize(20);
                                 class_.setTextColor(0xFF8E7B89);
 
@@ -79,10 +74,9 @@ public class StudentTimetable extends AppCompatActivity {
                                 );
 
 
-                                    class_.setText(lesson.name);
-
-                                mLinearLayout = findViewById(R.id.timetableday);
+                                class_.setText(lesson.name);
                                 mLinearLayout.addView(class_);
+                                id++;
                                 Toast.makeText(StudentTimetable.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
                             }
                         }else{

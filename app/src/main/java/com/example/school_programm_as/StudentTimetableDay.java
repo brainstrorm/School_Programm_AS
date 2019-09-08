@@ -10,14 +10,15 @@ public class StudentTimetableDay extends AppCompatActivity {
 
 
     public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
-
-
+    public final static String ID_MESSAGE = "ID";
+    private String groupId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_timetable_day);
 
         Intent intent = getIntent();
+        groupId = intent.getStringExtra(ID_MESSAGE);
     }
 
 
@@ -32,6 +33,7 @@ public class StudentTimetableDay extends AppCompatActivity {
         Intent intentTimetable = new Intent(this, StudentTimetable.class);
         String message = "понедельник";
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
+        intentTimetable.putExtra(ID_MESSAGE, groupId);
         startActivity(intentTimetable);
 
     }
@@ -42,6 +44,7 @@ public class StudentTimetableDay extends AppCompatActivity {
         Intent intentTimetable = new Intent(this, StudentTimetable.class);
         String message = "вторник";
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
+        intentTimetable.putExtra(ID_MESSAGE, groupId);
         startActivity(intentTimetable);
 
 
@@ -54,6 +57,7 @@ public class StudentTimetableDay extends AppCompatActivity {
         String message = "среду";
 
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
+        intentTimetable.putExtra(ID_MESSAGE, groupId);
         startActivity(intentTimetable);
 
 
@@ -66,6 +70,7 @@ public class StudentTimetableDay extends AppCompatActivity {
         String message = "четверг";
 
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
+        intentTimetable.putExtra(ID_MESSAGE, groupId);
         startActivity(intentTimetable);
 
 
@@ -78,6 +83,7 @@ public class StudentTimetableDay extends AppCompatActivity {
         String message = "пятницу";
 
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
+        intentTimetable.putExtra(ID_MESSAGE, groupId);
         startActivity(intentTimetable);
 
     }
