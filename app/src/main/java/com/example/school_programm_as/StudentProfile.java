@@ -90,7 +90,7 @@ public class StudentProfile extends AppCompatActivity {
 
                 //groupId = groupId.replaceAll("\\s",""); //потом можно убрать (был пробел)
 
-                DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
+                /*DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
                 docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -103,7 +103,7 @@ public class StudentProfile extends AppCompatActivity {
 
                     }
 
-                });
+                });*/
 
 
                 mLinearLayout = (LinearLayout) findViewById(R.id.timetable);
@@ -158,6 +158,9 @@ public class StudentProfile extends AppCompatActivity {
 
     public void QR(View view){
         Intent intentQR = new Intent(this, QRScan.class);
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        intentQR.putExtra(ID_MESSAGE, userId);
         startActivity(intentQR);
     }
 

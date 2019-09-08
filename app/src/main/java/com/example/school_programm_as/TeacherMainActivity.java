@@ -102,7 +102,6 @@ public class TeacherMainActivity extends AppCompatActivity {
                                                 startActivity(intentTodayTimetableActivity);
                                             }
                                         });
-                                        //mScrollView.addView(class_);
                                         mLinearLayout.addView(class_);
                                         Toast.makeText(TeacherMainActivity.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
                                     }

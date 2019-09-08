@@ -18,11 +18,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
@@ -47,10 +52,17 @@ public class QRScan extends AppCompatActivity {
     private SurfaceView surfaceView;
     private QREader qrEader;
     private String groupId;
+
+    private FirebaseFirestore mFirestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrscan);
+
+        Intent intent = getIntent();
+        final String userId = intent.getStringExtra(StudentProfile.ID_MESSAGE);
+
+        mFirestore = FirebaseFirestore.getInstance();
 
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.CAMERA)
@@ -71,9 +83,6 @@ public class QRScan extends AppCompatActivity {
 
                     }
                 }).check();
-
-
-
 
 
     }
@@ -105,6 +114,25 @@ public class QRScan extends AppCompatActivity {
                     @Override
                     public void run() {
                         txt_result.setText(data);
+                        groupId = data;
+                        mFirestore.collection("lessons").whereEqualTo("group", groupId)
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        Intent intent = getIntent();
+                                        final String userId = intent.getStringExtra(StudentProfile.ID_MESSAGE);
+                                        for(final QueryDocumentSnapshot document: queryDocumentSnapshots){
+                                            DocumentReference docRefLesson = mFirestore.collection("lessons").document(document.getId());
+                                            if(docRefLesson != null) {
+                                                docRefLesson.update(userId, "notpresent");
+                                                qrEader.stop();
+                                            }else{
+                                                Toast.makeText(QRScan.this, "null", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+                                });
                     }
                 });
             }
