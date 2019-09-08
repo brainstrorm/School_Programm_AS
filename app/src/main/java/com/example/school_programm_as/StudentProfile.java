@@ -56,7 +56,10 @@ public class StudentProfile extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        final String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);// нужно прописать определение того, из какого активити пришел интент
+        if(userId.equals(null)) {
+            userId = intent.getStringExtra(ParentMainActivity.ID_MESSAGE);
+        }
         userIdforStudentTimetableDay = userId;
 
         Name = findViewById(R.id.studentName);

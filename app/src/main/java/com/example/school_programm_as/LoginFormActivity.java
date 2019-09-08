@@ -116,13 +116,12 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
                             }else if(message.equals("parent")){
 
-                                /*Intent intentParentMainActivity = new Intent(this, ParentMainActivity.class);
+                                Intent intentParentMainActivity = new Intent(LoginFormActivity.this, ParentMainActivity.class);
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 String userUid = user.getUid();
                                 Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
                                 intentParentMainActivity.putExtra(EXTRA_MESSAGE, userUid);
                                 startActivity(intentParentMainActivity);
-                                */
                             }
                             else if(message.equals("administrator")){
                                 /*Intent intentAdministratorMainActivity = new Intent(this, AdministratorMainActivity.class);

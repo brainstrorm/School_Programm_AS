@@ -8,4 +8,5 @@
     <string name="title_activity_create_timetable">CreateTimetableActivity</string>
     <string name="title_activity_today_timetable">TodayTimetableActivity</string>
     <string name="title_activity_my_qrcode">MyQRCodeActivity</string>
+    <string name="title_activity_parent_main">ParentMainActivity</string>
 </resources>
