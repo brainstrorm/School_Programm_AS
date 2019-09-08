@@ -45,8 +45,8 @@ public class StudentTimetable extends AppCompatActivity {
         day.setText(message);
         timetable.setText("Занятия на " + message);
 
-        day.setTypeface(type);
-        timetable.setTypeface(type);
+        //day.setTypeface(type);
+        //timetable.setTypeface(type);
 
          mLinearLayout = (LinearLayout) findViewById(R.id.timetableday);
 
