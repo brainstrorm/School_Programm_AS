@@ -74,6 +74,7 @@ public class ParentMainActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View view) {
                                         Intent intentStudentProfileActivity = new Intent(ParentMainActivity.this, StudentProfile.class);
+                                        intentStudentProfileActivity.setAction("ParentMainActivity");
                                         String message = pupil.userId;
                                         intentStudentProfileActivity.putExtra(ID_MESSAGE, message);
                                         startActivity(intentStudentProfileActivity);

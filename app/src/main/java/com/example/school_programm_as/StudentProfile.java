@@ -47,17 +47,17 @@ public class StudentProfile extends AppCompatActivity {
     String formattedDate = df.format(c);
     private int id = 1;
     private String groupId;
+    private String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
 
-
-
-
         Intent intent = getIntent();
-        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);// нужно прописать определение того, из какого активити пришел интент
-        if(userId.equals(null)) {
+        if(intent.getAction().equals("LoginFormActivity")){
+            userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        }
+        if(intent.getAction().equals("ParentMainActivity")){
             userId = intent.getStringExtra(ParentMainActivity.ID_MESSAGE);
         }
         userIdforStudentTimetableDay = userId;
