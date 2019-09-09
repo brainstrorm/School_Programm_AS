@@ -100,7 +100,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                                 startActivity(intentPupilMainActivity);
                             }else if(message.equals("teacher")) {
                                 Intent intentTeacherMainActivity = new Intent(LoginFormActivity.this, TeacherMainActivity.class);
-
+                                intentTeacherMainActivity.setAction("LoginFormActivity");
                                 FirebaseUser user = mAuth.getCurrentUser();
 
                                     String userUid = user.getUid();

@@ -43,7 +43,7 @@ public class TodayTimetableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_today_timetable);
 
         Intent intent = getIntent();
-        groupId = intent.getStringExtra(TeacherMainActivity.ID_MESSAGE);
+        groupId = intent.getStringExtra(TeacherMainActivity.GROUP_ID_MESSAGE);
 
         TVGroupName = (TextView) findViewById(R.id.textView);
         mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);

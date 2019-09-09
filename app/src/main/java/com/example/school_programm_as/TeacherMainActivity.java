@@ -39,7 +39,8 @@ import java.util.Map;
 public class TeacherMainActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
-    public final static String ID_MESSAGE = "id";
+    public final static String GROUP_ID_MESSAGE = "id";
+    public final static String USER_ID_MESSAGE = "id";
     private FirebaseFirestore mFirestore;
     private String name;
     private String surname;
@@ -50,13 +51,20 @@ public class TeacherMainActivity extends AppCompatActivity {
     private LinearLayout mLinearLayout;
     private ArrayList<Group> mGroups = new ArrayList<>();
     private int id = 1;
+    private String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_main);
 
         Intent intent = getIntent();
-        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        if(intent.getAction().equals("CreateClassActivity")){
+            userId = intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE);
+        }
+        if(intent.getAction().equals("LoginFormActivity")){
+            userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        }
+
         mFirestore = FirebaseFirestore.getInstance();
 
         Name = findViewById(R.id.textView);
@@ -98,7 +106,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                                             public void onClick(View view) {
                                                 Intent intentTodayTimetableActivity = new Intent(TeacherMainActivity.this, TodayTimetableActivity.class);
                                                 String message = document.getId();
-                                                intentTodayTimetableActivity.putExtra(ID_MESSAGE, message);
+                                                intentTodayTimetableActivity.putExtra(GROUP_ID_MESSAGE, message);
                                                 startActivity(intentTodayTimetableActivity);
                                             }
                                         });
@@ -117,7 +125,6 @@ public class TeacherMainActivity extends AppCompatActivity {
     public void createClass(View view){
         //Создание новой ячейки в Firestore в коллекции groups и заполнение ее полей
         Map<String, Object> group = new HashMap<>();
-        group.put("group", "");
         group.put("name", "");
         group.put("teacherFullName", "");
         group.put("teacherId", "");
@@ -130,7 +137,16 @@ public class TeacherMainActivity extends AppCompatActivity {
                         groupId = documentReference.getId();
                         documentReference.update("teacherFullName", surname + " " + name, "teacherId", teacherId);
                         Intent intentCreateClass = new Intent(TeacherMainActivity.this, CreateClassActivity.class);
+                        intentCreateClass.setAction("TeacherMainActivity");
                         intentCreateClass.putExtra(EXTRA_MESSAGE, groupId);
+                        Intent intent = getIntent();
+                        if(intent.getAction().equals("CreateClassActivity")){
+                            userId = intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE);
+                        }
+                        if(intent.getAction().equals("LoginFormActivity")){
+                            userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+                        }
+                        intentCreateClass.putExtra(USER_ID_MESSAGE, userId);
                         Toast.makeText(TeacherMainActivity.this, groupId, Toast.LENGTH_SHORT).show();
                         startActivity(intentCreateClass);
                     }
@@ -143,11 +159,14 @@ public class TeacherMainActivity extends AppCompatActivity {
                     }
                 });
 
-        Intent intentCreateClass = new Intent(this, CreateClassActivity.class);
+        /*Intent intentCreateClass = new Intent(this, CreateClassActivity.class);
         String message = "TeacherMainActivity";
         intentCreateClass.putExtra(EXTRA_MESSAGE, message);
+        Intent intent = getIntent();
+        userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        intentCreateClass.putExtra(USER_ID_MESSAGE, userId);
         startActivity(intentCreateClass);
-        mFirestore = FirebaseFirestore.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();*/
     }
 
 

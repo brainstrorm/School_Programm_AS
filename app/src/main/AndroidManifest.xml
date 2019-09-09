@@ -37,7 +37,7 @@
         <activity
             android:name=".TeacherMainActivity"
             android:label="@string/title_activity_teacher_main"
-            android:noHistory="true"
+            android:noHistory="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LoginFormActivity" />
         <activity
