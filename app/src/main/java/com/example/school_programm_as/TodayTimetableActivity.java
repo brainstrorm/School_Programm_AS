@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -34,17 +35,28 @@ public class TodayTimetableActivity extends AppCompatActivity {
     private TextView TVGroupName;
     private LinearLayout mLinearLayout;
     private int id = 1;
+    private String userId;
 
-
-    public final static String ID_MESSAGE = "ID";
+    public final static String GROUP_ID_MESSAGE = "GROUP_ID_MESSAGE";
+    public final static String USER_ID_MESSAGE = "USER_ID_MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_today_timetable);
 
         Intent intent = getIntent();
-        groupId = intent.getStringExtra(TeacherMainActivity.GROUP_ID_MESSAGE);
-
+        Bundle extras = intent.getExtras();
+        //groupId = intent.getStringExtra(TeacherMainActivity.GROUP_ID_MESSAGE);
+        if(intent.getAction().equals("TeacherMainActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("MyQRCodeActivity")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("ID_MESSAGE");
+        }
+        //Toast.makeText(this, groupId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, userId, Toast.LENGTH_SHORT).show();
         TVGroupName = (TextView) findViewById(R.id.textView);
         mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
@@ -95,9 +107,35 @@ public class TodayTimetableActivity extends AppCompatActivity {
 
     public void QRcode(View view){
         Intent intentQRCode = new Intent(TodayTimetableActivity.this, MyQRCodeActivity.class);
-        String message = groupId;
-        intentQRCode.putExtra(ID_MESSAGE, message);
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if(intent.getAction().equals("TeacherMainActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("MyQRCodeActivity")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("ID_MESSAGE");
+        }
+        intentQRCode.putExtras(extras);
         startActivity(intentQRCode);
+    }
+
+    public void back(View view){
+        Intent intentTeacherMainActivity = new Intent(getApplicationContext(), TeacherMainActivity.class);
+        intentTeacherMainActivity.setAction("TodayTimetableActivity");
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if(intent.getAction().equals("TeacherMainActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("MyQRCodeActivity")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("ID_MESSAGE");
+        }
+        intentTeacherMainActivity.putExtra("USER_ID_MESSAGE", userId);
+        startActivity(intentTeacherMainActivity);
     }
 
 }

@@ -70,13 +70,35 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="527dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
         app:layout_constraintVertical_bias="0.0">
+
+        <EditText
+            android:id="@+id/editText7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/text_field"
+            android:ems="10"
+            android:hint="название класса"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            app:layout_constraintBottom_toTopOf="@+id/imageView4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -108,65 +130,43 @@
             <ImageButton
                 android:id="@+id/imageButtonMonday"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:onClick="Monday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/monday" />
+                android:background="@drawable/mondey"
+                android:onClick="Monday" />
 
             <ImageButton
                 android:id="@+id/imageButton10"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:onClick="Tuesday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/tuesday" />
+                android:background="@drawable/tuesday"
+                android:onClick="Tuesday" />
 
             <ImageButton
                 android:id="@+id/imageButton9"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:onClick="Wednesday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/wednesday" />
+                android:background="@drawable/wednesday"
+                android:onClick="Wednesday" />
 
             <ImageButton
                 android:id="@+id/imageButton8"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:onClick="Thursday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/thursday" />
+                android:background="@drawable/thursday"
+                android:onClick="Thursday" />
 
             <ImageButton
                 android:id="@+id/imageButton7"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:onClick="Friday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/friday" />
+                android:background="@drawable/friday"
+                android:onClick="Friday" />
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/editText7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:ems="10"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:hint="название класса"
-            android:textColorHint="#000"
-            android:textColor="#000"
-            android:background="@drawable/text_field"
-            app:layout_constraintBottom_toTopOf="@+id/imageView4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
@@ -178,8 +178,10 @@
         android:onClick="saveClass"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.272" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

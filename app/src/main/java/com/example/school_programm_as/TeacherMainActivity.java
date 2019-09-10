@@ -64,6 +64,9 @@ public class TeacherMainActivity extends AppCompatActivity {
         if(intent.getAction().equals("LoginFormActivity")){
             userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
         }
+        if(intent.getAction().equals("TodayTimetableActivity")){
+            userId = intent.getStringExtra("USER_ID_MESSAGE");
+        }
 
         mFirestore = FirebaseFirestore.getInstance();
 
@@ -90,7 +93,6 @@ public class TeacherMainActivity extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                     for (final QueryDocumentSnapshot document : task.getResult()){
                                         final Group group = document.toObject(Group.class);
-                                        //mGroups.add(group);
                                         final Button class_ = new Button(getApplicationContext());
                                         class_.setId(id);
                                         class_.setBackgroundResource(R.drawable.class_field);
@@ -105,8 +107,20 @@ public class TeacherMainActivity extends AppCompatActivity {
                                             @Override
                                             public void onClick(View view) {
                                                 Intent intentTodayTimetableActivity = new Intent(TeacherMainActivity.this, TodayTimetableActivity.class);
+                                                intentTodayTimetableActivity.setAction("TeacherMainActivity");
+                                                Bundle extras = new Bundle();
                                                 String message = document.getId();
-                                                intentTodayTimetableActivity.putExtra(GROUP_ID_MESSAGE, message);
+                                                extras.putString("GROUP_ID_MESSAGE", message);
+                                                Toast.makeText(TeacherMainActivity.this, intentTodayTimetableActivity.getStringExtra(TeacherMainActivity.GROUP_ID_MESSAGE), Toast.LENGTH_SHORT).show();
+                                                Intent intent = getIntent();
+                                                if(intent.getAction().equals("CreateClassActivity")){
+                                                    userId = intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE);
+                                                }
+                                                if(intent.getAction().equals("LoginFormActivity")){
+                                                    userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+                                                }
+                                                extras.putString("USER_ID_MESSAGE", userId);
+                                                intentTodayTimetableActivity.putExtras(extras);
                                                 startActivity(intentTodayTimetableActivity);
                                             }
                                         });
@@ -159,14 +173,6 @@ public class TeacherMainActivity extends AppCompatActivity {
                     }
                 });
 
-        /*Intent intentCreateClass = new Intent(this, CreateClassActivity.class);
-        String message = "TeacherMainActivity";
-        intentCreateClass.putExtra(EXTRA_MESSAGE, message);
-        Intent intent = getIntent();
-        userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
-        intentCreateClass.putExtra(USER_ID_MESSAGE, userId);
-        startActivity(intentCreateClass);
-        mFirestore = FirebaseFirestore.getInstance();*/
     }
 
 

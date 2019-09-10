@@ -35,11 +35,12 @@ import androidmads.library.qrgenearator.QRGSaver;
 public class MyQRCodeActivity extends AppCompatActivity {
 
     public final static String ID_MESSAGE = "ID";
-
+    public final static String USER_ID_MESSAGE = "ID";
     private ImageView IVQRCode;
     private FirebaseFirestore mFirestore;
     private String TAG = "GenerateQRCode";
     private String groupId;
+    private String userId;
     private String savePath = Environment.getExternalStorageDirectory().getPath() + "/QRCode/";
     private Bitmap bitmap;
     private QRGEncoder qrgEncoder;
@@ -49,8 +50,8 @@ public class MyQRCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_qrcode);
 
         Intent intent = getIntent();
-        groupId = intent.getStringExtra(ID_MESSAGE);
-
+        Bundle extras = intent.getExtras();
+        groupId = extras.getString("GROUP_ID_MESSAGE");
         IVQRCode = (ImageView) findViewById(R.id.imageView11);
 
         if(groupId.length() > 0){
@@ -86,6 +87,18 @@ public class MyQRCodeActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }*/
+    }
+
+    public void back(View view){
+        Intent intentTodayTimetableActivity = new Intent(this, TodayTimetableActivity.class);
+        intentTodayTimetableActivity.setAction("MyQRCodeActivity");
+        Bundle extras = new Bundle();
+        Intent intent = getIntent();
+        Bundle extras_ = intent.getExtras();
+        extras.putString("USER_ID_MESSAGE", extras_.getString("USER_ID_MESSAGE"));
+        extras.putString("ID_MESSAGE", extras_.getString("GROUP_ID_MESSAGE"));
+        intentTodayTimetableActivity.putExtras(extras);
+        startActivity(intentTodayTimetableActivity);
     }
 
 }
