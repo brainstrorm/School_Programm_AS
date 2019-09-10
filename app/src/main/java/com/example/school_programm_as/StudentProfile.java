@@ -54,15 +54,20 @@ public class StudentProfile extends AppCompatActivity {
     Date dayOfTheWeek;
 
     private int id = 1;
+    private String groupId;
+    private String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
 
-
-
-
         Intent intent = getIntent();
+        if(intent.getAction().equals("LoginFormActivity")){
+            userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        }
+        if(intent.getAction().equals("ParentMainActivity")){
+            userId = intent.getStringExtra(ParentMainActivity.ID_MESSAGE);
+        }
 
         userId = (LoginFormActivity.EXTRA_MESSAGE == null)? intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE): intent.getStringExtra(StudentTimetable.ID_MESSAGE) ;
 
@@ -95,7 +100,7 @@ public class StudentProfile extends AppCompatActivity {
                 groupId = pupil_.group;
 
 
-                DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
+                /*DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
                 docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -108,7 +113,7 @@ public class StudentProfile extends AppCompatActivity {
 
                     }
 
-                });
+                });*/
 
 
                 mLinearLayout = (LinearLayout) findViewById(R.id.timetable);
@@ -192,6 +197,9 @@ public class StudentProfile extends AppCompatActivity {
 
     public void QR(View view){
         Intent intentQR = new Intent(this, QRScan.class);
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        intentQR.putExtra(ID_MESSAGE, userId);
         startActivity(intentQR);
     }
 

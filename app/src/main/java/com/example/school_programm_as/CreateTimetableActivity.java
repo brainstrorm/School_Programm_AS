@@ -31,7 +31,10 @@ import java.util.Map;
 
 public class CreateTimetableActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
+    public final static String EXTRA_ID_MESSAGE = "com.example.school_programm_AS.MESSAGE";
+    public final static String USER_ID_MESSAGE = "";
+    public final static String GROUP_ID_MESSAGE = "com.example.school_programm_AS.MESSAGE";
+
 
     private FirebaseFirestore mFirestore;
     private TextView TVDay;
@@ -67,6 +70,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
     }
 
     private int countID = 1;
+    private String user_Id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,15 +172,20 @@ public class CreateTimetableActivity extends AppCompatActivity {
                     });
         }
         Intent intentBackToCreateClassActivity = new Intent(this, CreateClassActivity.class);
-        String message = "back";
-        intentBackToCreateClassActivity.putExtra(EXTRA_MESSAGE, message);
+        intentBackToCreateClassActivity.setAction("CreateTimetableActivity");
+        intentBackToCreateClassActivity.putExtra(USER_ID_MESSAGE, intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE));
+        Toast.makeText(getApplicationContext(), intentBackToCreateClassActivity.getStringExtra(CreateTimetableActivity.USER_ID_MESSAGE).toString(), Toast.LENGTH_SHORT).show();
+        intentBackToCreateClassActivity.putExtra(GROUP_ID_MESSAGE, intent.getStringExtra(CreateClassActivity.ID_MESSAGE));
         startActivity(intentBackToCreateClassActivity);
     }
 
     public void backToCreateClass(View view){
         Intent intentBackToCreateClassActivity = new Intent(this, CreateClassActivity.class);
-        String message = "back";
-        intentBackToCreateClassActivity.putExtra(EXTRA_MESSAGE, message);
+        intentBackToCreateClassActivity.setAction("CreateTimetableActivity");
+        Intent intent = getIntent();
+        intentBackToCreateClassActivity.putExtra(USER_ID_MESSAGE, intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE));
+        Toast.makeText(getApplicationContext(), intentBackToCreateClassActivity.getStringExtra(CreateTimetableActivity.USER_ID_MESSAGE).toString(), Toast.LENGTH_SHORT).show();
+        intentBackToCreateClassActivity.putExtra(GROUP_ID_MESSAGE, intent.getStringExtra(CreateClassActivity.ID_MESSAGE));
         startActivity(intentBackToCreateClassActivity);
     }
 
