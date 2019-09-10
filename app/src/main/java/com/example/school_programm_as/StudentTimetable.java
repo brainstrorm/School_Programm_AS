@@ -20,12 +20,28 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class StudentTimetable extends AppCompatActivity {
+
+
+    public final static String ID_MESSAGE = "com.example.school_programm_AS.MESSAGE";
+    public final static String ID_MESSAGE_USER = "ID_USER";
+
 
     private FirebaseFirestore mFirestore;
     private LinearLayout mLinearLayout;
+    private String userId,groupId;
+
+    Date dayOfTheWeek = null;
+
+    SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
+    SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
 
 
+    private String dayOfSubj;
     private int id = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +51,36 @@ public class StudentTimetable extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        final String groupId = intent.getStringExtra(StudentTimetableDay.ID_MESSAGE);
-        final String message = intent.getStringExtra(StudentTimetableDay.EXTRA_MESSAGE);
+         groupId = intent.getStringExtra(StudentTimetableDay.ID_MESSAGE);
+
+
+         String message = intent.getStringExtra(StudentTimetableDay.EXTRA_MESSAGE);
 
 
         Toast.makeText(StudentTimetable.this, groupId, Toast.LENGTH_SHORT ).show();
         TextView day = (TextView) findViewById(R.id.textDay);
         TextView timetable = (TextView) findViewById(R.id.textTimetable);
 
-        day.setText(message);
+        if (message.equals("пятницу") || message.equals("среду")) {
+            dayOfSubj = message.substring(0,message.length()-1)+"a";
+        }
+        else {
+            dayOfSubj = message;
+        }
+
         timetable.setText("Занятия на " + message);
+
+        message = message.substring(0,1).toUpperCase() + message.substring(1);
+
+        if (message.equals("Пятницу") || message.equals("Среду")) {
+
+            message = message.substring(0,message.length()-1) + "а";
+
+        }
+
+
+        day.setText(message);
+
 
         day.setTypeface(type);
         timetable.setTypeface(type);
@@ -74,8 +110,25 @@ public class StudentTimetable extends AppCompatActivity {
                                 );
 
 
-                                class_.setText(lesson.name);
-                                mLinearLayout.addView(class_);
+
+
+                                if (lesson.date != null) {
+
+
+                                    try {
+                                        dayOfTheWeek = sdfin.parse(lesson.date);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    String day = sdfout.format(dayOfTheWeek);
+
+                                    if (day.equals(dayOfSubj)) {
+                                        class_.setText(lesson.name);
+                                        mLinearLayout.addView(class_);
+                                    }
+                                }
+
                                 id++;
                                 Toast.makeText(StudentTimetable.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
                             }
@@ -90,6 +143,10 @@ public class StudentTimetable extends AppCompatActivity {
 
     public void Back(View view){
         Intent intentBack = new Intent(this, StudentTimetableDay.class);
+        intentBack.putExtra(ID_MESSAGE,groupId);
+        intentBack.putExtra(ID_MESSAGE_USER,userId);
+
         startActivity(intentBack);
     }
+
 }

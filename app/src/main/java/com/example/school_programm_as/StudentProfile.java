@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,6 +32,8 @@ import java.util.Date;
 public class StudentProfile extends AppCompatActivity {
 
     public final static String ID_MESSAGE = "com.example.school_programm_AS.MESSAGE";
+    public final static String ID_MESSAGE_USER = "USER";
+
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
@@ -38,15 +41,19 @@ public class StudentProfile extends AppCompatActivity {
     private int bills;
     private TextView Name,Bills,Place,Teacher;
     private LinearLayout mLinearLayout;
+    String userId,groupId;
     private String userIdforStudentTimetableDay;
+    private String groupIdforStudentTimetableDay;
 
 
 
-    Date c = Calendar.getInstance().getTime();
-    SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-    String formattedDate = df.format(c);
+    SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
+    SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
+    Date d = new Date();
+    String today = sdfout.format(d);
+    Date dayOfTheWeek;
+
     private int id = 1;
-    private String groupId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +63,9 @@ public class StudentProfile extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        final String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+
+        userId = (LoginFormActivity.EXTRA_MESSAGE == null)? intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE): intent.getStringExtra(StudentTimetable.ID_MESSAGE) ;
+
         userIdforStudentTimetableDay = userId;
 
         Name = findViewById(R.id.studentName);
@@ -84,11 +93,7 @@ public class StudentProfile extends AppCompatActivity {
 
 
                 groupId = pupil_.group;
-                Intent intentTimetableMainActivity = new Intent(StudentProfile.this, StudentTimetable.class);
-                intentTimetableMainActivity.putExtra(ID_MESSAGE, groupId);
 
-
-                //groupId = groupId.replaceAll("\\s",""); //потом можно убрать (был пробел)
 
                 DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
                 docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -96,8 +101,8 @@ public class StudentProfile extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Group group_ = documentSnapshot.toObject(Group.class);
 
-                        place ="класс: " + group_.name;
-                        teacher = "преподаватель: " + group_.teacherFullName;
+                         place ="класс: " + group_.name;
+                         teacher = "преподаватель: " + group_.teacherFullName;
                          Teacher.setText(teacher);
                          Place.setText(place);
 
@@ -128,9 +133,38 @@ public class StudentProfile extends AppCompatActivity {
                                                 )
                                         );
 
-                                        if (formattedDate.equals(lesson.date)) {
-                                            class_.setText(lesson.name);
+
+
+
+                                        if (lesson.date != null) {
+
+                                            try {
+                                                dayOfTheWeek = sdfin.parse(lesson.date);
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+
+
+                                            if (today.equals(sdfout.format(dayOfTheWeek))) {
+
+
+                                                class_.setText(lesson.name);
+
+                                                if (document.get(userId).equals("present")) {
+
+                                                    class_.setBackground(getDrawable(R.drawable.group_76));
+                                                }
+
+                                                if (document.get(userId).equals("notpresent")) {
+
+                                                    class_.setBackground(getDrawable(R.drawable.group_14));
+
+                                                }
+                                            }
                                         }
+
+
+
 
                                         mLinearLayout = findViewById(R.id.timetable);
                                         mLinearLayout.addView(class_);
@@ -152,7 +186,7 @@ public class StudentProfile extends AppCompatActivity {
 
     public void Enter(View view){
         Intent intentEnter = new Intent(this, StudentTimetableDay.class);
-        intentEnter.putExtra(ID_MESSAGE, userIdforStudentTimetableDay);
+        intentEnter.putExtra(ID_MESSAGE, groupId);
         startActivity(intentEnter);
     }
 
@@ -163,7 +197,8 @@ public class StudentProfile extends AppCompatActivity {
 
     public void Back(View view){
         //need Logout -> error with Docref
-        Intent intentBack = new Intent(this, LoginFormActivity.class);
+        Intent intentBack = new Intent(StudentProfile.this, LoginFormActivity.class);
         startActivity(intentBack);
     }
+
 }

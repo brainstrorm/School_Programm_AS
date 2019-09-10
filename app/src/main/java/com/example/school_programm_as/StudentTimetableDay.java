@@ -11,19 +11,23 @@ public class StudentTimetableDay extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
     public final static String ID_MESSAGE = "ID";
-    private String groupId;
+    public final static String ID_MESSAGE_USER = "ID";
+    private String groupId,userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_timetable_day);
 
         Intent intent = getIntent();
-        groupId = intent.getStringExtra(ID_MESSAGE);
+
+        groupId = (StudentProfile.ID_MESSAGE == null)? intent.getStringExtra(StudentProfile.ID_MESSAGE): intent.getStringExtra(StudentTimetable.ID_MESSAGE) ;
+        userId = (StudentProfile.ID_MESSAGE_USER == null)? intent.getStringExtra(StudentProfile.ID_MESSAGE_USER):intent.getStringExtra(StudentTimetable.ID_MESSAGE_USER);
     }
 
 
     public void Back(View view){
-        Intent intentBack = new Intent(this, StudentProfile.class);
+        Intent intentBack = new Intent(StudentTimetableDay.this, StudentProfile.class);
+        intentBack.putExtra(ID_MESSAGE_USER,userId);
         startActivity(intentBack);
     }
 
@@ -34,6 +38,7 @@ public class StudentTimetableDay extends AppCompatActivity {
         String message = "понедельник";
         intentTimetable.putExtra(EXTRA_MESSAGE, message);
         intentTimetable.putExtra(ID_MESSAGE, groupId);
+
         startActivity(intentTimetable);
 
     }
