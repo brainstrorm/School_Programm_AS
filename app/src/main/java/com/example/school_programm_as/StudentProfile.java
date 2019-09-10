@@ -54,24 +54,28 @@ public class StudentProfile extends AppCompatActivity {
     Date dayOfTheWeek;
 
     private int id = 1;
-    private String groupId;
-    private String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
 
         Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+
+        if(intent.getAction().equals("StudentTimetableDayActivity")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
         if(intent.getAction().equals("LoginFormActivity")){
+
             userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
         }
-        if(intent.getAction().equals("ParentMainActivity")){
-            userId = intent.getStringExtra(ParentMainActivity.ID_MESSAGE);
+        if(intent.getAction().equals("QRScanActivity")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
         }
 
-        userId = (LoginFormActivity.EXTRA_MESSAGE == null)? intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE): intent.getStringExtra(StudentTimetable.ID_MESSAGE) ;
 
-        userIdforStudentTimetableDay = userId;
 
         Name = findViewById(R.id.studentName);
         Bills = findViewById(R.id.amountBills);
@@ -100,7 +104,9 @@ public class StudentProfile extends AppCompatActivity {
                 groupId = pupil_.group;
 
 
-                /*DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
+
+
+                DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
                 docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -113,7 +119,7 @@ public class StudentProfile extends AppCompatActivity {
 
                     }
 
-                });*/
+                });
 
 
                 mLinearLayout = (LinearLayout) findViewById(R.id.timetable);
@@ -130,6 +136,8 @@ public class StudentProfile extends AppCompatActivity {
                                         class_.setId(id);
                                         class_.setTextSize(20);
                                         class_.setTextColor(0xFF8E7B89);
+
+
 
                                         class_.setLayoutParams(
                                                 new LinearLayout.LayoutParams(
@@ -190,17 +198,27 @@ public class StudentProfile extends AppCompatActivity {
     }
 
     public void Enter(View view){
-        Intent intentEnter = new Intent(this, StudentTimetableDay.class);
-        intentEnter.putExtra(ID_MESSAGE, groupId);
-        startActivity(intentEnter);
+        Intent intentStudentProfileActivity = new Intent(StudentProfile.this,StudentTimetableDay.class);
+        intentStudentProfileActivity.setAction("StudentProfileActivity");
+        Bundle extras = new Bundle();
+
+        extras.putString("GROUP_ID_MESSAGE",groupId);
+        extras.putString("USER_ID_MESSAGE",userId);
+
+        intentStudentProfileActivity.putExtras(extras);
+        startActivity(intentStudentProfileActivity);
     }
 
     public void QR(View view){
-        Intent intentQR = new Intent(this, QRScan.class);
-        Intent intent = getIntent();
-        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
-        intentQR.putExtra(ID_MESSAGE, userId);
-        startActivity(intentQR);
+        Intent intentStudentProfileActivity = new Intent(StudentProfile.this,QRScan.class);
+        intentStudentProfileActivity.setAction("StudentProfileActivity");
+        Bundle extras = new Bundle();
+
+        extras.putString("GROUP_ID_MESSAGE",groupId);
+        extras.putString("USER_ID_MESSAGE",userId);
+
+        intentStudentProfileActivity.putExtras(extras);
+        startActivity(intentStudentProfileActivity);
     }
 
     public void Back(View view){

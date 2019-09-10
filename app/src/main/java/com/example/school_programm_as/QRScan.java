@@ -48,19 +48,37 @@ import github.nisrulz.qreader.QREader;
 
 public class QRScan extends AppCompatActivity {
 
+
+
     private TextView txt_result;
     private SurfaceView surfaceView;
     private QREader qrEader;
-    private String groupId;
+    private String groupId,userId;
 
     private FirebaseFirestore mFirestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        Intent intent = getIntent();
+
+        Bundle extras = intent.getExtras();
+
+        if(intent.getAction().equals("StudentProfileActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("MyQRActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrscan);
 
-        Intent intent = getIntent();
-        final String userId = intent.getStringExtra(StudentProfile.ID_MESSAGE);
 
         mFirestore = FirebaseFirestore.getInstance();
 
@@ -144,13 +162,26 @@ public class QRScan extends AppCompatActivity {
     }
 
     public void Back(View view){
-        Intent intentBack = new Intent(this, StudentProfile.class);
-        startActivity(intentBack);
+        Intent intentQRScanActivity = new Intent(getApplicationContext(), StudentProfile.class);
+        intentQRScanActivity.setAction("QRScanActivity");
+
+
+
+
+        intentQRScanActivity.putExtra("USER_ID_MESSAGE", userId);
+        intentQRScanActivity.putExtra("GROUP_ID_MESSAGE", groupId);
+
+        startActivity(intentQRScanActivity);
     }
 
-    public void Enter(View view){
-        Intent intentEnter = new Intent(this, MyQR.class);
-        startActivity(intentEnter);
+    public void Enter(View view) {
+        Intent intentQRScanActivity = new Intent(getApplicationContext(), MyQR.class);
+        intentQRScanActivity.setAction("QRScanActivity");
+
+        intentQRScanActivity.putExtra("USER_ID_MESSAGE", userId);
+        intentQRScanActivity.putExtra("GROUP_ID_MESSAGE", groupId);
+
+        startActivity(intentQRScanActivity);
     }
 
     @Override

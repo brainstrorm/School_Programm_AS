@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import java.util.Date;
 
 public class StudentTimetable extends AppCompatActivity {
 
+    int cnt = 0;
 
     public final static String ID_MESSAGE = "com.example.school_programm_AS.MESSAGE";
     public final static String ID_MESSAGE_USER = "ID_USER";
@@ -33,7 +35,7 @@ public class StudentTimetable extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
     private LinearLayout mLinearLayout;
-    private String userId,groupId;
+    private String userId,groupId,message;
 
     Date dayOfTheWeek = null;
 
@@ -49,12 +51,17 @@ public class StudentTimetable extends AppCompatActivity {
         setContentView(R.layout.activity_student_timetable);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/HelveticaNeueMed.ttf");
 
+
+
         Intent intent = getIntent();
 
-         groupId = intent.getStringExtra(StudentTimetableDay.ID_MESSAGE);
+        Bundle extras = intent.getExtras();
 
-
-         String message = intent.getStringExtra(StudentTimetableDay.EXTRA_MESSAGE);
+        if(intent.getAction().equals("StudentTimetableDayActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+            message = extras.getString("MESSAGE");
+        }
 
 
         Toast.makeText(StudentTimetable.this, groupId, Toast.LENGTH_SHORT ).show();
@@ -111,9 +118,7 @@ public class StudentTimetable extends AppCompatActivity {
 
 
 
-
                                 if (lesson.date != null) {
-
 
                                     try {
                                         dayOfTheWeek = sdfin.parse(lesson.date);
@@ -124,10 +129,12 @@ public class StudentTimetable extends AppCompatActivity {
                                     String day = sdfout.format(dayOfTheWeek);
 
                                     if (day.equals(dayOfSubj)) {
+                                        cnt++;
                                         class_.setText(lesson.name);
                                         mLinearLayout.addView(class_);
                                     }
                                 }
+
 
                                 id++;
                                 Toast.makeText(StudentTimetable.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
@@ -142,11 +149,17 @@ public class StudentTimetable extends AppCompatActivity {
     }
 
     public void Back(View view){
-        Intent intentBack = new Intent(this, StudentTimetableDay.class);
-        intentBack.putExtra(ID_MESSAGE,groupId);
-        intentBack.putExtra(ID_MESSAGE_USER,userId);
+        Intent intentStudentTimetableDayActivity = new Intent(getApplicationContext(), StudentTimetableDay.class);
+        intentStudentTimetableDayActivity.setAction("StudentTimetableActivity");
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
 
-        startActivity(intentBack);
+
+
+        intentStudentTimetableDayActivity.putExtra("USER_ID_MESSAGE", userId);
+        intentStudentTimetableDayActivity.putExtra("GROUP_ID_MESSAGE", groupId);
+
+        startActivity(intentStudentTimetableDayActivity);
     }
 
 }

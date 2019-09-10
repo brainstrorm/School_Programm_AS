@@ -17,14 +17,9 @@
             android:name=".StudentTimetableDay"></activity>
 
         <activity
-            android:name=".StudentTimetable"></activity>
-        <activity
             android:name=".ParentMainActivity"
             android:label="@string/title_activity_parent_main"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".StudentTimetable" />
-        <activity android:name=".MyQR" />
-        <activity android:name=".StudentTimetableDay" />
         <activity android:name=".QRScan" />
         <activity android:name=".StudentProfile" />
         <activity
