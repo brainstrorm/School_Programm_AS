@@ -19,24 +19,28 @@ public class LoginAuthorization extends AppCompatActivity {
 
     public void Student(View view){
         Intent intentStudent = new Intent(this, LoginFormActivity.class);
+        intentStudent.setAction("student");
         String message = "student";
         intentStudent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentStudent);
     }
     public void Teacher(View view){
         Intent intentTeacher = new Intent(this, LoginFormActivity.class);
+        intentTeacher.setAction("teacher");
         String message = "teacher";
         intentTeacher.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentTeacher);
     }
     public void Parent(View view){
         Intent intentParent = new Intent(this, LoginFormActivity.class);
+        intentParent.setAction("parent");
         String message = "parent";
         intentParent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentParent);
     }
     public void Administrator(View view){
         Intent intentAdministrator = new Intent(this, LoginFormActivity.class);
+        intentAdministrator.setAction("administrator");
         String message = "administrator";
         intentAdministrator.putExtra(EXTRA_MESSAGE, message);
         startActivity(intentAdministrator);

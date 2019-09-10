@@ -12,34 +12,45 @@
         <activity
             android:name=".ParentMainActivity"
             android:label="@string/title_activity_parent_main"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".StudentTimetable" />
-        <activity android:name=".MyQR" />
-        <activity android:name=".StudentTimetableDay" />
-        <activity android:name=".QRScan" />
-        <activity android:name=".StudentProfile" />
+        <activity android:name=".StudentTimetable"
+            android:noHistory="true"/>
+        <activity android:name=".MyQR"
+            android:noHistory="true"/>
+        <activity android:name=".StudentTimetableDay"
+            android:noHistory="true"/>
+        <activity android:name=".QRScan"
+            android:noHistory="true"/>
+        <activity android:name=".StudentProfile"
+            android:noHistory="true"/>
         <activity
             android:name=".MyQRCodeActivity"
             android:label="@string/title_activity_my_qrcode"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TodayTimetableActivity"
             android:label="@string/title_activity_today_timetable"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateTimetableActivity"
             android:label="@string/title_activity_create_timetable"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateClassActivity"
             android:label="@string/title_activity_create_class"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TeacherMainActivity"
             android:label="@string/title_activity_teacher_main"
-            android:noHistory="false"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginFormActivity" />
+        <activity android:name=".LoginFormActivity"
+            android:noHistory="true"/>
         <activity
             android:name=".RegistrationFormActivity"
             android:label="@string/title_activity_registration_form"

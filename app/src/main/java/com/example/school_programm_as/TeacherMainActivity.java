@@ -177,5 +177,11 @@ public class TeacherMainActivity extends AppCompatActivity {
 
     }
 
+    public void logOut(View view){
+        Intent logOut  = new Intent(getApplicationContext(), LoginFormActivity.class);
+        logOut.setAction("logOut");
+        startActivity(logOut);
+    }
+
 
 }
