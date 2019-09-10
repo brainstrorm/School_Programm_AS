@@ -77,7 +77,8 @@ public class CreateTimetableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_timetable);
 
         Intent intent = getIntent();
-        String day = intent.getStringExtra(CreateClassActivity.DAY_MESSAGE);
+        Bundle extras = intent.getExtras();
+        String day = extras.getString("DAY_MESSAGE");
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         gestureDetector = initGestureDetector();
 
@@ -104,8 +105,6 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
     public void plusLesson(View view){
         EditText lesson = new EditText(getApplicationContext());
-        //Integer id = lesson.generateViewId();
-        //Toast.makeText(CreateTimetableActivity.this, " " + lesson.getId(), Toast.LENGTH_SHORT).show();
         lesson.setId(countID);
         Toast.makeText(CreateTimetableActivity.this, " " + lesson.getId(), Toast.LENGTH_SHORT).show();
         lesson.setBackgroundResource(R.drawable.lesson_field);
@@ -147,7 +146,8 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
     public void saveTimetable(View view){
         Intent intent = getIntent();
-        String groupId = intent.getStringExtra(CreateClassActivity.ID_MESSAGE);
+        Bundle extras = intent.getExtras();
+        String groupId = extras.getString("GROUP_ID_MESSAGE");
         for(int i = 0; i < lessons.size(); i++){
             EditText lessonET = (EditText) findViewById(lessons.get(i));
             Map<String, Object> lesson_ = new HashMap<>();
@@ -173,9 +173,10 @@ public class CreateTimetableActivity extends AppCompatActivity {
         }
         Intent intentBackToCreateClassActivity = new Intent(this, CreateClassActivity.class);
         intentBackToCreateClassActivity.setAction("CreateTimetableActivity");
-        intentBackToCreateClassActivity.putExtra(USER_ID_MESSAGE, intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE));
-        Toast.makeText(getApplicationContext(), intentBackToCreateClassActivity.getStringExtra(CreateTimetableActivity.USER_ID_MESSAGE).toString(), Toast.LENGTH_SHORT).show();
-        intentBackToCreateClassActivity.putExtra(GROUP_ID_MESSAGE, intent.getStringExtra(CreateClassActivity.ID_MESSAGE));
+        Bundle extras_ = new Bundle();
+        extras_.putString("USER_ID_MESSAGE", intent.getExtras().getString("USER_ID_MESSAGE"));
+        extras_.putString("GROUP_ID_MESSAGE", intent.getExtras().getString("GROUP_ID_MESSAGE"));
+        intentBackToCreateClassActivity.putExtras(extras_);
         startActivity(intentBackToCreateClassActivity);
     }
 
@@ -183,9 +184,10 @@ public class CreateTimetableActivity extends AppCompatActivity {
         Intent intentBackToCreateClassActivity = new Intent(this, CreateClassActivity.class);
         intentBackToCreateClassActivity.setAction("CreateTimetableActivity");
         Intent intent = getIntent();
-        intentBackToCreateClassActivity.putExtra(USER_ID_MESSAGE, intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE));
-        Toast.makeText(getApplicationContext(), intentBackToCreateClassActivity.getStringExtra(CreateTimetableActivity.USER_ID_MESSAGE).toString(), Toast.LENGTH_SHORT).show();
-        intentBackToCreateClassActivity.putExtra(GROUP_ID_MESSAGE, intent.getStringExtra(CreateClassActivity.ID_MESSAGE));
+        Bundle extras = intent.getExtras();
+        extras.putString("USER_ID_MESSAGE", intent.getExtras().getString("USER_ID_MESSAGE"));
+        extras.putString("GROUP_ID_MESSAGE", intent.getExtras().getString("GROUP_ID_MESSAGE"));
+        intentBackToCreateClassActivity.putExtras(extras);
         startActivity(intentBackToCreateClassActivity);
     }
 
