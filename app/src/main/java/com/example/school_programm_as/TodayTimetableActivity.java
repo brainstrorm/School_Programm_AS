@@ -97,9 +97,11 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                         Intent intentTodayTimetableActivity = new Intent(getApplicationContext(), StudentsListActivity.class);
                                         Bundle extras = new Bundle();
                                         String message = document.getId();
+                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                                         extras.putString("SUBJECT_MESSAGE", lesson.name);
                                         extras.putString("USER_ID_MESSAGE", userId);
                                         extras.putString("GROUP_ID_MESSAGE", groupId);
+                                        extras.putString("LESSON_ID_MESSAGE", message);
                                         intentTodayTimetableActivity.putExtras(extras);
                                         startActivity(intentTodayTimetableActivity);
                                     }
