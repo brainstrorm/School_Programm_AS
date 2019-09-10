@@ -59,7 +59,7 @@ public class TeacherMainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if(intent.getAction().equals("CreateClassActivity")){
-            userId = intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE);
+            userId = intent.getStringExtra("USER_ID_MESSAGE");
         }
         if(intent.getAction().equals("LoginFormActivity")){
             userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
@@ -152,7 +152,8 @@ public class TeacherMainActivity extends AppCompatActivity {
                         documentReference.update("teacherFullName", surname + " " + name, "teacherId", teacherId);
                         Intent intentCreateClass = new Intent(TeacherMainActivity.this, CreateClassActivity.class);
                         intentCreateClass.setAction("TeacherMainActivity");
-                        intentCreateClass.putExtra(EXTRA_MESSAGE, groupId);
+                        Bundle extras = new Bundle();
+                        extras.putString("GROUP_ID_MESSAGE", groupId);
                         Intent intent = getIntent();
                         if(intent.getAction().equals("CreateClassActivity")){
                             userId = intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE);
@@ -160,7 +161,8 @@ public class TeacherMainActivity extends AppCompatActivity {
                         if(intent.getAction().equals("LoginFormActivity")){
                             userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
                         }
-                        intentCreateClass.putExtra(USER_ID_MESSAGE, userId);
+                        extras.putString("USER_ID_MESSAGE", userId);
+                        intentCreateClass.putExtras(extras);
                         Toast.makeText(TeacherMainActivity.this, groupId, Toast.LENGTH_SHORT).show();
                         startActivity(intentCreateClass);
                     }
@@ -173,6 +175,12 @@ public class TeacherMainActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    public void logOut(View view){
+        Intent logOut  = new Intent(getApplicationContext(), LoginFormActivity.class);
+        logOut.setAction("logOut");
+        startActivity(logOut);
     }
 
 

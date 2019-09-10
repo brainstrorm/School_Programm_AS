@@ -39,6 +39,7 @@ public class RegistrationFormActivity extends AppCompatActivity{
     private EditText ETName;
     private EditText ETSurname;
     private EditText ETPathronimic;
+    private EditText ETRepeatPassword;
     private String role;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class RegistrationFormActivity extends AppCompatActivity{
         ETName = (EditText)findViewById(R.id.editText);
         ETSurname = (EditText)findViewById(R.id.editText2);
         ETPathronimic = (EditText)findViewById(R.id.editText3);
+        ETRepeatPassword = (EditText) findViewById(R.id.editText6);
         if(message.equals("student")) {
            role = "pupil";
         }
@@ -95,6 +97,7 @@ public class RegistrationFormActivity extends AppCompatActivity{
         final String Pathronimic = ETPathronimic.getText().toString().trim();
         final String Email = ETEmail.getText().toString().trim();
         final String Password = ETPassword.getText().toString().trim();
+        final String RepeatPassword = ETRepeatPassword.getText().toString().trim();
         mAuth.createUserWithEmailAndPassword(Email, Password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -113,22 +116,24 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                 user.put("group", "");
                                 user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                 user.put("parentId", "");
-                                mFirestore.collection("users")
-                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                //Log.w(TAG, "Error adding document", e);
-                                                Toast.makeText(RegistrationFormActivity.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
+                                if(RepeatPassword.equals(Password)) {
+                                    mFirestore.collection("users")
+                                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    //Log.w(TAG, "Error adding document", e);
+                                                    Toast.makeText(RegistrationFormActivity.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
 
-                                            }
-                                        });
+                                                }
+                                            });
+                                }
                             }else if(role.equals("teacher")){
                                 user.put("name", Name);
                                 user.put("surname", Surname);
