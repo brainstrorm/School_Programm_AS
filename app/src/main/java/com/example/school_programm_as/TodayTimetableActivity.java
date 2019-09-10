@@ -44,9 +44,13 @@ public class TodayTimetableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_today_timetable);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         //groupId = intent.getStringExtra(TeacherMainActivity.GROUP_ID_MESSAGE);
+        if(intent.getAction().equals("StudentsListActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
         if(intent.getAction().equals("TeacherMainActivity")) {
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
@@ -76,7 +80,7 @@ public class TodayTimetableActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for(final QueryDocumentSnapshot document: task.getResult()){
-                                Lesson lesson = document.toObject(Lesson.class);
+                                final Lesson lesson = document.toObject(Lesson.class);
                                 final Button lesson_ = new Button(getApplicationContext());
                                 lesson_.setId(id);
                                 lesson_.setBackgroundResource(R.drawable.class_field);
@@ -87,15 +91,19 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                         )
                                 );
                                 lesson_.setText(lesson.name);
-                                /*lesson_.setOnClickListener(new View.OnClickListener() {
+                                lesson_.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Intent intentTodayTimetableActivity = new Intent(TeacherMainActivity.this, CreateClassActivity.class);
+                                        Intent intentTodayTimetableActivity = new Intent(getApplicationContext(), StudentsListActivity.class);
+                                        Bundle extras = new Bundle();
                                         String message = document.getId();
-                                        intentTodayTimetableActivity.putExtra(ID_MESSAGE, message);
+                                        extras.putString("SUBJECT_MESSAGE", lesson.name);
+                                        extras.putString("USER_ID_MESSAGE", userId);
+                                        extras.putString("GROUP_ID_MESSAGE", groupId);
+                                        intentTodayTimetableActivity.putExtras(extras);
                                         startActivity(intentTodayTimetableActivity);
                                     }
-                                });*/
+                                });
                                 mLinearLayout.addView(lesson_);
                             }
                         }
@@ -109,6 +117,10 @@ public class TodayTimetableActivity extends AppCompatActivity {
         Intent intentQRCode = new Intent(TodayTimetableActivity.this, MyQRCodeActivity.class);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+        if(intent.getAction().equals("StudentsListActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
         if(intent.getAction().equals("TeacherMainActivity")) {
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
@@ -126,6 +138,10 @@ public class TodayTimetableActivity extends AppCompatActivity {
         intentTeacherMainActivity.setAction("TodayTimetableActivity");
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+        if(intent.getAction().equals("StudentsListActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
         if(intent.getAction().equals("TeacherMainActivity")) {
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
