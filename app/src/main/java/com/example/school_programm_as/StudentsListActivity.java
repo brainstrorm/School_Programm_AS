@@ -17,21 +17,32 @@ import com.google.firebase.firestore.QuerySnapshot;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class StudentsListActivity extends AppCompatActivity {
 
     private TextView TVDay;
+    private LinearLayout studentsList1;
+    private LinearLayout studentsList2;
     private FirebaseFirestore mFirestore;
+    private LinearLayout LLStates;
+    private int buttonId = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students_list);
 
         TVDay = (TextView) findViewById(R.id.textView);
+        studentsList1 = (LinearLayout) findViewById(R.id.studentsList1);
+        studentsList2 = (LinearLayout) findViewById(R.id.studentsList2);
+        LLStates = (LinearLayout) findViewById(R.id.states);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -56,10 +67,97 @@ public class StudentsListActivity extends AppCompatActivity {
                                         if(task.isSuccessful()){
                                             for(final QueryDocumentSnapshot document : task.getResult()) {
                                                 final Pupil pupil = document.toObject(Pupil.class);
-                                                DocumentReference docReflesson = mFirestore.collection("lessons").document(lesson.getId());
-                                                docReflesson.update(pupil.userId, "present");
-                                                Toast.makeText(getApplicationContext(), pupil.userId, Toast.LENGTH_SHORT).show();
-                                                //lesson.getDocumentReference(lesson.getId()).update("hK955CPOlsUra1e15cTgNEPvat22", "present");
+                                                final Button btn_pupil = new Button(getApplicationContext());
+                                                btn_pupil.setId(buttonId);
+                                                btn_pupil.setPadding(0,0,50,0);
+                                                btn_pupil.setText(pupil.name + " " + pupil.pathronimic + " " + pupil.surname);
+                                                switch (lesson.get(pupil.userId).toString()){
+                                                    case("present"):
+                                                        btn_pupil.setBackgroundResource(R.drawable.btn_pupil_present);
+                                                        break;
+                                                    case ("notpresent"):
+                                                        btn_pupil.setBackgroundResource(R.drawable.btn_pupil_notpresent);
+                                                        break;
+                                                    case ("latecomer"):
+                                                        btn_pupil.setBackgroundResource(R.drawable.btn_pupil_latecomer);
+                                                        break;
+                                                }
+                                                btn_pupil.setLayoutParams(
+                                                        new LinearLayout.LayoutParams(
+                                                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                                        )
+                                                );
+                                                btn_pupil.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        LLStates.setBackgroundResource(R.drawable.states);
+                                                        Button btn_notpresent = new Button(getApplicationContext());
+                                                        Button btn_latecomer = new Button(getApplicationContext());
+                                                        final Button btn_present = new Button(getApplicationContext());
+                                                        btn_notpresent.setId(buttonId);
+                                                        btn_latecomer.setId(buttonId+1);
+                                                        btn_present.setId(buttonId+2);
+                                                        btn_notpresent.setBackgroundResource(R.drawable.notpresent_state);
+                                                        btn_latecomer.setBackgroundResource(R.drawable.latecomer_state);
+                                                        btn_present.setBackgroundResource(R.drawable.present_state);
+                                                        btn_notpresent.setLayoutParams(new LinearLayout.LayoutParams(
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                                        ));
+                                                        btn_latecomer.setLayoutParams(new LinearLayout.LayoutParams(
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                                        ));
+                                                        btn_present.setLayoutParams(new LinearLayout.LayoutParams(
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                                        ));
+                                                        btn_notpresent.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View view) {
+                                                                DocumentReference docReflesson = mFirestore.collection("lessons").document(lesson.getId());
+                                                                docReflesson.update(pupil.userId, "notpresent");
+                                                                btn_pupil.setBackgroundResource(R.drawable.btn_pupil_notpresent);
+                                                                LLStates.removeAllViews();
+                                                                LLStates.setBackgroundColor(0000);
+                                                                //Toast.makeText(getApplicationContext(), pupil.userId, Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                                        btn_latecomer.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View view) {
+                                                                DocumentReference docReflesson = mFirestore.collection("lessons").document(lesson.getId());
+                                                                docReflesson.update(pupil.userId, "latecomer");
+                                                                btn_pupil.setBackgroundResource(R.drawable.btn_pupil_latecomer);
+                                                                LLStates.removeAllViews();
+                                                                LLStates.setBackgroundColor(0000);
+                                                                //Toast.makeText(getApplicationContext(), pupil.userId, Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                                        btn_present.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View view) {
+                                                                DocumentReference docReflesson = mFirestore.collection("lessons").document(lesson.getId());
+                                                                docReflesson.update(pupil.userId, "present");
+                                                                btn_pupil.setBackgroundResource(R.drawable.btn_pupil_present);
+                                                                LLStates.removeAllViews();
+                                                                LLStates.setBackgroundColor(0000);
+                                                                //Toast.makeText(getApplicationContext(), pupil.userId, Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                                        LLStates.addView(btn_notpresent);
+                                                        LLStates.addView(btn_latecomer);
+                                                        LLStates.addView(btn_present);
+
+                                                    }
+                                                });
+                                                if(buttonId % 2 == 1) {
+                                                    studentsList1.addView(btn_pupil);
+                                                }else{
+                                                    studentsList2.addView(btn_pupil);
+                                                }
+                                                buttonId++;
                                             }
                                         }else{
 

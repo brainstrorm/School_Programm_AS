@@ -122,6 +122,8 @@ public class QRScan extends AppCompatActivity {
                                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                         Intent intent = getIntent();
                                         final String userId = intent.getStringExtra(StudentProfile.ID_MESSAGE);
+                                        mFirestore.collection("users").document(userId)
+                                                .update("group", groupId);
                                         for(final QueryDocumentSnapshot document: queryDocumentSnapshots){
                                             DocumentReference docRefLesson = mFirestore.collection("lessons").document(document.getId());
                                             if(docRefLesson != null) {
