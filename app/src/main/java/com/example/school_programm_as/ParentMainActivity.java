@@ -30,6 +30,7 @@ public class ParentMainActivity extends AppCompatActivity {
     private TextView TVstudentName;
     private LinearLayout children;
     private int btnId = 1;
+    private String userId;
     public final static String ID_MESSAGE = "ID";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,13 @@ public class ParentMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_parent_main);
 
         Intent intent = getIntent();
-        String userId = "";
         if(intent.getAction().equals("LoginFormActivity")) {
             userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
         }
         if(intent.getAction().equals("ParentQRScanActivity")){
+            userId = intent.getStringExtra("PARENT_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("StudentProfile")){
             userId = intent.getStringExtra("PARENT_ID_MESSAGE");
         }
 
@@ -49,7 +52,7 @@ public class ParentMainActivity extends AppCompatActivity {
         children = (LinearLayout) findViewById(R.id.timetable);
 
         mFirestore = FirebaseFirestore.getInstance();
-        final DocumentReference docRefParent = mFirestore.collection("users").document(userId);
+        DocumentReference docRefParent = mFirestore.collection("users").document(userId);
         docRefParent.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -81,8 +84,10 @@ public class ParentMainActivity extends AppCompatActivity {
                                     public void onClick(View view) {
                                         Intent intentStudentProfileActivity = new Intent(ParentMainActivity.this, StudentProfile.class);
                                         intentStudentProfileActivity.setAction("ParentMainActivity");
-                                        String message = pupil.userId;
-                                        intentStudentProfileActivity.putExtra(ID_MESSAGE, message);
+                                        Bundle extras = new Bundle();
+                                        extras.putString("PUPIL_ID_MESSAGE", pupil.userId);
+                                        extras.putString("PARENT_ID_MESSAGE", userId);
+                                        intentStudentProfileActivity.putExtras(extras);
                                         startActivity(intentStudentProfileActivity);
                                     }
                                 });
@@ -102,7 +107,15 @@ public class ParentMainActivity extends AppCompatActivity {
         Intent ParentQRScanActivity = new Intent(getApplicationContext(), ParentQRScanActivity.class);
         ParentQRScanActivity.setAction("ParentMainActivity");
         Intent intent = getIntent();
-        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        if(intent.getAction().equals("LoginFormActivity")) {
+            userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        }
+        if(intent.getAction().equals("ParentQRScanActivity")){
+            userId = intent.getStringExtra("PARENT_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("StudentProfile")){
+            userId = intent.getStringExtra("PARENT_ID_MESSAGE");
+        }
         ParentQRScanActivity.putExtra("PARENT_ID_MESSAGE", userId);
         startActivity(ParentQRScanActivity);
     }

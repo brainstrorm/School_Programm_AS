@@ -121,7 +121,7 @@ public class ParentQRScanActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Intent intentParentMainActivity = new Intent(getApplicationContext(), ParentMainActivity.class);
         intentParentMainActivity.setAction("ParentQRScanActivity");
-        intentParentMainActivity.putExtra("PARENT_ID_MESSAGE", intent.getStringExtra("PARENT_ID_MESSAGE"));
+        intentParentMainActivity.putExtra("PARENT_ID_MESSAGE", intent.getExtras().getString("PARENT_ID_MESSAGE"));
         startActivity(intentParentMainActivity);
     }
 

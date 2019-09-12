@@ -45,7 +45,7 @@ public class StudentProfile extends AppCompatActivity {
     private String userIdforStudentTimetableDay;
     private String groupIdforStudentTimetableDay;
 
-
+    private Button logout_back;
 
     SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
     SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
@@ -62,6 +62,8 @@ public class StudentProfile extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
+        logout_back = (Button) findViewById(R.id.button19);
+
         if(intent.getAction().equals("StudentTimetableDayActivity")){
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
@@ -73,6 +75,11 @@ public class StudentProfile extends AppCompatActivity {
         if(intent.getAction().equals("QRScanActivity")){
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("ParentMainActivity")){
+            logout_back.setBackgroundResource(R.drawable.back_arrow);
+            userId = intent.getExtras().getString("PUPIL_ID_MESSAGE");
+
         }
 
 
@@ -223,8 +230,16 @@ public class StudentProfile extends AppCompatActivity {
 
     public void Back(View view){
         //need Logout -> error with Docref
-        Intent intentBack = new Intent(StudentProfile.this, LoginFormActivity.class);
-        startActivity(intentBack);
+        Intent intent = getIntent();
+        if(intent.getAction().equals("ParentMainActivity")){
+            Intent intentParentMainActivity = new Intent(getApplicationContext(), ParentMainActivity.class);
+            intentParentMainActivity.setAction("StudentProfile");
+            intentParentMainActivity.putExtra("PARENT_ID_MESSAGE", intent.getExtras().getString("PARENT_ID_MESSAGE"));
+            startActivity(intentParentMainActivity);
+        }else {
+            Intent intentBack = new Intent(StudentProfile.this, LoginFormActivity.class);
+            startActivity(intentBack);
+        }
     }
 
 }
