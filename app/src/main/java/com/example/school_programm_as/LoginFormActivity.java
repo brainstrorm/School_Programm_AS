@@ -122,6 +122,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                             }else if(message.equals("parent")){
 
                                 Intent intentParentMainActivity = new Intent(LoginFormActivity.this, ParentMainActivity.class);
+                                intentParentMainActivity.setAction("LoginFormActivity");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 String userUid = user.getUid();
                                 Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();

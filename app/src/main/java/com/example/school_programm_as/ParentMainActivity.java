@@ -37,7 +37,13 @@ public class ParentMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_parent_main);
 
         Intent intent = getIntent();
-        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        String userId = "";
+        if(intent.getAction().equals("LoginFormActivity")) {
+            userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        }
+        if(intent.getAction().equals("ParentQRScanActivity")){
+            userId = intent.getStringExtra("PARENT_ID_MESSAGE");
+        }
 
         TVstudentName = (TextView) findViewById(R.id.studentName);
         children = (LinearLayout) findViewById(R.id.timetable);
@@ -90,6 +96,15 @@ public class ParentMainActivity extends AppCompatActivity {
                 });
 
 
+    }
+
+    public void QRScan(View view){
+        Intent ParentQRScanActivity = new Intent(getApplicationContext(), ParentQRScanActivity.class);
+        ParentQRScanActivity.setAction("ParentMainActivity");
+        Intent intent = getIntent();
+        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+        ParentQRScanActivity.putExtra("PARENT_ID_MESSAGE", userId);
+        startActivity(ParentQRScanActivity);
     }
 
 }

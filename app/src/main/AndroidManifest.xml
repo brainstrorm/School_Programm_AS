@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ParentQRScanActivity"
+            android:label="@string/title_activity_parent_qrscan"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".StudentsListActivity"
             android:label="@string/title_activity_students_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ParentMainActivity"
             android:label="@string/title_activity_parent_main"
@@ -85,8 +89,8 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode" />
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
