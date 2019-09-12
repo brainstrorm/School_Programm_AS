@@ -79,7 +79,7 @@ public class MyQR extends AppCompatActivity {
             e.printStackTrace();
         }*/
     }
-    
+
 
     public void Back(View view){
         Intent intentMyQRActivity = new Intent(getApplicationContext(), QRScan.class);
