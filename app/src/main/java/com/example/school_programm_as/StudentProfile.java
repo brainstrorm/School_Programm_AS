@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,6 +32,8 @@ import java.util.Date;
 public class StudentProfile extends AppCompatActivity {
 
     public final static String ID_MESSAGE = "com.example.school_programm_AS.MESSAGE";
+    public final static String ID_MESSAGE_USER = "USER";
+
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
@@ -38,29 +41,41 @@ public class StudentProfile extends AppCompatActivity {
     private int bills;
     private TextView Name,Bills,Place,Teacher;
     private LinearLayout mLinearLayout;
+    String userId,groupId;
     private String userIdforStudentTimetableDay;
+    private String groupIdforStudentTimetableDay;
 
 
 
-    Date c = Calendar.getInstance().getTime();
-    SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-    String formattedDate = df.format(c);
+    SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
+    SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
+    Date d = new Date();
+    String today = sdfout.format(d);
+    Date dayOfTheWeek;
+
     private int id = 1;
-    private String groupId;
-    private String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
 
         Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+
+        if(intent.getAction().equals("StudentTimetableDayActivity")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
         if(intent.getAction().equals("LoginFormActivity")){
+
             userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
         }
-        if(intent.getAction().equals("ParentMainActivity")){
-            userId = intent.getStringExtra(ParentMainActivity.ID_MESSAGE);
+        if(intent.getAction().equals("QRScanActivity")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
         }
-        userIdforStudentTimetableDay = userId;
+
+
 
         Name = findViewById(R.id.studentName);
         Bills = findViewById(R.id.amountBills);
@@ -87,26 +102,24 @@ public class StudentProfile extends AppCompatActivity {
 
 
                 groupId = pupil_.group;
-                Intent intentTimetableMainActivity = new Intent(StudentProfile.this, StudentTimetable.class);
-                intentTimetableMainActivity.putExtra(ID_MESSAGE, groupId);
 
 
-                //groupId = groupId.replaceAll("\\s",""); //потом можно убрать (был пробел)
 
-                /*DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
+
+                DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
                 docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Group group_ = documentSnapshot.toObject(Group.class);
 
-                        place ="класс: " + group_.name;
-                        teacher = "преподаватель: " + group_.teacherFullName;
+                         place ="класс: " + group_.name;
+                         teacher = "преподаватель: " + group_.teacherFullName;
                          Teacher.setText(teacher);
                          Place.setText(place);
 
                     }
 
-                });*/
+                });
 
 
                 mLinearLayout = (LinearLayout) findViewById(R.id.timetable);
@@ -124,6 +137,8 @@ public class StudentProfile extends AppCompatActivity {
                                         class_.setTextSize(20);
                                         class_.setTextColor(0xFF8E7B89);
 
+
+
                                         class_.setLayoutParams(
                                                 new LinearLayout.LayoutParams(
                                                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -131,9 +146,38 @@ public class StudentProfile extends AppCompatActivity {
                                                 )
                                         );
 
-                                        if (formattedDate.equals(lesson.date)) {
-                                            class_.setText(lesson.name);
+
+
+
+                                        if (lesson.date != null) {
+
+                                            try {
+                                                dayOfTheWeek = sdfin.parse(lesson.date);
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+
+
+                                            if (today.equals(sdfout.format(dayOfTheWeek))) {
+
+
+                                                class_.setText(lesson.name);
+
+                                                if (document.get(userId).equals("present")) {
+
+                                                    class_.setBackground(getDrawable(R.drawable.group_76));
+                                                }
+
+                                                if (document.get(userId).equals("notpresent")) {
+
+                                                    class_.setBackground(getDrawable(R.drawable.group_14));
+
+                                                }
+                                            }
                                         }
+
+
+
 
                                         mLinearLayout = findViewById(R.id.timetable);
                                         mLinearLayout.addView(class_);
@@ -154,22 +198,33 @@ public class StudentProfile extends AppCompatActivity {
     }
 
     public void Enter(View view){
-        Intent intentEnter = new Intent(this, StudentTimetableDay.class);
-        intentEnter.putExtra(ID_MESSAGE, userIdforStudentTimetableDay);
-        startActivity(intentEnter);
+        Intent intentStudentProfileActivity = new Intent(StudentProfile.this,StudentTimetableDay.class);
+        intentStudentProfileActivity.setAction("StudentProfileActivity");
+        Bundle extras = new Bundle();
+
+        extras.putString("GROUP_ID_MESSAGE",groupId);
+        extras.putString("USER_ID_MESSAGE",userId);
+
+        intentStudentProfileActivity.putExtras(extras);
+        startActivity(intentStudentProfileActivity);
     }
 
     public void QR(View view){
-        Intent intentQR = new Intent(this, QRScan.class);
-        Intent intent = getIntent();
-        String userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
-        intentQR.putExtra(ID_MESSAGE, userId);
-        startActivity(intentQR);
+        Intent intentStudentProfileActivity = new Intent(StudentProfile.this,QRScan.class);
+        intentStudentProfileActivity.setAction("StudentProfileActivity");
+        Bundle extras = new Bundle();
+
+        extras.putString("GROUP_ID_MESSAGE",groupId);
+        extras.putString("USER_ID_MESSAGE",userId);
+
+        intentStudentProfileActivity.putExtras(extras);
+        startActivity(intentStudentProfileActivity);
     }
 
     public void Back(View view){
         //need Logout -> error with Docref
-        Intent intentBack = new Intent(this, LoginFormActivity.class);
+        Intent intentBack = new Intent(StudentProfile.this, LoginFormActivity.class);
         startActivity(intentBack);
     }
+
 }

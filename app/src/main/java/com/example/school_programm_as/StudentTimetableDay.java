@@ -11,54 +11,94 @@ public class StudentTimetableDay extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
     public final static String ID_MESSAGE = "ID";
-    private String groupId;
+    public final static String ID_MESSAGE_USER = "ID";
+    private String groupId,userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_timetable_day);
 
+
+
         Intent intent = getIntent();
-        groupId = intent.getStringExtra(ID_MESSAGE);
-    }
+
+        Bundle extras = intent.getExtras();
+
+        if(intent.getAction().equals("StudentProfileActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("StudentTimetableActivity")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+
+           }
 
 
     public void Back(View view){
-        Intent intentBack = new Intent(this, StudentProfile.class);
-        startActivity(intentBack);
+        Intent intentStudentProfileActivity = new Intent(getApplicationContext(), StudentProfile.class);
+        intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
+
+
+        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
+        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
+
+        startActivity(intentStudentProfileActivity);
     }
 
 
     public void Mondey(View view){
 
-        Intent intentTimetable = new Intent(this, StudentTimetable.class);
-        String message = "Понедельник";
-        intentTimetable.putExtra(EXTRA_MESSAGE, message);
-        intentTimetable.putExtra(ID_MESSAGE, groupId);
-        startActivity(intentTimetable);
+
+        Intent intentStudentProfileActivity = new Intent(getApplicationContext(), StudentTimetable.class);
+        intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
+        Intent intent = getIntent();
+        String message = "понедельник";
+        Bundle extras = intent.getExtras();
+
+        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
+        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
+        intentStudentProfileActivity.putExtra("MESSAGE", message);
+
+        startActivity(intentStudentProfileActivity);
 
     }
 
 
     public void Tuesday(View view){
 
-        Intent intentTimetable = new Intent(this, StudentTimetable.class);
-        String message = "Вторник";
-        intentTimetable.putExtra(EXTRA_MESSAGE, message);
-        intentTimetable.putExtra(ID_MESSAGE, groupId);
-        startActivity(intentTimetable);
 
+        Intent intentStudentProfileActivity = new Intent(getApplicationContext(), StudentTimetable.class);
+        intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
+        Intent intent = getIntent();
+        String message = "вторник";
+        Bundle extras = intent.getExtras();
+
+        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
+        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
+        intentStudentProfileActivity.putExtra("MESSAGE", message);
+
+        startActivity(intentStudentProfileActivity);
 
     }
 
 
     public void Wednesday(View view){
 
-        Intent intentTimetable = new Intent(this, StudentTimetable.class);
-        String message = "Среду";
 
-        intentTimetable.putExtra(EXTRA_MESSAGE, message);
-        intentTimetable.putExtra(ID_MESSAGE, groupId);
-        startActivity(intentTimetable);
+        Intent intentStudentProfileActivity = new Intent(getApplicationContext(), StudentTimetable.class);
+        intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
+        Intent intent = getIntent();
+        String message = "среда";
+        Bundle extras = intent.getExtras();
+
+
+        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
+        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
+        intentStudentProfileActivity.putExtra("MESSAGE", message);
+
+        startActivity(intentStudentProfileActivity);
 
 
     }
@@ -66,12 +106,19 @@ public class StudentTimetableDay extends AppCompatActivity {
 
     public void Thursday(View view){
 
-        Intent intentTimetable = new Intent(this, StudentTimetable.class);
-        String message = "Четверг";
 
-        intentTimetable.putExtra(EXTRA_MESSAGE, message);
-        intentTimetable.putExtra(ID_MESSAGE, groupId);
-        startActivity(intentTimetable);
+        Intent intentStudentProfileActivity = new Intent(getApplicationContext(), StudentTimetable.class);
+        intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
+        Intent intent = getIntent();
+        String message = "четверг";
+        Bundle extras = intent.getExtras();
+
+
+        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
+        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
+        intentStudentProfileActivity.putExtra("MESSAGE", message);
+
+        startActivity(intentStudentProfileActivity);
 
 
     }
@@ -79,13 +126,19 @@ public class StudentTimetableDay extends AppCompatActivity {
 
     public void Friday(View view){
 
-        Intent intentTimetable = new Intent(this, StudentTimetable.class);
-        String message = "Пятницу";
 
-        intentTimetable.putExtra(EXTRA_MESSAGE, message);
-        intentTimetable.putExtra(ID_MESSAGE, groupId);
-        startActivity(intentTimetable);
+        Intent intentStudentProfileActivity = new Intent(getApplicationContext(), StudentTimetable.class);
+        intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
+        Intent intent = getIntent();
+        String message = "пятница";
+        Bundle extras = intent.getExtras();
 
+
+        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
+        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
+        intentStudentProfileActivity.putExtra("MESSAGE", message);
+
+        startActivity(intentStudentProfileActivity);
     }
 
 

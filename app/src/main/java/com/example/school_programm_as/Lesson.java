@@ -1,7 +1,6 @@
 package com.example.school_programm_as;
 
 public class Lesson {
-    public String studentId;
     public String date;
     public String group;
     public String name;
@@ -11,16 +10,12 @@ public class Lesson {
     }
 
     public Lesson(String teacherId, String date, String group, String name, int number) {
-        this.studentId = teacherId;
         this.date = date;
         this.group = group;
         this.name = name;
         this.number = number;
     }
 
-    public String getTeacherId() {
-        return studentId;
-    }
 
     public String getName() {
         return name;
