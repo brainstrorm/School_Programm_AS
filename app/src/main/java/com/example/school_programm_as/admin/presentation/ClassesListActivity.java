@@ -24,6 +24,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ClassesListActivity extends AppCompatActivity {
 
@@ -62,6 +65,12 @@ public class ClassesListActivity extends AppCompatActivity {
                                 groups.add(group);
                             }
                             groupAdapter = new GroupAdapter(groups);
+                            Collections.sort(groups, new Comparator<Group>() {
+                                @Override
+                                public int compare(Group group, Group t1) {
+                                    return group.name.compareTo(t1.name);
+                                }
+                            });
                             recyclerView.setAdapter(groupAdapter);
                         }
                     }
