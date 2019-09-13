@@ -230,22 +230,18 @@ public class StudentProfile extends AppCompatActivity {
         startActivity(intentStudentProfileActivity);
     }
 
-    public void Back(View view){
+    public void Back(View view) {
         //need Logout -> error with Docref
         Intent intent = getIntent();
-        if(intent.getAction().equals("ParentMainActivity")){
+        if (intent.getAction().equals("ParentMainActivity")) {
             Intent intentParentMainActivity = new Intent(getApplicationContext(), ParentMainActivity.class);
             intentParentMainActivity.setAction("StudentProfile");
             intentParentMainActivity.putExtra("PARENT_ID_MESSAGE", intent.getExtras().getString("PARENT_ID_MESSAGE"));
             startActivity(intentParentMainActivity);
-        }else {
+        } else {
             Intent intentBack = new Intent(StudentProfile.this, LoginFormActivity.class);
             startActivity(intentBack);
         }
-    public void logOut(View view) {
-        Intent logOut = new Intent(getApplicationContext(), LoginFormActivity.class);
-        logOut.setAction("logOut");
-        startActivity(logOut);
     }
 
 }
