@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -75,6 +76,7 @@ public class StudentProfile extends AppCompatActivity {
         Teacher = findViewById(R.id.studentTeacher);
         Place = findViewById(R.id.studentClass);
         TodayBills = findViewById(R.id.amountToday);
+
 
 
         mFirestore = FirebaseFirestore.getInstance();

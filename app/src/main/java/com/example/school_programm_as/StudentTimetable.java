@@ -47,7 +47,6 @@ public class StudentTimetable extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_timetable);
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/HelveticaNeueMed.ttf");
 
         Text = findViewById(R.id.NotSubjects);
 
@@ -86,10 +85,6 @@ public class StudentTimetable extends AppCompatActivity {
 
 
         day.setText(message);
-
-
-        day.setTypeface(type);
-        timetable.setTypeface(type);
 
          mLinearLayout = (LinearLayout) findViewById(R.id.timetableday);
 
