@@ -28,6 +28,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
+        android:textSize="22dp"
         android:background="@drawable/icons8_back_96"
         android:onClick="Back"
         app:layout_constraintBottom_toBottomOf="@+id/imageView7"
@@ -64,9 +65,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/helveticaneuemed"
         android:gravity="center"
         android:text=""
-        android:fontFamily="@font/helveticaneuemed"
         android:textColor="@color/colorPurple"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -74,7 +75,7 @@
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintVertical_bias="0.076" />
 
     <LinearLayout
         android:id="@+id/timetableday"
@@ -84,24 +85,29 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:orientation="vertical"
         android:fontFamily="@font/helveticaneuemed"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.405"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTimetable"
-        app:layout_constraintVertical_bias="0.211">
+        app:layout_constraintVertical_bias="0.102">
 
-        <TextView
-            android:id="@+id/NotSubjects"
-            style="@style/style_for_timetable"
-            android:layout_width="189dp"
-            android:fontFamily="@font/helveticaneuemed"
-            android:layout_height="53dp"
-            android:textSize="22dp"
-            android:layout_marginBottom="224dp"
-            android:text="TextView" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/NotSubjects"
+        style="@style/style_for_timetable"
+        android:layout_width="189dp"
+        android:layout_height="53dp"
+        android:fontFamily="@font/helveticaneuemed"
+        android:text=""
+        android:textSize="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.777" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
