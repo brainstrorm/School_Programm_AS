@@ -10,6 +10,7 @@
         android:id="@+id/imageView7"
         android:layout_width="432dp"
         android:layout_height="90dp"
+        android:fontFamily="@font/helveticaneuemed"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +46,7 @@
         android:layout_marginEnd="8dp"
         android:gravity="center"
         android:text=""
+        android:fontFamily="@font/helveticaneuemed"
         android:textColor="@color/colorWhite"
         android:textSize="22dp"
 
@@ -64,6 +66,7 @@
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text=""
+        android:fontFamily="@font/helveticaneuemed"
         android:textColor="@color/colorPurple"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -82,6 +85,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
+        android:fontFamily="@font/helveticaneuemed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -91,8 +95,11 @@
 
         <TextView
             android:id="@+id/NotSubjects"
+            style="@style/style_for_timetable"
             android:layout_width="189dp"
+            android:fontFamily="@font/helveticaneuemed"
             android:layout_height="53dp"
+            android:textSize="22dp"
             android:layout_marginBottom="224dp"
             android:text="TextView" />
     </LinearLayout>

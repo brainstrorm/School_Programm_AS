@@ -22,11 +22,12 @@
         android:layout_width="250dp"
         android:layout_height="28dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="68dp"
         app:layout_constraintBottom_toTopOf="@+id/info"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39"
+        app:layout_constraintVertical_bias="0.438"
         app:srcCompat="@drawable/qr_scan" />
 
     <Button
@@ -85,8 +86,8 @@
 
         <SurfaceView
             android:id="@+id/camera_view"
-            android:layout_width="match_parent"
-            android:layout_height="508dp" />
+            android:layout_width="422dp"
+            android:layout_height="match_parent" />
         <View
             android:layout_gravity="center"
             android:layout_width="200dp"

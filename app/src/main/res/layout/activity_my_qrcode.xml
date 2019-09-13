@@ -65,7 +65,8 @@
         android:layout_height="576dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
-        tools:layout_editor_absoluteX="-3dp">
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-2dp">
 
         <ImageView
             android:id="@+id/imageView10"
@@ -73,10 +74,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView11"
-            app:layout_constraintVertical_bias="0.891"
+            app:layout_constraintVertical_bias="0.777"
             app:srcCompat="@drawable/present_your_code_to_pupils" />
 
         <ImageView
@@ -84,10 +84,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="256dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.067"
             app:srcCompat="@drawable/my_qr_code" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
