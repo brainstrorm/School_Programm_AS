@@ -74,16 +74,24 @@ public class AdminActivity extends AppCompatActivity {
     class TeacherViewHolder extends RecyclerView.ViewHolder {
 
         private View currentView;
+        private User user;
 
         TeacherViewHolder(View view) {
             super(view);
             currentView = view;
         }
 
-        void bind(User user) {
+        void bind(final User user) {
             //Bind view
             TextView textView = currentView.findViewById(R.id.TeacherName);
+            this.user = user;
             textView.setText(String.format("%s %s", user.name, user.surname));
+            currentView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(ClassesListActivity.provideIntent(AdminActivity.this, user));
+                }
+            });
         }
     }
 
