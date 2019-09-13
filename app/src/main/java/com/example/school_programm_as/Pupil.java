@@ -2,6 +2,7 @@ package com.example.school_programm_as;
 
 public class Pupil extends User {
     public int bill;
+    public int todayBill;
     public String group;
     public String parentId;
     public Pupil(){}

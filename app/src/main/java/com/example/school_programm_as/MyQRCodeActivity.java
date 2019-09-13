@@ -30,7 +30,6 @@ import android.widget.Toast;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
-import androidmads.library.qrgenearator.QRGSaver;
 
 public class MyQRCodeActivity extends AppCompatActivity {
 

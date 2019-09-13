@@ -9,43 +9,56 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appBarLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="105dp"
-        android:layout_marginTop="0dp"
+        android:layout_width="441dp"
+        android:layout_height="82dp"
         android:background="@drawable/rectangle_7"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="432dp"
+            android:layout_height="86dp"
             android:background="@drawable/rectangle_7"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <ImageButton
-                android:id="@+id/imageButton3"
+            <Button
+                android:id="@+id/button13"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="back"
+                android:layout_width="43dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="100dp"
+                android:background="@drawable/icons8_back_96"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintHorizontal_bias="0.11"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.16000003" />
+
+            <ImageButton
+                android:id="@+id/imageButton5"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="52dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="QRcode"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.846"
+                app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.513"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:srcCompat="@drawable/back_arrow" />
+                app:layout_constraintVertical_bias="0.407"
+                app:srcCompat="@drawable/qr_code" />
 
             <TextView
                 android:id="@+id/textViewDay"
@@ -63,36 +76,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/imageButton5"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="52dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:onClick="QRcode"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.977"
-                app:layout_constraintStart_toStartOf="@+id/imageButton3"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.489"
-                app:srcCompat="@drawable/qr_code" />
-
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewDay"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                tools:layout_editor_absoluteX="183dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,6 +109,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.282"
             app:srcCompat="@drawable/lessons_for_today" />
 
         <LinearLayout
@@ -126,21 +118,14 @@
             android:id="@+id/linearLayout"
             android:layout_width="303dp"
             android:layout_height="329dp"
+            android:layout_marginBottom="208dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.148"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.218">
+            app:layout_constraintHorizontal_bias="0.277"
+            app:layout_constraintStart_toStartOf="parent">
 
 
-            <TextView
-                android:id="@+id/NotSubjects"
-                android:layout_width="189dp"
-                android:layout_height="53dp"
-                android:layout_marginBottom="96dp"
-                android:text="TextView" />
         </LinearLayout>
 
 
