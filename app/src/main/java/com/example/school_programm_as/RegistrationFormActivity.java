@@ -1,30 +1,23 @@
 package com.example.school_programm_as;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -113,6 +106,7 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                 user.put("email", Email);
                                 user.put("password", Password);
                                 user.put("bill", 0);
+                                user.put("todayBill", 0);
                                 user.put("group", "");
                                 user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
                                 user.put("parentId", "");

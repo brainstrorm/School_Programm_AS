@@ -1,18 +1,13 @@
 package com.example.school_programm_as;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 public class RegisterActivity extends AppCompatActivity {

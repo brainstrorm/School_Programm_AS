@@ -37,9 +37,9 @@ public class StudentProfile extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
-    private String name,place,teacher,surname;
-    private int bills;
-    private TextView Name,Bills,Place,Teacher;
+    private String name, place, teacher, surname;
+    private int bills, todayBills;
+    private TextView Name, Bills, Place, Teacher, TodayBills;
     private LinearLayout mLinearLayout;
     String userId,groupId;
     private String userIdforStudentTimetableDay;
@@ -54,6 +54,7 @@ public class StudentProfile extends AppCompatActivity {
     Date dayOfTheWeek;
 
     private int id = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +89,7 @@ public class StudentProfile extends AppCompatActivity {
         Bills = findViewById(R.id.amountBills);
         Teacher = findViewById(R.id.studentTeacher);
         Place = findViewById(R.id.studentClass);
-
-
+        TodayBills = findViewById(R.id.amountToday);
 
 
 
@@ -102,10 +102,12 @@ public class StudentProfile extends AppCompatActivity {
                 name = pupil_.name;
                 surname = pupil_.surname;
                 bills = pupil_.bill;
+                todayBills = pupil_.todayBill;
 
                 Name.setText(surname+" "+name);
                 Bills.setText(Integer.toString(bills));
                 Place.setText(place);
+                TodayBills.setText("Сегодня заработал: " + todayBills);
 
 
                 groupId = pupil_.group;
@@ -240,6 +242,10 @@ public class StudentProfile extends AppCompatActivity {
             Intent intentBack = new Intent(StudentProfile.this, LoginFormActivity.class);
             startActivity(intentBack);
         }
+    public void logOut(View view) {
+        Intent logOut = new Intent(getApplicationContext(), LoginFormActivity.class);
+        logOut.setAction("logOut");
+        startActivity(logOut);
     }
 
 }

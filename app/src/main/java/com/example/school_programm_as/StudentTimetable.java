@@ -6,17 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -27,7 +23,6 @@ import java.util.Date;
 
 public class StudentTimetable extends AppCompatActivity {
 
-    int cnt = 0;
 
     public final static String ID_MESSAGE = "com.example.school_programm_AS.MESSAGE";
     public final static String ID_MESSAGE_USER = "ID_USER";
@@ -36,6 +31,8 @@ public class StudentTimetable extends AppCompatActivity {
     private FirebaseFirestore mFirestore;
     private LinearLayout mLinearLayout;
     private String userId,groupId,message;
+    private TextView Text;
+
 
     Date dayOfTheWeek = null;
 
@@ -45,12 +42,13 @@ public class StudentTimetable extends AppCompatActivity {
 
     private String dayOfSubj;
     private int id = 1;
+    private int cnt = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_timetable);
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/HelveticaNeueMed.ttf");
 
+        Text = findViewById(R.id.NotSubjects);
 
 
         Intent intent = getIntent();
@@ -88,62 +86,66 @@ public class StudentTimetable extends AppCompatActivity {
 
         day.setText(message);
 
-
-        day.setTypeface(type);
-        timetable.setTypeface(type);
-
          mLinearLayout = (LinearLayout) findViewById(R.id.timetableday);
 
 
         mFirestore = FirebaseFirestore.getInstance();
-        mFirestore.collection("lessons").whereEqualTo("group", groupId)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for (final QueryDocumentSnapshot document : task.getResult()){
-                                final Lesson lesson = document.toObject(Lesson.class);
-                                final TextView class_ = new TextView(getApplicationContext());
-                                class_.setId(id);
-                                class_.setTextSize(20);
-                                class_.setTextColor(0xFF8E7B89);
 
-                                class_.setLayoutParams(
-                                        new LinearLayout.LayoutParams(
-                                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                                LinearLayout.LayoutParams.WRAP_CONTENT
-                                        )
-                                );
+        if (!groupId.equals("")) {
+            mFirestore.collection("lessons").whereEqualTo("group", groupId)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (final QueryDocumentSnapshot document : task.getResult()) {
+                                    final Lesson lesson = document.toObject(Lesson.class);
+                                    final TextView class_ = new TextView(getApplicationContext());
+                                    class_.setId(id);
+                                    class_.setTextSize(20);
+                                    class_.setTextColor(0xFF8E7B89);
+
+                                    class_.setLayoutParams(
+                                            new LinearLayout.LayoutParams(
+                                                    LinearLayout.LayoutParams.MATCH_PARENT,
+                                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                                            )
+                                    );
 
 
+                                    if (lesson.date != null) {
+                                        try {
+                                            dayOfTheWeek = sdfin.parse(lesson.date);
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
 
-                                if (lesson.date != null) {
+                                        String day = sdfout.format(dayOfTheWeek);
 
-                                    try {
-                                        dayOfTheWeek = sdfin.parse(lesson.date);
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
+                                        if (day.equals(dayOfSubj)) {
+                                            class_.setText(lesson.name);
+                                            mLinearLayout.addView(class_);
+                                            cnt++;
+                                        }
                                     }
 
-                                    String day = sdfout.format(dayOfTheWeek);
 
-                                    if (day.equals(dayOfSubj)) {
-                                        cnt++;
-                                        class_.setText(lesson.name);
-                                        mLinearLayout.addView(class_);
-                                    }
+                                    id++;
+                                    Toast.makeText(StudentTimetable.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT).show();
                                 }
-
-
-                                id++;
-                                Toast.makeText(StudentTimetable.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
+                            } else {
+                                Toast.makeText(StudentTimetable.this, "Информация о группах не получена", Toast.LENGTH_SHORT).show();
                             }
-                        }else{
-                            Toast.makeText(StudentTimetable.this, "Информация о группах не получена", Toast.LENGTH_SHORT ).show();
+
+                            if (cnt == 0) {
+                                Text.setText("Занятий нет");
+                            }
                         }
-                    }
-                });
+                    });
+        }
+        else {
+            Text.setText("Занятий нет");
+        }
 
 
     }
