@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.Image;
@@ -55,6 +58,8 @@ public class QRScan extends AppCompatActivity {
     private QREader qrEader;
     private String groupId,userId;
 
+    private static final int REQUEST_CAMERA_PERMISSIONS = 101;
+
     private FirebaseFirestore mFirestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +87,35 @@ public class QRScan extends AppCompatActivity {
 
         mFirestore = FirebaseFirestore.getInstance();
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            //Permission doesn't granted
+            ActivityCompat.requestPermissions(this,
+                    new String[] {Manifest.permission.CAMERA},
+                    REQUEST_CAMERA_PERMISSIONS);
+        } else {
+            //Permissions've been granted already
+            onCreateDexter();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA_PERMISSIONS) {
+            if (permissions.length > 0 && grantResults[0] != PackageManager.PERMISSION_DENIED) {
+                onCreateDexter();
+            }
+        }
+    }
+
+    private void onCreateDexter() {
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.CAMERA)
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
                         setupCamera();
-                        
+
                     }
 
                     @Override
@@ -101,8 +128,6 @@ public class QRScan extends AppCompatActivity {
 
                     }
                 }).check();
-
-
     }
 
     private void setupCamera() {
