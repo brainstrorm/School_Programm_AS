@@ -61,6 +61,7 @@ public class ClassesListActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (final QueryDocumentSnapshot doc : task.getResult()) {
                                 Group group = doc.toObject(Group.class);
+                                group.groupId = doc.getId();
                                 Log.d("AdminActivity", group.name);
                                 groups.add(group);
                             }
@@ -80,16 +81,21 @@ public class ClassesListActivity extends AppCompatActivity {
     class GroupViewHolder extends RecyclerView.ViewHolder {
 
         private View currentView;
-        private Group group;
 
         GroupViewHolder(View view) {
             super(view);
             currentView = view;
         }
 
-        void bind(Group group) {
-            this.group = group;
+        void bind(final Group group) {
             //TODO():Fix to new layout
+            currentView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(ListOfPupilsActivity.provideIntent(ClassesListActivity.this,
+                            group.groupId));
+                }
+            });
             TextView textView = currentView.findViewById(R.id.TeacherName);
             textView.setText(group.name);
         }
