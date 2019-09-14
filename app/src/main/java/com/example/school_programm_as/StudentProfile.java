@@ -46,6 +46,7 @@ public class StudentProfile extends AppCompatActivity {
     private String groupIdforStudentTimetableDay;
 
     private Button logout_back;
+    private Button QRCode;
 
     SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
     SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
@@ -64,6 +65,7 @@ public class StudentProfile extends AppCompatActivity {
         Bundle extras = intent.getExtras();
 
         logout_back = (Button) findViewById(R.id.button19);
+        QRCode = (Button) findViewById(R.id.button18);
 
         if(intent.getAction().equals("StudentTimetableDayActivity")){
             userId = extras.getString("USER_ID_MESSAGE");
@@ -80,7 +82,7 @@ public class StudentProfile extends AppCompatActivity {
         if(intent.getAction().equals("ParentMainActivity")){
             logout_back.setBackgroundResource(R.drawable.back_arrow);
             userId = intent.getExtras().getString("PUPIL_ID_MESSAGE");
-
+            QRCode.setVisibility(View.INVISIBLE);
         }
 
 
