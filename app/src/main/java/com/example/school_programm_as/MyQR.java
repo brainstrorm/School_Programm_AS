@@ -81,7 +81,7 @@ public class MyQR extends AppCompatActivity {
     }
 
 
-    public void Back(View view){
+    public void back(View view){
         Intent intentMyQRActivity = new Intent(getApplicationContext(), QRScan.class);
         intentMyQRActivity.setAction("MyQRActivity");
 

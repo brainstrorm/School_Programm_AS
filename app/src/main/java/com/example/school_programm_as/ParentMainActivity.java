@@ -118,5 +118,10 @@ public class ParentMainActivity extends AppCompatActivity {
         ParentQRScanActivity.putExtra("PARENT_ID_MESSAGE", userId);
         startActivity(ParentQRScanActivity);
     }
+    public void LogOut(View view){
+        Intent logOut = new Intent(getApplicationContext(), LoginFormActivity.class);
+        logOut.setAction("logOut");
+        startActivity(logOut);
+    }
 
 }

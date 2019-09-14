@@ -40,7 +40,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/icons8_back_96"
-                android:onClick="Back"
+                android:onClick="back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imageView9"
