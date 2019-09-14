@@ -42,6 +42,7 @@ public class ParentMainActivity extends AppCompatActivity {
         }
         if(intent.getAction().equals("ParentQRScanActivity")){
             userId = intent.getStringExtra("PARENT_ID_MESSAGE");
+            Toast.makeText(getApplicationContext(), userId, Toast.LENGTH_SHORT).show();
         }
         if(intent.getAction().equals("StudentProfile")){
             userId = intent.getStringExtra("PARENT_ID_MESSAGE");

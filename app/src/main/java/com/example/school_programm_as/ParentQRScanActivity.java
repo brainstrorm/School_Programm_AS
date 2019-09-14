@@ -100,7 +100,8 @@ public class ParentQRScanActivity extends AppCompatActivity {
                         pupilId = data;
                         Intent intent = getIntent();
                         final String parentId = intent.getStringExtra("PARENT_ID_MESSAGE");
-                        mFirestore.collection("userId").document(pupilId)
+                        Toast.makeText(getApplicationContext(), parentId, Toast.LENGTH_SHORT).show();
+                        mFirestore.collection("users").document(pupilId)
                                 .update("parentId", parentId);
                         qrEader.stop();
                         Intent intentParentMainActivity = new Intent(getApplicationContext(), ParentMainActivity.class);
