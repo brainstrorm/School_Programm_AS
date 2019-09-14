@@ -102,7 +102,6 @@ public class StudentTimetable extends AppCompatActivity {
                                     final Lesson lesson = document.toObject(Lesson.class);
                                     final TextView class_ = new TextView(getApplicationContext());
                                     class_.setId(id);
-                                    class_.setTextSize(20);
                                     class_.setTextColor(0xFF8E7B89);
 
                                     class_.setLayoutParams(
@@ -123,6 +122,10 @@ public class StudentTimetable extends AppCompatActivity {
                                         String day = sdfout.format(dayOfTheWeek);
 
                                         if (day.equals(dayOfSubj)) {
+
+                                            class_.setTextSize(30);
+                                            class_.setGravity(1);
+
                                             class_.setText(lesson.name);
                                             mLinearLayout.addView(class_);
                                             cnt++;

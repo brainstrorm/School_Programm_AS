@@ -90,7 +90,7 @@ public class StudentTimetableDay extends AppCompatActivity {
         Intent intentStudentProfileActivity = new Intent(getApplicationContext(), StudentTimetable.class);
         intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
         Intent intent = getIntent();
-        String message = "среда";
+        String message = "среду";
         Bundle extras = intent.getExtras();
 
 
@@ -130,7 +130,7 @@ public class StudentTimetableDay extends AppCompatActivity {
         Intent intentStudentProfileActivity = new Intent(getApplicationContext(), StudentTimetable.class);
         intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
         Intent intent = getIntent();
-        String message = "пятница";
+        String message = "пятницу";
         Bundle extras = intent.getExtras();
 
 

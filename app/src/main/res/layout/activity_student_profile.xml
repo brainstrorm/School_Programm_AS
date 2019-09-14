@@ -164,7 +164,6 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/button20"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView13"
         app:layout_constraintVertical_bias="0.0"
@@ -205,21 +204,22 @@
 
     <LinearLayout
         android:id="@+id/timetable"
-        android:fontFamily="@font/helveticaneuemed"
         style="@style/mystyle"
         android:layout_width="246dp"
         android:layout_height="180dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:drawableRight="@drawable/icons8_qr_code_64"
+        android:fontFamily="@font/helveticaneuemed"
         android:gravity="left"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.261"
+        app:layout_constraintHorizontal_bias="0.268"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView19"
-        app:layout_constraintVertical_bias="0.227"></LinearLayout>
+        app:layout_constraintVertical_bias="0.201"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
