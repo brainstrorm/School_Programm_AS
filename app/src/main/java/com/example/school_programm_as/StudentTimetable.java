@@ -126,6 +126,7 @@ public class StudentTimetable extends AppCompatActivity {
                                             class_.setTextSize(30);
                                             class_.setGravity(1);
 
+
                                             class_.setText(lesson.name);
                                             mLinearLayout.addView(class_);
                                             cnt++;
