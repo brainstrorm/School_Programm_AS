@@ -10,7 +10,7 @@
         android:id="@+id/button11"
         android:layout_width="410dp"
         android:layout_height="69dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/wednesday"
         android:onClick="Wednesday"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +24,7 @@
         android:id="@+id/button9"
         android:layout_width="410dp"
         android:layout_height="69dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/mondey"
         android:onClick="Mondey"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button7"
@@ -52,6 +52,7 @@
         android:id="@+id/button10"
         android:layout_width="410dp"
         android:layout_height="69dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/friday"
         android:onClick="Friday"
@@ -60,13 +61,13 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button12"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button12"
         android:layout_width="410dp"
         android:layout_height="69dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/thursday"
         android:onClick="Thursday"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -74,7 +75,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button11"
-        app:layout_constraintVertical_bias="0.013" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <ImageView

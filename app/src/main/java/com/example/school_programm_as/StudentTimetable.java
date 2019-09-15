@@ -123,8 +123,9 @@ public class StudentTimetable extends AppCompatActivity {
 
                                         if (day.equals(dayOfSubj)) {
 
-                                            class_.setTextSize(30);
+                                            class_.setTextSize(25);
                                             class_.setGravity(1);
+
 
                                             class_.setText(lesson.name);
                                             mLinearLayout.addView(class_);
