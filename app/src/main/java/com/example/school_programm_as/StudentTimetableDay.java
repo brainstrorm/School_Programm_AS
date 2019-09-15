@@ -39,11 +39,15 @@ public class StudentTimetableDay extends AppCompatActivity {
     public void Back(View view){
         Intent intentStudentProfileActivity = new Intent(getApplicationContext(), StudentProfile.class);
         intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
+        Intent intent = getIntent();
 
-
-        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
-        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
-
+        Bundle extras_ = intent.getExtras();
+        Bundle extras = new Bundle();
+        extras.putString("USER_ID_MESSAGE", extras_.getString("USER_ID_MESSAGE"));
+        extras.putString("GROUP_ID_MESSAGE", extras_.getString("GROUP_ID_MESSAGE"));
+        if(getIntent().getExtras().getString("PARENT_ID_MESSAGE") != null)
+            extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
+        intentStudentProfileActivity.putExtras(extras);
         startActivity(intentStudentProfileActivity);
     }
 
@@ -55,12 +59,14 @@ public class StudentTimetableDay extends AppCompatActivity {
         intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
         Intent intent = getIntent();
         String message = "понедельник";
-        Bundle extras = intent.getExtras();
+        Bundle extras = new Bundle();
 
-        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
-        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
-        intentStudentProfileActivity.putExtra("MESSAGE", message);
-
+        extras.putString("USER_ID_MESSAGE", userId);
+        extras.putString("GROUP_ID_MESSAGE", groupId);
+        extras.putString("MESSAGE", message);
+        if(getIntent().getExtras().getString("PARENT_ID_MESSAGE") != null)
+            extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
+        intentStudentProfileActivity.putExtras(extras);
         startActivity(intentStudentProfileActivity);
 
     }
@@ -73,12 +79,15 @@ public class StudentTimetableDay extends AppCompatActivity {
         intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
         Intent intent = getIntent();
         String message = "вторник";
-        Bundle extras = intent.getExtras();
+        Bundle extras = new Bundle();
 
-        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
-        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
-        intentStudentProfileActivity.putExtra("MESSAGE", message);
+        extras.putString("USER_ID_MESSAGE", userId);
+        extras.putString("GROUP_ID_MESSAGE", groupId);
+        if(getIntent().getExtras().getString("PARENT_ID_MESSAGE") != null)
+            extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
+        extras.putString("MESSAGE", message);
 
+        intentStudentProfileActivity.putExtras(extras);
         startActivity(intentStudentProfileActivity);
 
     }
@@ -91,13 +100,15 @@ public class StudentTimetableDay extends AppCompatActivity {
         intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
         Intent intent = getIntent();
         String message = "среда";
-        Bundle extras = intent.getExtras();
+        Bundle extras = new Bundle();
 
+        extras.putString("USER_ID_MESSAGE", userId);
+        extras.putString("GROUP_ID_MESSAGE", groupId);
+        extras.putString("MESSAGE", message);
+        if(getIntent().getExtras().getString("PARENT_ID_MESSAGE") != null)
+            extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
 
-        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
-        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
-        intentStudentProfileActivity.putExtra("MESSAGE", message);
-
+        intentStudentProfileActivity.putExtras(extras);
         startActivity(intentStudentProfileActivity);
 
 
@@ -111,13 +122,15 @@ public class StudentTimetableDay extends AppCompatActivity {
         intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
         Intent intent = getIntent();
         String message = "четверг";
-        Bundle extras = intent.getExtras();
+        Bundle extras = new Bundle();
 
+        extras.putString("USER_ID_MESSAGE", userId);
+        extras.putString("GROUP_ID_MESSAGE", groupId);
+        extras.putString("MESSAGE", message);
+        if(getIntent().getExtras().getString("PARENT_ID_MESSAGE") != null)
+            extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
 
-        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
-        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
-        intentStudentProfileActivity.putExtra("MESSAGE", message);
-
+        intentStudentProfileActivity.putExtras(extras);
         startActivity(intentStudentProfileActivity);
 
 
@@ -131,13 +144,15 @@ public class StudentTimetableDay extends AppCompatActivity {
         intentStudentProfileActivity.setAction("StudentTimetableDayActivity");
         Intent intent = getIntent();
         String message = "пятница";
-        Bundle extras = intent.getExtras();
+        Bundle extras = new Bundle();
 
+        extras.putString("USER_ID_MESSAGE", userId);
+        extras.putString("GROUP_ID_MESSAGE", groupId);
+        extras.putString("MESSAGE", message);
+        if(getIntent().getExtras().getString("PARENT_ID_MESSAGE") != null)
+            extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
 
-        intentStudentProfileActivity.putExtra("USER_ID_MESSAGE", userId);
-        intentStudentProfileActivity.putExtra("GROUP_ID_MESSAGE", groupId);
-        intentStudentProfileActivity.putExtra("MESSAGE", message);
-
+        intentStudentProfileActivity.putExtras(extras);
         startActivity(intentStudentProfileActivity);
     }
 

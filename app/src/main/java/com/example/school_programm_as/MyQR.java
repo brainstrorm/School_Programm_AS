@@ -84,10 +84,10 @@ public class MyQR extends AppCompatActivity {
     public void back(View view){
         Intent intentMyQRActivity = new Intent(getApplicationContext(), QRScan.class);
         intentMyQRActivity.setAction("MyQRActivity");
-
-        intentMyQRActivity.putExtra("USER_ID_MESSAGE", userId);
-        intentMyQRActivity.putExtra("GROUP_ID_MESSAGE", groupId);
-
+        Bundle extras = new Bundle();
+        extras.putString("USER_ID_MESSAGE", userId);
+        extras.putString("GROUP_ID_MESSAGE", groupId);
+        intentMyQRActivity.putExtras(extras);
         startActivity(intentMyQRActivity);
     }
 }
