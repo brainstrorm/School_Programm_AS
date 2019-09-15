@@ -115,7 +115,7 @@
             android:layout_height="412dp"
             android:layout_marginTop="140dp"
             android:orientation="vertical"
-            android:divider="@drawable/empty_tall_divider"
+            android:divider="@drawable/empty_tall_divider_2"
             android:showDividers="middle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
