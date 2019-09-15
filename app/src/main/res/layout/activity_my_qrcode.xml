@@ -7,9 +7,36 @@
     android:layout_height="match_parent"
     tools:context=".MyQRCodeActivity">
 
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/present_your_code_to_pupils" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+
+        app:layout_constraintBottom_toTopOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
+        app:layout_constraintVertical_bias="0.491"
+        app:srcCompat="@drawable/my_qr_code" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appBarLayout2"
-        android:layout_width="432dp"
+        android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@drawable/rectangle_7"
         android:theme="@style/AppTheme.AppBarOverlay"
@@ -19,11 +46,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/toolbar"
-            android:layout_width="432dp"
+            android:layout_width="match_parent"
             android:layout_height="90dp"
             android:background="@drawable/rectangle_7"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            tools:layout_editor_absoluteX="17dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
 
             <Button
@@ -33,7 +63,7 @@
                 android:layout_height="42dp"
                 android:layout_marginTop="17dp"
                 android:background="@drawable/icons8_back_96"
-                android:onClick="Back"
+                android:onClick="back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView8"
                 app:layout_constraintHorizontal_bias="0.17"
@@ -55,42 +85,6 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="414dp"
-        android:layout_height="576dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-2dp">
-
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView11"
-            app:layout_constraintVertical_bias="0.777"
-            app:srcCompat="@drawable/present_your_code_to_pupils" />
-
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="256dp"
-            android:gravity="center_horizontal|center_vertical"
-            app:layout_constraintBottom_toTopOf="@+id/imageView10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.067"
-            app:srcCompat="@drawable/my_qr_code" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
