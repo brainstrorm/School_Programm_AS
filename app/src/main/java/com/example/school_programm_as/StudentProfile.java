@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
@@ -151,6 +152,9 @@ public class StudentProfile extends AppCompatActivity {
                                         class_.setId(id);
                                         class_.setTextSize(20);
                                         class_.setTextColor(0xFF8E7B89);
+                                        Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
+                                        class_.setTypeface(font);
+                                        class_.setTypeface(null, Typeface.BOLD);
 
 
 

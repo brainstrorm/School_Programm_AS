@@ -103,6 +103,8 @@ public class StudentTimetable extends AppCompatActivity {
                                     final TextView class_ = new TextView(getApplicationContext());
                                     class_.setId(id);
                                     class_.setTextColor(0xFF8E7B89);
+                                    Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
+                                    class_.setTypeface(font);
 
                                     class_.setLayoutParams(
                                             new LinearLayout.LayoutParams(

@@ -10,7 +10,7 @@
     <Button
         android:id="@+id/button6"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="85dp"
+        android:layout_width="90dp"
         android:layout_height="17dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
@@ -19,18 +19,15 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="@drawable/forget_pass"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintHorizontal_bias="0.849"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.61" />
-
 
     <Button
         android:id="@+id/btn_enter"
@@ -151,8 +148,8 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="182dp"
-        android:layout_height="21dp"
+        android:layout_width="181dp"
+        android:layout_height="20dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -164,8 +161,8 @@
         android:background="@drawable/enter_email_pass"
         app:layout_constraintBottom_toTopOf="@+id/btn_sign_in_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintHorizontal_bias="0.214"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.922" />
+        app:layout_constraintVertical_bias="0.936" />
 </androidx.constraintlayout.widget.ConstraintLayout>
