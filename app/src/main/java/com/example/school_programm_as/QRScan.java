@@ -191,23 +191,20 @@ public class QRScan extends AppCompatActivity {
     public void Back(View view){
         Intent intentQRScanActivity = new Intent(getApplicationContext(), StudentProfile.class);
         intentQRScanActivity.setAction("QRScanActivity");
-
-
-
-
-        intentQRScanActivity.putExtra("USER_ID_MESSAGE", userId);
-        intentQRScanActivity.putExtra("GROUP_ID_MESSAGE", groupId);
-
+        Bundle extras = new Bundle();
+        extras.putString("USER_ID_MESSAGE", userId);
+        extras.putString("GROUP_ID_MESSAGE", groupId);
+        intentQRScanActivity.putExtras(extras);
         startActivity(intentQRScanActivity);
     }
 
     public void Enter(View view) {
         Intent intentQRScanActivity = new Intent(getApplicationContext(), MyQR.class);
         intentQRScanActivity.setAction("QRScanActivity");
-
-        intentQRScanActivity.putExtra("USER_ID_MESSAGE", userId);
-        intentQRScanActivity.putExtra("GROUP_ID_MESSAGE", groupId);
-
+        Bundle extras = new Bundle();
+        extras.putString("USER_ID_MESSAGE", userId);
+        extras.putString("GROUP_ID_MESSAGE", groupId);
+        intentQRScanActivity.putExtras(extras);
         startActivity(intentQRScanActivity);
     }
 

@@ -158,13 +158,13 @@ public class StudentTimetable extends AppCompatActivity {
         Intent intentStudentTimetableDayActivity = new Intent(getApplicationContext(), StudentTimetableDay.class);
         intentStudentTimetableDayActivity.setAction("StudentTimetableActivity");
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
+        Bundle extras = new Bundle();
 
-
-
-        intentStudentTimetableDayActivity.putExtra("USER_ID_MESSAGE", userId);
-        intentStudentTimetableDayActivity.putExtra("GROUP_ID_MESSAGE", groupId);
-
+        extras.putString("USER_ID_MESSAGE", userId);
+        extras.putString("GROUP_ID_MESSAGE", groupId);
+        if(getIntent().getExtras().getString("PARENT_ID_MESSAGE") != null)
+            extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
+        intentStudentTimetableDayActivity.putExtras(extras);
         startActivity(intentStudentTimetableDayActivity);
     }
 

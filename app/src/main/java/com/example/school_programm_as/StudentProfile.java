@@ -70,6 +70,10 @@ public class StudentProfile extends AppCompatActivity {
         if(intent.getAction().equals("StudentTimetableDayActivity")){
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
+            if(intent.getExtras().getString("PARENT_ID_MESSAGE")!= null){
+                logout_back.setBackgroundResource(R.drawable.back_arrow);
+                QRCode.setVisibility(View.INVISIBLE);
+            }
         }
         if(intent.getAction().equals("LoginFormActivity")){
 
@@ -215,7 +219,9 @@ public class StudentProfile extends AppCompatActivity {
 
         extras.putString("GROUP_ID_MESSAGE",groupId);
         extras.putString("USER_ID_MESSAGE",userId);
-
+        if(getIntent().getAction().equals("ParentMainActivity")) {
+            extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
+        }
         intentStudentProfileActivity.putExtras(extras);
         startActivity(intentStudentProfileActivity);
     }
@@ -227,7 +233,6 @@ public class StudentProfile extends AppCompatActivity {
 
         extras.putString("GROUP_ID_MESSAGE",groupId);
         extras.putString("USER_ID_MESSAGE",userId);
-
         intentStudentProfileActivity.putExtras(extras);
         startActivity(intentStudentProfileActivity);
     }
@@ -235,13 +240,14 @@ public class StudentProfile extends AppCompatActivity {
     public void Back(View view) {
         //need Logout -> error with Docref
         Intent intent = getIntent();
-        if (intent.getAction().equals("ParentMainActivity")) {
+        if (intent.getAction().equals("ParentMainActivity") || intent.getExtras().getString("PARENT_ID_MESSAGE") != null) {
             Intent intentParentMainActivity = new Intent(getApplicationContext(), ParentMainActivity.class);
             intentParentMainActivity.setAction("StudentProfile");
             intentParentMainActivity.putExtra("PARENT_ID_MESSAGE", intent.getExtras().getString("PARENT_ID_MESSAGE"));
             startActivity(intentParentMainActivity);
         } else {
             Intent intentBack = new Intent(StudentProfile.this, LoginFormActivity.class);
+            intentBack.setAction("logOut");
             startActivity(intentBack);
         }
     }
