@@ -204,7 +204,6 @@
 
     <LinearLayout
         android:id="@+id/timetable"
-        style="@style/mystyle"
         android:layout_width="409dp"
         android:layout_height="244dp"
         android:layout_marginStart="8dp"
@@ -212,7 +211,7 @@
         android:divider="@drawable/empty_tall_divider"
         android:drawableRight="@drawable/icons8_qr_code_64"
         android:fontFamily="@font/helveticaneuemed"
-        android:gravity="left"
+        android:gravity="center"
         android:orientation="vertical"
         android:showDividers="middle"
         android:textStyle="bold"
