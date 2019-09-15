@@ -160,7 +160,7 @@ public class StudentProfile extends AppCompatActivity {
 
                                         class_.setLayoutParams(
                                                 new LinearLayout.LayoutParams(
-                                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                                        LinearLayout.LayoutParams.WRAP_CONTENT,
                                                         LinearLayout.LayoutParams.WRAP_CONTENT
                                                 )
                                         );
@@ -190,6 +190,11 @@ public class StudentProfile extends AppCompatActivity {
                                                 if (document.get(userId).equals("notpresent")) {
 
                                                     class_.setBackground(getDrawable(R.drawable.group_14));
+
+                                                }
+                                                if (document.get(userId).equals("latecomer")) {
+
+                                                    class_.setBackground(getDrawable(R.drawable.student_profile_latecomer));
 
                                                 }
                                             }

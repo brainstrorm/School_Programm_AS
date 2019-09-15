@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/imageView13"
-        android:layout_width="432dp"
+        android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@drawable/rectangle_for_student_3"
         app:layout_constraintBottom_toBottomOf="parent"
