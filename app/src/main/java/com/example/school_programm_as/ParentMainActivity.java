@@ -78,6 +78,8 @@ public class ParentMainActivity extends AppCompatActivity {
                                                 LinearLayout.LayoutParams.WRAP_CONTENT
                                         )
                                 );
+                                btn_pupil.setTextSize(25);
+                                btn_pupil.setTextColor(0xFFFFFFFF);
                                 btn_pupil.setText(pupil.name + " " + pupil.surname);
                                 btn_pupil.setOnClickListener(new View.OnClickListener() {
                                     @Override
