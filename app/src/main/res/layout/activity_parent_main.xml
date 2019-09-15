@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.022"
         app:layout_constraintStart_toStartOf="@+id/imageView13"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.17000002" />
 
 
     <Button
@@ -50,7 +50,7 @@
         app:layout_constraintHorizontal_bias="0.604"
         app:layout_constraintStart_toEndOf="@+id/studentName"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        app:layout_constraintVertical_bias="0.42000002" />
 
     <ImageView
         android:id="@+id/imageView12"
@@ -69,8 +69,6 @@
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:divider="@drawable/empty_tall_divider"
-        android:fontFamily="@font/helveticaneuemed"
-        android:textStyle="bold"
         android:orientation="vertical"
         android:showDividers="middle"
         android:textColor="@color/colorWhite"

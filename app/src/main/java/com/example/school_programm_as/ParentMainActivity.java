@@ -1,6 +1,7 @@
 package com.example.school_programm_as;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +31,7 @@ public class ParentMainActivity extends AppCompatActivity {
     private LinearLayout children;
     private int btnId = 1;
     private String userId;
+
     public final static String ID_MESSAGE = "ID";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,12 @@ public class ParentMainActivity extends AppCompatActivity {
                                 );
                                 btn_pupil.setTextSize(25);
                                 btn_pupil.setTextColor(0xFFFFFFFF);
+                                Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
+                                btn_pupil.setTypeface(font);
+                                btn_pupil.setTypeface(null, Typeface.BOLD);
+                                btn_pupil.setAllCaps(false);
+
+
                                 btn_pupil.setText(pupil.name + " " + pupil.surname);
                                 btn_pupil.setOnClickListener(new View.OnClickListener() {
                                     @Override
