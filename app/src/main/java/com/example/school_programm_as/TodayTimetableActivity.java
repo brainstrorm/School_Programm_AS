@@ -145,13 +145,15 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                     }
                                 }
 
-                                if (cnt == 0) {
-                                    Text.setText("Занятий нет");
                                 }
-                                }
-                            }
+
                         }
+                        }
+
                 });
+        if (cnt == 0) {
+            Text.setText("Занятий нет");
+        }
 
     }
 

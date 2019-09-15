@@ -149,11 +149,6 @@ public class StudentTimetable extends AppCompatActivity {
                         }
                     });
         }
-        else {
-            Text.setText("Занятий нет");
-        }
-
-
     }
 
     public void Back(View view){
