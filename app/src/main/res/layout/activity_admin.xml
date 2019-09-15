@@ -13,8 +13,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.746" />
+        app:layout_constraintTop_toBottomOf="@id/imageView3"
+        />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout3"
@@ -72,7 +72,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -84,8 +83,10 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/ListOfTeachers"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout3"
+        app:layout_constraintVertical_bias="0.74"
         app:srcCompat="@drawable/teachers" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
