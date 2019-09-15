@@ -120,7 +120,7 @@
         android:id="@+id/imageButton4"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
-        android:layout_height="77dp"
+        android:layout_height="69dp"
         android:background="@drawable/save_timetable"
         android:onClick="saveTimetable"
         app:layout_constraintBottom_toBottomOf="parent"
