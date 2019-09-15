@@ -1,6 +1,7 @@
 package com.example.school_programm_as;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -95,6 +96,14 @@ public class TeacherMainActivity extends AppCompatActivity {
                                                         LinearLayout.LayoutParams.WRAP_CONTENT
                                                 )
                                         );
+
+                                        class_.setTextSize(25);
+                                        class_.setTextColor(0xFFFFFFFF);
+                                        Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
+                                        class_.setTypeface(font);
+                                        class_.setTypeface(null, Typeface.BOLD);
+                                        class_.setAllCaps(false);
+
                                         class_.setText(group.name);
                                         class_.setOnClickListener(new View.OnClickListener() {
                                             @Override

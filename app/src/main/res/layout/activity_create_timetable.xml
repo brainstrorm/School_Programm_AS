@@ -28,17 +28,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
+
             <Button
                 android:id="@+id/button17"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="49dp"
+                android:layout_width="43dp"
                 android:layout_height="42dp"
-                android:layout_marginStart="48dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="24dp"
-                android:onClick="backToCreateClass"
                 android:background="@drawable/icons8_back_96"
+                android:onClick="backToCreateClass"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textViewDay"
+                app:layout_constraintHorizontal_bias="0.27"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imageView9"
                 app:layout_constraintVertical_bias="0.120000005" />
@@ -54,22 +56,27 @@
                 android:onClick="plusLesson"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.952"
+                app:layout_constraintStart_toEndOf="@+id/textViewDay"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/plus_lesson" />
 
             <TextView
                 android:id="@+id/textViewDay"
-                android:layout_width="177dp"
-                android:layout_height="27dp"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text=""
+                android:textColor="@color/colorWhite"
+                android:textSize="22dp"
+                android:fontFamily="@font/helveticaneuemed"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton5"
-                app:layout_constraintHorizontal_bias="0.516"
-                app:layout_constraintStart_toEndOf="@+id/button17"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.51" />
+                app:layout_constraintVertical_bias="0.47000003" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

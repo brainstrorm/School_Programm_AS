@@ -1,6 +1,7 @@
 package com.example.school_programm_as;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -83,6 +84,14 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                                 LinearLayout.LayoutParams.WRAP_CONTENT
                                         )
                                 );
+
+                                lesson_.setTextSize(25);
+                                lesson_.setTextColor(0xFFFFFFFF);
+                                Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
+                                lesson_.setTypeface(font);
+                                lesson_.setTypeface(null, Typeface.BOLD);
+                                lesson_.setAllCaps(false);
+
                                 lesson_.setText(lesson.name);
                                 lesson_.setOnClickListener(new View.OnClickListener() {
                                     @Override

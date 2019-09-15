@@ -40,14 +40,16 @@
                 android:onClick="back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView"
-                app:layout_constraintHorizontal_bias="0.411"
+                app:layout_constraintHorizontal_bias="0.36"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.49" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="249dp"
                 android:layout_height="24dp"
+                android:textSize="22dp"
                 android:fontFamily="@font/helveticaneuemed"
                 android:gravity="center"
                 android:textStyle="bold"
