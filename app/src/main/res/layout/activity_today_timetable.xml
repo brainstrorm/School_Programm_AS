@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appBarLayout2"
-        android:layout_width="432dp"
+        android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@drawable/rectangle_7"
         android:theme="@style/AppTheme.AppBarOverlay"
@@ -63,26 +63,23 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-
-
         android:id="@+id/linearLayout"
-        android:layout_width="423dp"
-        android:layout_height="562dp"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
         android:layout_marginTop="92dp"
         android:orientation="vertical"
+        android:divider="@drawable/empty_tall_divider"
+        android:showDividers="middle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2">
-
-
     </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

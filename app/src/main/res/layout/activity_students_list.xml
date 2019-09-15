@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appBarLayout2"
-        android:layout_width="432dp"
+        android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@drawable/rectangle_7"
         android:theme="@style/AppTheme.AppBarOverlay"
@@ -19,7 +19,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/toolbar"
-            android:layout_width="432dp"
+            android:layout_width="match_parent"
             android:layout_height="90dp"
             android:background="@drawable/rectangle_7"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -81,11 +81,12 @@
             android:layout_height="356dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/studentsList2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.319">
+
+            app:layout_constraintTop_toBottomOf="@+id/imageView9"
+            app:layout_constraintVertical_bias="0.161">
 
 
         </LinearLayout>
@@ -95,7 +96,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -105,23 +105,24 @@
             android:id="@+id/studentsList2"
             android:layout_width="178dp"
             android:layout_height="359dp"
+            android:layout_marginBottom="184dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.313"></LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"></LinearLayout>
 
         <LinearLayout
             android:id="@+id/states"
             android:layout_width="match_parent"
             android:layout_height="182dp"
+            android:divider="@drawable/empty_width_divider"
             android:orientation="horizontal"
+            android:showDividers="middle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/studentsList1"></LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/studentsList1"
+            app:layout_constraintVertical_bias="1.0"></LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
