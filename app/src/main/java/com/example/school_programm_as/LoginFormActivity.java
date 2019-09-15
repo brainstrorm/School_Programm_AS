@@ -2,28 +2,20 @@ package com.example.school_programm_as;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.school_programm_as.admin.presentation.AdminActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFormActivity extends AppCompatActivity implements View.OnClickListener {
     public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
@@ -123,13 +115,12 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                                 startActivity(intentParentMainActivity);
                             }
                             else if(message.equals("administrator")){
-                                /*Intent intentAdministratorMainActivity = new Intent(this, AdministratorMainActivity.class);
+                                Intent intentAdministratorMainActivity = new Intent(LoginFormActivity.this, AdminActivity.class);
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 String userUid = user.getUid();
                                 Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
                                 intentAdministratorMainActivity.putExtra(EXTRA_MESSAGE, userUid);
                                 startActivity(intentAdministratorMainActivity);
-                                */
                             }
                         } else {
 

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.presentation.ClassesListActivity"></activity>
+        <activity android:name=".admin.presentation.ListOfPupilsActivity"></activity>
+        <activity android:name=".admin.presentation.ClassesListActivity" />
         <activity android:name=".admin.presentation.AdminActivity" />
         <activity android:name=".StudentTimetable" />
         <activity android:name=".MyQR" />
@@ -66,8 +67,8 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode" />
     </application>
-    <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

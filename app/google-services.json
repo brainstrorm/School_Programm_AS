@@ -59,6 +59,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "948794775735-dpcl51ohn6b8c5983fgav791sda17n7h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.school_programm_as",
+            "certificate_hash": "a21682f2861d88894b592ff19ae0b99c84f065fc"
+          }
+        },
+        {
           "client_id": "948794775735-oqp5simfpaoibohm0bp8ikj5jt4qjhqf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
