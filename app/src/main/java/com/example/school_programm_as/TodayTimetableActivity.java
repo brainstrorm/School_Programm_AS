@@ -84,27 +84,9 @@ public class TodayTimetableActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            for(final QueryDocumentSnapshot document: task.getResult()){
+                            for(final QueryDocumentSnapshot document: task.getResult()) {
+
                                 final Lesson lesson = document.toObject(Lesson.class);
-                                final Button lesson_ = new Button(getApplicationContext());
-                                lesson_.setId(id);
-                                lesson_.setBackgroundResource(R.drawable.class_field);
-                                lesson_.setLayoutParams(
-                                        new LinearLayout.LayoutParams(
-                                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                                LinearLayout.LayoutParams.WRAP_CONTENT
-                                        )
-                                );
-
-                                lesson_.setTextSize(25);
-                                lesson_.setTextColor(0xFFFFFFFF);
-                                Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
-                                lesson_.setTypeface(font);
-                                lesson_.setTypeface(null, Typeface.BOLD);
-                                lesson_.setAllCaps(false);
-
-
-
 
                                 if (lesson.date != null) {
 
@@ -116,29 +98,46 @@ public class TodayTimetableActivity extends AppCompatActivity {
 
 
                                     if (today.equals(sdfout.format(dayOfTheWeek))) {
+                                        final Button lesson_ = new Button(getApplicationContext());
+                                        lesson_.setId(id);
+                                        lesson_.setBackgroundResource(R.drawable.class_field);
+                                        lesson_.setLayoutParams(
+                                                new LinearLayout.LayoutParams(
+                                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                                        LinearLayout.LayoutParams.WRAP_CONTENT
+                                                )
+                                        );
+
+
+                                        lesson_.setTextSize(25);
+                                        lesson_.setTextColor(0xFFFFFFFF);
+                                        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
+                                        lesson_.setTypeface(font);
+                                        lesson_.setTypeface(null, Typeface.BOLD);
+                                        lesson_.setAllCaps(false);
 
 
                                         lesson_.setText(lesson.name);
 
+
+                                        lesson_.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Intent intentTodayTimetableActivity = new Intent(getApplicationContext(), StudentsListActivity.class);
+                                                Bundle extras = new Bundle();
+                                                String message = document.getId();
+                                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                                extras.putString("SUBJECT_MESSAGE", lesson.name);
+                                                extras.putString("USER_ID_MESSAGE", userId);
+                                                extras.putString("GROUP_ID_MESSAGE", groupId);
+                                                extras.putString("LESSON_ID_MESSAGE", message);
+                                                intentTodayTimetableActivity.putExtras(extras);
+                                                startActivity(intentTodayTimetableActivity);
+                                            }
+                                        });
+                                        mLinearLayout.addView(lesson_);
                                     }
                                 }
-
-                                lesson_.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Intent intentTodayTimetableActivity = new Intent(getApplicationContext(), StudentsListActivity.class);
-                                        Bundle extras = new Bundle();
-                                        String message = document.getId();
-                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-                                        extras.putString("SUBJECT_MESSAGE", lesson.name);
-                                        extras.putString("USER_ID_MESSAGE", userId);
-                                        extras.putString("GROUP_ID_MESSAGE", groupId);
-                                        extras.putString("LESSON_ID_MESSAGE", message);
-                                        intentTodayTimetableActivity.putExtras(extras);
-                                        startActivity(intentTodayTimetableActivity);
-                                    }
-                                });
-                                mLinearLayout.addView(lesson_);
                             }
                         }
                     }
