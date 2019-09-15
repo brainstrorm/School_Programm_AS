@@ -21,6 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class TodayTimetableActivity extends AppCompatActivity {
 
@@ -30,6 +34,13 @@ public class TodayTimetableActivity extends AppCompatActivity {
     private LinearLayout mLinearLayout;
     private int id = 1;
     private String userId;
+
+    SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
+    SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
+    Date d = new Date();
+    String today = sdfout.format(d);
+    Date dayOfTheWeek;
+
 
     public final static String GROUP_ID_MESSAGE = "GROUP_ID_MESSAGE";
     public final static String USER_ID_MESSAGE = "USER_ID_MESSAGE";
@@ -92,7 +103,26 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                 lesson_.setTypeface(null, Typeface.BOLD);
                                 lesson_.setAllCaps(false);
 
-                                lesson_.setText(lesson.name);
+
+
+
+                                if (lesson.date != null) {
+
+                                    try {
+                                        dayOfTheWeek = sdfin.parse(lesson.date);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                    if (today.equals(sdfout.format(dayOfTheWeek))) {
+
+
+                                        lesson_.setText(lesson.name);
+
+                                    }
+                                }
+
                                 lesson_.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
