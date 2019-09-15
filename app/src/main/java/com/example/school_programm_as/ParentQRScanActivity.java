@@ -71,7 +71,7 @@ public class ParentQRScanActivity extends AppCompatActivity {
     }
 
     private void setupCamera() {
-        txt_result = (TextView) findViewById(R.id.textView5);
+        /*txt_result = (TextView) findViewById(R.id.textView5);
         final ToggleButton btn_on_off = (ToggleButton) findViewById(R.id.btn_enable_disable);
         btn_on_off.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +84,7 @@ public class ParentQRScanActivity extends AppCompatActivity {
                     qrEader.start();
                 }
             }
-        });
+        });*/
         surfaceView = (SurfaceView) findViewById(R.id.camera_view);
         setupQREader();
     }
