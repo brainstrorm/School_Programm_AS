@@ -39,6 +39,8 @@
         app:srcCompat="@drawable/rectangle_for_student_3" />
 
     <LinearLayout
+        android:showDividers="middle"
+        android:divider="@drawable/empty_tall_divider"
         android:id="@+id/timetableday"
         android:layout_width="356dp"
         android:layout_height="493dp"

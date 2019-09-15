@@ -167,7 +167,7 @@ public class StudentProfile extends AppCompatActivity {
                                         if (lesson.date != null) {
 
                                             try {
-                                                dayOfTheWeek = sdfin.parse(lesson.date);
+                                                dayOfTheWeek = sdfin.parse("15.09.2019");
                                             } catch (ParseException e) {
                                                 e.printStackTrace();
                                             }
@@ -238,7 +238,6 @@ public class StudentProfile extends AppCompatActivity {
     }
 
     public void Back(View view) {
-        //need Logout -> error with Docref
         Intent intent = getIntent();
         if (intent.getAction().equals("ParentMainActivity") || intent.getExtras().getString("PARENT_ID_MESSAGE") != null) {
             Intent intentParentMainActivity = new Intent(getApplicationContext(), ParentMainActivity.class);

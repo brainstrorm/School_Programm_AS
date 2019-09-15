@@ -73,6 +73,7 @@
             android:layout_marginBottom="8dp"
             android:text=""
             android:fontFamily="@font/helveticaneuemed"
+            android:textStyle="bold"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
