@@ -45,6 +45,7 @@ public class StudentProfile extends AppCompatActivity {
     String userId,groupId;
     private String userIdforStudentTimetableDay;
     private String groupIdforStudentTimetableDay;
+    int cnt;
 
     private Button logout_back;
     private Button QRCode;
@@ -64,6 +65,10 @@ public class StudentProfile extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+
+        final TextView Text;
+        Text = findViewById(R.id.noLessons);
+
 
         logout_back = (Button) findViewById(R.id.button19);
         QRCode = (Button) findViewById(R.id.button18);
@@ -181,6 +186,7 @@ public class StudentProfile extends AppCompatActivity {
 
 
                                                 class_.setText(lesson.name);
+                                                cnt++;
 
                                                 if (document.get(userId).equals("present")) {
 
@@ -198,6 +204,9 @@ public class StudentProfile extends AppCompatActivity {
 
                                                 }
                                             }
+                                        }
+                                        if(cnt == 0) {
+                                            Text.setText("Занятий нет");
                                         }
 
 

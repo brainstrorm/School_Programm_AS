@@ -34,6 +34,7 @@ public class TodayTimetableActivity extends AppCompatActivity {
     private LinearLayout mLinearLayout;
     private int id = 1;
     private String userId;
+    int cnt;
 
     SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
     SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
@@ -48,6 +49,9 @@ public class TodayTimetableActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_today_timetable);
+
+        final TextView Text;
+        Text = findViewById(R.id.noLessons);
 
         final Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -98,6 +102,8 @@ public class TodayTimetableActivity extends AppCompatActivity {
 
 
                                     if (today.equals(sdfout.format(dayOfTheWeek))) {
+
+                                        cnt++;
                                         final Button lesson_ = new Button(getApplicationContext());
                                         lesson_.setId(id);
                                         lesson_.setBackgroundResource(R.drawable.class_field);
@@ -138,9 +144,13 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                         mLinearLayout.addView(lesson_);
                                     }
                                 }
+
+                                if (cnt == 0) {
+                                    Text.setText("Занятий нет");
+                                }
+                                }
                             }
                         }
-                    }
                 });
 
     }
