@@ -108,6 +108,7 @@ public class StudentProfile extends AppCompatActivity {
 
                             place = "класс: " + group_.name;
                             teacher = "преподаватель: " + group_.teacherFullName;
+
                             Teacher.setText(teacher);
                             Place.setText(place);
 
