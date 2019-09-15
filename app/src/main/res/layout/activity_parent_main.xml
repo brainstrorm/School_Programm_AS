@@ -13,11 +13,10 @@
         android:background="@drawable/rectangle_for_student_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintVertical_bias="0.001" />
     <Button
         android:id="@+id/button19"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -34,19 +33,6 @@
         app:layout_constraintStart_toStartOf="@+id/imageView13"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.148" />
-
-    <TextView
-        android:id="@+id/studentName"
-        android:layout_width="238dp"
-        android:layout_height="28dp"
-        android:gravity="center"
-        android:text=""
-        android:textColor="@color/colorWhite"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
-        app:layout_constraintEnd_toStartOf="@+id/button18"
-        app:layout_constraintStart_toEndOf="@+id/button19"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button18"
@@ -72,24 +58,39 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/timetable"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView13"
+        app:layout_constraintVertical_bias="0.042"
         app:srcCompat="@drawable/my_children" />
 
     <LinearLayout
         android:id="@+id/timetable"
         android:layout_width="match_parent"
-        android:layout_height="449dp"
+        android:layout_height="500dp"
+        android:divider="@drawable/empty_tall_divider"
         android:orientation="vertical"
+        android:showDividers="middle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.549">
+        app:layout_constraintTop_toBottomOf="@+id/imageView12">
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/studentName"
+        android:layout_width="238dp"
+        android:layout_height="28dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/colorWhite"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintEnd_toStartOf="@+id/button18"
+        app:layout_constraintStart_toEndOf="@+id/button19"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
