@@ -102,7 +102,7 @@ public class ParentMainActivity extends AppCompatActivity {
                                     }
                                 });
                                 children.addView(btn_pupil);
-                                Toast.makeText(ParentMainActivity.this, "Данные о детях успешно загружены", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(ParentMainActivity.this, "Данные о детях успешно загружены", Toast.LENGTH_SHORT).show();
                             }
                         }else{
                             Toast.makeText(ParentMainActivity.this, "Вы еще не добавили детей", Toast.LENGTH_SHORT).show();

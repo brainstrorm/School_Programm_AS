@@ -57,20 +57,20 @@ public class RegistrationFormActivity extends AppCompatActivity{
         if(message.equals("teacher")){
             role = message;
             String imageName = "registration_" + message;
-            int id = getResources().getIdentifier("com.example.school:drawable/" + imageName, null, null);
+            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + imageName, null, null);
             imageView.setImageResource(id);
         }
 
         if(message.equals("parent")){
             role = message+"s";
             String imageName = "registration_" + message;
-            int id = getResources().getIdentifier("com.example.school:drawable/" + imageName, null, null);
+            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + imageName, null, null);
             imageView.setImageResource(id);
         }
         if(message.equals("administrator")){
             role = "administration";
             String imageName = "registration_" + message;
-            int id = getResources().getIdentifier("com.example.school:drawable/" + imageName, null, null);
+            int id = getResources().getIdentifier("com.example.school_programm_as:drawable/" + imageName, null, null);
             imageView.setImageResource(id);
         }
     }
@@ -128,6 +128,8 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                                 }
                                             });
                                 }
+                                Intent intent = new Intent(getApplicationContext(),LoginAuthorization.class);
+                                startActivity(intent);
                             }else if(role.equals("teacher")){
                                 user.put("name", Name);
                                 user.put("surname", Surname);
@@ -136,22 +138,26 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                 user.put("email", Email);
                                 user.put("password", Password);
                                 user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                mFirestore.collection("users")
-                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                //Log.w(TAG, "Error adding document", e);
-                                                Toast.makeText(RegistrationFormActivity.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
+                                if(RepeatPassword.equals(Password)) {
+                                    mFirestore.collection("users")
+                                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    //Log.w(TAG, "Error adding document", e);
+                                                    Toast.makeText(RegistrationFormActivity.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
 
-                                            }
-                                        });
+                                                }
+                                            });
+                                }
+                                Intent intent = new Intent(getApplicationContext(),LoginAuthorization.class);
+                                startActivity(intent);
                             }else if(role.equals("parents")){
                                 user.put("name", Name);
                                 user.put("surname", Surname);
@@ -160,22 +166,26 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                 user.put("email", Email);
                                 user.put("password", Password);
                                 user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                mFirestore.collection("users")
-                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                //Log.w(TAG, "Error adding document", e);
-                                                Toast.makeText(RegistrationFormActivity.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
+                                if(RepeatPassword.equals(Password)) {
+                                    mFirestore.collection("users")
+                                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    //Log.w(TAG, "Error adding document", e);
+                                                    Toast.makeText(RegistrationFormActivity.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
 
-                                            }
-                                        });
+                                                }
+                                            });
+                                }
+                                Intent intent = new Intent(getApplicationContext(),LoginAuthorization.class);
+                                startActivity(intent);
                             }else if(role.equals("administration")){
                                 user.put("name", Name);
                                 user.put("surname", Surname);
@@ -184,22 +194,26 @@ public class RegistrationFormActivity extends AppCompatActivity{
                                 user.put("email", Email);
                                 user.put("password", Password);
                                 user.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                mFirestore.collection("users")
-                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                //Log.w(TAG, "Error adding document", e);
-                                                Toast.makeText(RegistrationFormActivity.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
+                                if(RepeatPassword.equals(Password)) {
+                                    mFirestore.collection("users")
+                                            .document(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).set(user)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(RegistrationFormActivity.this, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    //Log.w(TAG, "Error adding document", e);
+                                                    Toast.makeText(RegistrationFormActivity.this, "Регистрация провалена", Toast.LENGTH_SHORT).show();
 
-                                            }
-                                        });
+                                                }
+                                            });
+                                }
+                                Intent intent = new Intent(getApplicationContext(),LoginAuthorization.class);
+                                startActivity(intent);
                             }
                         } else {
                             Toast.makeText(RegistrationFormActivity.this, "Регистрация провалена",

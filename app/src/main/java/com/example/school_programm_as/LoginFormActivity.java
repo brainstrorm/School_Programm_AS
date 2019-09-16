@@ -81,7 +81,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            Toast.makeText(LoginFormActivity.this, "Регистрация прошла успешно",
+                            Toast.makeText(LoginFormActivity.this, "Авторизация прошла успешно",
                                     Toast.LENGTH_SHORT).show();
                             if(message.equals("student")){
                                 Intent intentPupilMainActivity = new Intent(LoginFormActivity.this, StudentProfile.class);
@@ -134,7 +134,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                         } else {
 
 
-                            Toast.makeText(LoginFormActivity.this, "Регистрация провалена",
+                            Toast.makeText(LoginFormActivity.this, "Авторизация провалена. Введен неверный логин или пароль.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -45,7 +45,7 @@ public class MyQR extends AppCompatActivity {
 
         IVQRCode = (ImageView) findViewById(R.id.imageView11);
 
-        if(groupId.length() > 0){
+        if(userId.length() > 0){
             WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
             Display display = manager.getDefaultDisplay();
             Point point = new Point();

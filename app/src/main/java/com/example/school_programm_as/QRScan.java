@@ -131,7 +131,7 @@ public class QRScan extends AppCompatActivity {
     }
 
     private void setupCamera() {
-        /*txt_result = (TextView) findViewById(R.id.textView5);
+        txt_result = (TextView) findViewById(R.id.textView5);
         final ToggleButton btn_on_off = (ToggleButton) findViewById(R.id.btn_enable_disable);
         btn_on_off.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +144,7 @@ public class QRScan extends AppCompatActivity {
                     qrEader.start();
                 }
             }
-        });*/
+        });
         surfaceView = (SurfaceView) findViewById(R.id.camera_view);
         setupQREader();
     }
@@ -158,26 +158,30 @@ public class QRScan extends AppCompatActivity {
                     public void run() {
                         txt_result.setText(data);
                         groupId = data;
-                        mFirestore.collection("lessons").whereEqualTo("group", groupId)
-                                .get()
-                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                        Intent intent = getIntent();
-                                        final String userId = intent.getStringExtra(StudentProfile.ID_MESSAGE);
-                                        mFirestore.collection("users").document(userId)
-                                                .update("group", groupId);
-                                        for(final QueryDocumentSnapshot document: queryDocumentSnapshots){
-                                            DocumentReference docRefLesson = mFirestore.collection("lessons").document(document.getId());
-                                            if(docRefLesson != null) {
-                                                docRefLesson.update(userId, "notpresent");
-                                                qrEader.stop();
-                                            }else{
-                                                Toast.makeText(QRScan.this, "null", Toast.LENGTH_SHORT).show();
+                        if((groupId == "") || (groupId == null)) {
+                            mFirestore.collection("lessons").whereEqualTo("group", groupId)
+                                    .get()
+                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                            Intent intent = getIntent();
+                                            final String userId = intent.getExtras().getString("USER_ID_MESSAGE");
+                                            mFirestore.collection("users").document(userId)
+                                                    .update("group", groupId);
+                                            for (final QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                                DocumentReference docRefLesson = mFirestore.collection("lessons").document(document.getId());
+                                                if (docRefLesson != null) {
+                                                    docRefLesson.update(userId, "notpresent");
+                                                    qrEader.stop();
+                                                } else {
+                                                    Toast.makeText(QRScan.this, "null", Toast.LENGTH_SHORT).show();
+                                                }
                                             }
                                         }
-                                    }
-                                });
+                                    });
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Вы уже находитесь в группе", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

@@ -1,11 +1,13 @@
 package com.example.school_programm_as;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -24,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -39,7 +42,7 @@ public class StudentProfile extends AppCompatActivity {
     private int bills, todayBills;
     private TextView Name, Bills, Place, Teacher, TodayBills;
     private LinearLayout mLinearLayout;
-    String userId,groupId;
+    private String userId,groupId;
     private String userIdforStudentTimetableDay;
     private String groupIdforStudentTimetableDay;
     int cnt;
@@ -113,7 +116,7 @@ public class StudentProfile extends AppCompatActivity {
                 bills = pupil_.bill;
                 todayBills = pupil_.todayBill;
 
-                Name.setText(surname+" "+name);
+                Name.setText(surname + " " + name);
                 Bills.setText(Integer.toString(bills));
                 Place.setText(place);
                 TodayBills.setText("Сегодня заработал: " + todayBills);
@@ -122,25 +125,24 @@ public class StudentProfile extends AppCompatActivity {
                 groupId = pupil_.group;
 
 
+                if((groupId != null) && (groupId != "")) {
+                    DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
+                    docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Group group_ = documentSnapshot.toObject(Group.class);
+
+                            place = "класс: " + group_.name;
+                            teacher = "преподаватель: " + group_.teacherFullName;
+                            Teacher.setText(teacher);
+                            Place.setText(place);
+
+                        }
+
+                    });
 
 
-                DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
-                docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Group group_ = documentSnapshot.toObject(Group.class);
-
-                         place ="класс: " + group_.name;
-                         teacher = "преподаватель: " + group_.teacherFullName;
-                         Teacher.setText(teacher);
-                         Place.setText(place);
-
-                    }
-
-                });
-
-
-                mLinearLayout = (LinearLayout) findViewById(R.id.timetable);
+                    mLinearLayout = (LinearLayout) findViewById(R.id.timetable);
 
                 mFirestore.collection("lessons").whereEqualTo("group", groupId)
                         .get()
@@ -158,24 +160,21 @@ public class StudentProfile extends AppCompatActivity {
                                         class_.setTypeface(font);
 
 
-
-                                        class_.setLayoutParams(
-                                                new LinearLayout.LayoutParams(
-                                                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                                                        LinearLayout.LayoutParams.WRAP_CONTENT
-                                                )
-                                        );
-
+                                            class_.setLayoutParams(
+                                                    new LinearLayout.LayoutParams(
+                                                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                            LinearLayout.LayoutParams.WRAP_CONTENT
+                                                    )
+                                            );
 
 
+                                            if (lesson.date != null) {
 
-                                        if (lesson.date != null) {
-
-                                            try {
-                                                dayOfTheWeek = sdfin.parse(lesson.date);
-                                            } catch (ParseException e) {
-                                                e.printStackTrace();
-                                            }
+                                                try {
+                                                    dayOfTheWeek = sdfin.parse(lesson.date);
+                                                } catch (ParseException e) {
+                                                    e.printStackTrace();
+                                                }
 
 
                                           if (today.equals(sdfout.format(dayOfTheWeek))) {
@@ -184,43 +183,45 @@ public class StudentProfile extends AppCompatActivity {
                                             class_.setText(lesson.name);
                                                 cnt++;
 
-                                                if (document.get(userId).equals("present")) {
+                                                    if (document.get(userId).equals("present")) {
 
-                                                    class_.setBackground(getDrawable(R.drawable.icon_nopresent));
-                                                }
+                                                        class_.setBackground(getDrawable(R.drawable.group_76));
+                                                    }
 
-                                                if (document.get(userId).equals("notpresent")) {
+                                                    if (document.get(userId).equals("notpresent")) {
 
-                                                    class_.setBackground(getDrawable(R.drawable.icon_notpresent));
+                                                        class_.setBackground(getDrawable(R.drawable.group_14));
 
-                                                }
-                                                if (document.get(userId).equals("latecomer")) {
+                                                    }
+                                                    if (document.get(userId).equals("latecomer")) {
 
-                                                    class_.setBackground(getDrawable(R.drawable.student_profile_latecomer));
+                                                        class_.setBackground(getDrawable(R.drawable.student_profile_latecomer));
 
+                                                    }
                                                 }
                                             }
+                                            if (cnt == 0) {
+                                                Text.setText("Занятий нет");
+                                            }
+
+
+                                            mLinearLayout = findViewById(R.id.timetable);
+                                            mLinearLayout.addView(class_);
+                                            id++;
+                                            Toast.makeText(StudentProfile.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT).show();
                                         }
-                                        if(cnt == 0) {
-                                            Text.setText("Занятий нет");
-                                        }
-
-
-
-
-                                        mLinearLayout = findViewById(R.id.timetable);
-                                        mLinearLayout.addView(class_);
-                                        id++;
-                                        Toast.makeText(StudentProfile.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
+                                    } else {
+                                        Toast.makeText(StudentProfile.this, "Информация о группах не получена", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                }else{
-                                    Toast.makeText(StudentProfile.this, "Информация о группах не получена", Toast.LENGTH_SHORT ).show();
-                                }
-                            }
-                        });
+                            });
+                }else{
+                    Teacher.setText("Вы еще не добавлены в группу");
+                }
+                }
 
-            }
         });
+
 
 
 
