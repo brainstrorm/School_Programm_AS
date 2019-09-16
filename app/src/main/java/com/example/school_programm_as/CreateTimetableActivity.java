@@ -45,6 +45,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
     private GestureDetector gestureDetector;
     private ArrayList<Integer> lessons = new ArrayList<>();
     private EditText ETLesson;
+    private String day;
     private GestureDetector initGestureDetector() {
         return new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
 
@@ -90,17 +91,22 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
         if(day.equals("monday")){
             TVDay.setText("Понедельник");
+            day = "16.09.2019";
         }
         if(day.equals("tuesday")){
             TVDay.setText("Вторник");
+            day = "17.09.2019";
         }
         if(day.equals("wednesday")){
             TVDay.setText("Среда");
+            day = "18.09.2019";
         }
         if(day.equals("thursday")){
             TVDay.setText("Четверг");
+            day = "19.09.2019";
         }
         if(day.equals("friday")){
+            day = "20.09.2019";
             TVDay.setText("Пятница");
         }
 
@@ -190,6 +196,8 @@ public class CreateTimetableActivity extends AppCompatActivity {
             lesson_.put("name", lessonET.getText().toString().trim());
             lesson_.put("number", lessonET.getId());
             lesson_.put("group", groupId);
+            lesson_.put("date",day);
+
             mFirestore.collection("lessons")
                     .add(lesson_)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
