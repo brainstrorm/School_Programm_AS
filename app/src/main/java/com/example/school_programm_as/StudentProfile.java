@@ -178,7 +178,7 @@ public class StudentProfile extends AppCompatActivity {
                                             }
 
 
-                                         //   if (today.equals(sdfout.format(dayOfTheWeek))) {
+                                          if (today.equals(sdfout.format(dayOfTheWeek))) {
 
 
                                             class_.setText(lesson.name);
@@ -199,7 +199,7 @@ public class StudentProfile extends AppCompatActivity {
                                                     class_.setBackground(getDrawable(R.drawable.student_profile_latecomer));
 
                                                 }
-                                           // }
+                                            }
                                         }
                                         if(cnt == 0) {
                                             Text.setText("Занятий нет");

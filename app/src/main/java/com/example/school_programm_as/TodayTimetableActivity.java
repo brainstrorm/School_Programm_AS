@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -81,8 +82,15 @@ public class TodayTimetableActivity extends AppCompatActivity {
                 TVGroupName.setText(group.name);
             }
         });
-        mFirestore.collection("lessons").whereEqualTo("group", groupId)
-                .get()
+
+
+
+        Query docRef = mFirestore.collection("lessons").whereEqualTo("group", groupId);
+
+        docRef.orderBy("number");
+
+
+                docRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

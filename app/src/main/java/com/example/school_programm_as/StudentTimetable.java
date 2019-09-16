@@ -13,13 +13,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class StudentTimetable extends AppCompatActivity {
 
@@ -32,6 +35,7 @@ public class StudentTimetable extends AppCompatActivity {
     private LinearLayout mLinearLayout;
     private String userId,groupId,message;
     private TextView Text;
+    private List<Lesson> subjects;
 
 
     Date dayOfTheWeek = null;
@@ -92,8 +96,11 @@ public class StudentTimetable extends AppCompatActivity {
         mFirestore = FirebaseFirestore.getInstance();
 
         if (!groupId.equals("")) {
-            mFirestore.collection("lessons").whereEqualTo("group", groupId)
-                    .get()
+
+            Query docRef = mFirestore.collection("lessons").whereEqualTo("group", groupId);
+
+            docRef.orderBy("number");
+                    docRef.get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
