@@ -89,19 +89,19 @@ public class CreateTimetableActivity extends AppCompatActivity {
         TVDay = (TextView) findViewById(R.id.textViewDay);
 
         if(day.equals("monday")){
-            TVDay.setText("понедельник");
+            TVDay.setText("Понедельник");
         }
         if(day.equals("tuesday")){
-            TVDay.setText("вторник");
+            TVDay.setText("Вторник");
         }
         if(day.equals("wednesday")){
-            TVDay.setText("среда");
+            TVDay.setText("Среда");
         }
         if(day.equals("thursday")){
-            TVDay.setText("четверг");
+            TVDay.setText("Четверг");
         }
         if(day.equals("friday")){
-            TVDay.setText("пятница");
+            TVDay.setText("Пятница");
         }
 
     }

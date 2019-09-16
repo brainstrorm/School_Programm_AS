@@ -11,7 +11,7 @@
         android:id="@+id/imageButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="69dp"
         android:background="@drawable/create_class_green"
         android:onClick="createClass"
         app:layout_constraintBottom_toBottomOf="parent"
