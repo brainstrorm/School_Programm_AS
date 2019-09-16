@@ -1,6 +1,7 @@
 package com.example.school_programm_as;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -20,7 +21,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +41,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
     private TextView TVDay;
-    private LinearLayout linearLayout;
+    private LinearLayout mlinearLayout;
     private GestureDetector gestureDetector;
     private ArrayList<Integer> lessons = new ArrayList<>();
     private EditText ETLesson;
@@ -79,7 +82,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         String day = extras.getString("DAY_MESSAGE");
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        mlinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         gestureDetector = initGestureDetector();
 
         mFirestore = FirebaseFirestore.getInstance();
@@ -104,7 +107,22 @@ public class CreateTimetableActivity extends AppCompatActivity {
     }
 
     public void plusLesson(View view){
-        EditText lesson = new EditText(getApplicationContext());
+        final HorizontalScrollView scrollView = new HorizontalScrollView(getApplicationContext());
+        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.setLayoutParams(
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
+                )
+        );
+        scrollView.setLayoutParams(
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+        );
+        final EditText lesson = new EditText(getApplicationContext());
         lesson.setId(countID);
         Toast.makeText(CreateTimetableActivity.this, " " + lesson.getId(), Toast.LENGTH_SHORT).show();
         lesson.setBackgroundResource(R.drawable.lesson_field);
@@ -139,7 +157,25 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
             }
         });*/
+        Button btn_delete = new Button(getApplicationContext());
+        btn_delete.setBackgroundResource(R.drawable.delete_subject);
+        btn_delete.setLayoutParams(
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
+                )
+        );
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //lessons.remove(lesson.getId());
+                mlinearLayout.removeView(scrollView);
+            }
+        });
         linearLayout.addView(lesson);
+        linearLayout.addView(btn_delete);
+        scrollView.addView(linearLayout);
+        mlinearLayout.addView(scrollView);
         lessons.add(lesson.getId());
         countID++;
     }
