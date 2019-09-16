@@ -12,9 +12,6 @@
         <activity android:name=".admin.presentation.ListOfPupilsActivity"></activity>
         <activity android:name=".admin.presentation.ClassesListActivity" />
         <activity android:name=".admin.presentation.AdminActivity" />
-        <activity android:name=".StudentTimetable" />
-        <activity android:name=".MyQR" />
-        <activity android:name=".StudentTimetableDay" />
         <activity
             android:name=".ParentQRScanActivity"
             android:label="@string/title_activity_parent_qrscan"
@@ -44,8 +41,6 @@
             android:name=".StudentProfile"
             android:noHistory="true" />
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".QRScan" />
-        <activity android:name=".StudentProfile" />
         <activity
             android:name=".MyQRCodeActivity"
             android:label="@string/title_activity_my_qrcode"
