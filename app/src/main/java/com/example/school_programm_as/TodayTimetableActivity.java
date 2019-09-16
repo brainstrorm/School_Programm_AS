@@ -68,7 +68,6 @@ public class TodayTimetableActivity extends AppCompatActivity {
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("ID_MESSAGE");
         }
-        //Toast.makeText(this, groupId, Toast.LENGTH_SHORT).show();
         Toast.makeText(this, userId, Toast.LENGTH_SHORT).show();
         TVGroupName = (TextView) findViewById(R.id.textView);
         mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
@@ -174,7 +173,10 @@ public class TodayTimetableActivity extends AppCompatActivity {
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("ID_MESSAGE");
         }
-        intentQRCode.putExtras(extras);
+        Bundle extras_ = new Bundle();
+        extras_.putString("USER_ID_MESSAGE", userId);
+        extras_.putString("GROUP_ID_MESSAGE", groupId);
+        intentQRCode.putExtras(extras_);
         startActivity(intentQRCode);
     }
 

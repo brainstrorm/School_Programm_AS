@@ -38,10 +38,10 @@ public class CreateClassActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if(intent.getAction().equals("TeacherMainActivity")) {
-            userId = intent.getStringExtra(TeacherMainActivity.USER_ID_MESSAGE);
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
         }
         if(intent.getAction().equals("CreateTimetableActivity")){
-            userId = intent.getStringExtra(CreateTimetableActivity.USER_ID_MESSAGE);
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
         }
         Toast.makeText(this, userId, Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_create_class);
