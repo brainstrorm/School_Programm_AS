@@ -22,6 +22,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -56,6 +58,12 @@ public class AdminActivity extends AppCompatActivity {
                                         user.surname));
                                 teachers.add(user);
                             }
+                            Collections.sort(teachers, new Comparator<User>() {
+                                @Override
+                                public int compare(User user, User t1) {
+                                    return user.name.compareTo(t1.name);
+                                }
+                            });
                             teacherAdapter = new TeacherAdapter(teachers);
                             recyclerView.setAdapter(teacherAdapter);
                         } else {
@@ -74,16 +82,24 @@ public class AdminActivity extends AppCompatActivity {
     class TeacherViewHolder extends RecyclerView.ViewHolder {
 
         private View currentView;
+        private User user;
 
         TeacherViewHolder(View view) {
             super(view);
             currentView = view;
         }
 
-        void bind(User user) {
+        void bind(final User user) {
             //Bind view
             TextView textView = currentView.findViewById(R.id.TeacherName);
+            this.user = user;
             textView.setText(String.format("%s %s", user.name, user.surname));
+            currentView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(ClassesListActivity.provideIntent(AdminActivity.this, user));
+                }
+            });
         }
     }
 

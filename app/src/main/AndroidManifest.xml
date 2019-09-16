@@ -9,6 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".admin.presentation.ListOfPupilsActivity"></activity>
+        <activity android:name=".admin.presentation.ClassesListActivity" />
+        <activity android:name=".admin.presentation.AdminActivity" />
+        <activity android:name=".StudentTimetable" />
+        <activity android:name=".MyQR" />
+        <activity android:name=".StudentTimetableDay" />
         <activity
             android:name=".ParentQRScanActivity"
             android:label="@string/title_activity_parent_qrscan"
@@ -37,6 +43,9 @@
         <activity
             android:name=".StudentProfile"
             android:noHistory="true" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".QRScan" />
+        <activity android:name=".StudentProfile" />
         <activity
             android:name=".MyQRCodeActivity"
             android:label="@string/title_activity_my_qrcode"
@@ -89,8 +98,8 @@
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="barcode" />
     </application>
-    <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

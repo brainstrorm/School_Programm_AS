@@ -4,6 +4,7 @@ public class Group {
     public String name;
     public String teacherFullName;
     public String teacherId;
+    public String groupId;
 
     public Group() {
     }

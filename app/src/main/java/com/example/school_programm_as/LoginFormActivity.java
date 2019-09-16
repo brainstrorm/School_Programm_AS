@@ -2,10 +2,15 @@ package com.example.school_programm_as;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.school_programm_as.admin.presentation.AdminActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -123,13 +128,12 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                                 startActivity(intentParentMainActivity);
                             }
                             else if(message.equals("administrator")){
-                                /*Intent intentAdministratorMainActivity = new Intent(this, AdministratorMainActivity.class);
+                                Intent intentAdministratorMainActivity = new Intent(LoginFormActivity.this, AdminActivity.class);
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 String userUid = user.getUid();
                                 Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
                                 intentAdministratorMainActivity.putExtra(EXTRA_MESSAGE, userUid);
                                 startActivity(intentAdministratorMainActivity);
-                                */
                             }
                         } else {
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/CountOfEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/sample_bill_change"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/PlusBill"
+        android:background="@drawable/rectangle_7"
+        android:textColor="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="@string/change_bill_plus" />
+
+    <Button
+        android:id="@+id/MinusBill"
+        android:background="@drawable/rectangle_7"
+        android:layout_width="match_parent"
+        android:textColor="@color/colorWhite"
+        android:layout_height="40dp"
+        android:text="@string/change_bill_minus" />
+</LinearLayout>
