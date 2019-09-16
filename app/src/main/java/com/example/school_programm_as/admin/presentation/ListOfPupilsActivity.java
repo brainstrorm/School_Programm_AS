@@ -18,8 +18,11 @@ import android.widget.TextView;
 
 import com.example.school_programm_as.Pupil;
 import com.example.school_programm_as.R;
+import com.example.school_programm_as.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -31,15 +34,19 @@ import java.util.Comparator;
 public class ListOfPupilsActivity extends AppCompatActivity {
 
     private static final String EXTRA_GROUP_NAME = "group.name";
-
+    private static final String EXTRA_GROUP_ID = "group.ID";
+    private static final String EXTRA_ADMIN_ID = "admin.ID";
+    private static final String EXTRA_TEACHER_ID = "teacher.ID";
     private FirebaseFirestore mFirebase;
 
     private RecyclerView recyclerView;
     private PupilAdapter adapter;
-
-    public static Intent provideIntent(Context packageContext, final String group) {
+    private TextView name;
+    public static Intent provideIntent(Context packageContext, final String group, final String adminId, final String teacherId) {
         Intent intent = new Intent(packageContext, ListOfPupilsActivity.class);
-        intent.putExtra(EXTRA_GROUP_NAME, group);
+        intent.putExtra(EXTRA_GROUP_ID, group);
+        intent.putExtra(EXTRA_ADMIN_ID, adminId);
+        intent.putExtra(EXTRA_TEACHER_ID, teacherId);
         return intent;
     }
 
@@ -47,15 +54,24 @@ public class ListOfPupilsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_pupils);
-        final String groupName = getIntent().getStringExtra(EXTRA_GROUP_NAME);
+        final String groupId = getIntent().getStringExtra(EXTRA_GROUP_ID);
 
         recyclerView = findViewById(R.id.ListOfPupils);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
 
+        name = (TextView) findViewById(R.id.Name);
+
         mFirebase = FirebaseFirestore.getInstance();
+        mFirebase.collection("groups").document(groupId)
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                name.setText(documentSnapshot.get("name").toString());
+            }
+        });
         mFirebase.collection("users")
                 .whereEqualTo("role", "pupil")
-                .whereEqualTo("group", groupName)
+                .whereEqualTo("group", groupId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -127,5 +143,17 @@ public class ListOfPupilsActivity extends AppCompatActivity {
         public int getItemCount() {
             return pupils.size();
         }
+    }
+
+    public void Back(View view){
+        mFirebase.collection("users").document(getIntent().getStringExtra(EXTRA_TEACHER_ID))
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                String adminId = getIntent().getStringExtra(EXTRA_ADMIN_ID);
+                startActivity(ClassesListActivity.provideIntent(ListOfPupilsActivity.this, user, adminId));
+            }
+        });
     }
 }

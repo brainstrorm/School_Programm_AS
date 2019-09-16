@@ -132,7 +132,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 String userUid = user.getUid();
                                 Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
-                                intentAdministratorMainActivity.putExtra(EXTRA_MESSAGE, userUid);
+                                intentAdministratorMainActivity.putExtra("USER_ID_MESSAGE", userUid);
                                 startActivity(intentAdministratorMainActivity);
                             }
                         } else {

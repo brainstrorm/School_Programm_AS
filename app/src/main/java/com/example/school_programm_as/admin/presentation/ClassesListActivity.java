@@ -18,7 +18,9 @@ import com.example.school_programm_as.Group;
 import com.example.school_programm_as.R;
 import com.example.school_programm_as.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,15 +34,17 @@ public class ClassesListActivity extends AppCompatActivity {
 
     private static final String EXTRA_TEACHER_ID = "teacher.id";
     private static final String EXTRA_TEACHER_NAME = "teacher.name";
+    private static final String EXTRA_ADMIN_ID = "teacher.name";
 
     private FirebaseFirestore mFirebase;
     private RecyclerView recyclerView;
     private GroupAdapter groupAdapter;
-
-    public static Intent provideIntent(Context packageContext, User user) {
+    private TextView name;
+    public static Intent provideIntent(Context packageContext, User user, String adminId) {
         Intent intent = new Intent(packageContext, ClassesListActivity.class);
         intent.putExtra(EXTRA_TEACHER_NAME, String.format("%s %s", user.name, user.surname));
         intent.putExtra(EXTRA_TEACHER_ID, user.userId);
+        intent.putExtra(EXTRA_ADMIN_ID, adminId);
         return intent;
     }
 
@@ -51,6 +55,15 @@ public class ClassesListActivity extends AppCompatActivity {
         mFirebase = FirebaseFirestore.getInstance();
         String teacherId = getIntent().getStringExtra(EXTRA_TEACHER_ID);
         recyclerView = findViewById(R.id.ListOfClasses);
+        name = (TextView) findViewById(R.id.Name);
+        mFirebase.collection("users").document(teacherId)
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User teacher = documentSnapshot.toObject(User.class);
+                name.setText(teacher.name + " " + teacher.pathronimic);
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mFirebase.collection("groups").whereEqualTo("teacherId", teacherId)
                 .get()
@@ -92,8 +105,10 @@ public class ClassesListActivity extends AppCompatActivity {
             currentView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String adminId = getIntent().getStringExtra(EXTRA_ADMIN_ID);
+                    String teacherId = getIntent().getStringExtra(EXTRA_TEACHER_ID);
                     startActivity(ListOfPupilsActivity.provideIntent(ClassesListActivity.this,
-                            group.groupId));
+                            group.groupId, adminId, teacherId));
                 }
             });
             TextView textView = currentView.findViewById(R.id.TeacherName);
@@ -126,5 +141,12 @@ public class ClassesListActivity extends AppCompatActivity {
         public int getItemCount() {
             return groups.size();
         }
+    }
+
+    public void Back(View view){
+        Intent intentBack = new Intent(getApplicationContext(), AdminActivity.class);
+        String adminId = getIntent().getStringExtra(EXTRA_ADMIN_ID);
+        intentBack.putExtra("USER_ID_MESSAGE", adminId);
+        startActivity(intentBack);
     }
 }

@@ -158,7 +158,7 @@ public class QRScan extends AppCompatActivity {
                     public void run() {
                         txt_result.setText(data);
                         groupId = data;
-                        if((groupId == "") || (groupId == null)) {
+                        if((!groupId.equals("")) || (!groupId.equals(null))) {
                             mFirestore.collection("lessons").whereEqualTo("group", groupId)
                                     .get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
