@@ -45,8 +45,8 @@ public class CreateTimetableActivity extends AppCompatActivity {
     private GestureDetector gestureDetector;
     private HashMap<String, Integer> lessons = new HashMap<String, Integer>();
     private EditText ETLesson;
-    private String day;
-    private GestureDetector initGestureDetector() {
+    private String lesson_day;
+    /*private GestureDetector initGestureDetector() {
         return new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
 
             private SwipeDetector detector = new SwipeDetector();
@@ -71,7 +71,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), phrase, Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 
     private int countID = 1;
     private String user_Id;
@@ -84,29 +84,29 @@ public class CreateTimetableActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         String day = extras.getString("DAY_MESSAGE");
         mlinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-        gestureDetector = initGestureDetector();
+        //gestureDetector = initGestureDetector();
 
         mFirestore = FirebaseFirestore.getInstance();
         TVDay = (TextView) findViewById(R.id.textViewDay);
 
         if(day.equals("monday")){
             TVDay.setText("Понедельник");
-            day = "16.09.2019";
+            lesson_day = "16.09.2019";
         }
         if(day.equals("tuesday")){
             TVDay.setText("Вторник");
-            day = "17.09.2019";
+            lesson_day = "17.09.2019";
         }
         if(day.equals("wednesday")){
             TVDay.setText("Среда");
-            day = "18.09.2019";
+            lesson_day = "18.09.2019";
         }
         if(day.equals("thursday")){
             TVDay.setText("Четверг");
-            day = "19.09.2019";
+            lesson_day = "19.09.2019";
         }
         if(day.equals("friday")){
-            day = "20.09.2019";
+            lesson_day = "20.09.2019";
             TVDay.setText("Пятница");
         }
 
@@ -185,7 +185,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
             lesson_.put("name", lessonET.getText().toString().trim());
             lesson_.put("number", lessonET.getId());
             lesson_.put("group", groupId);
-            lesson_.put("date",day);
+            lesson_.put("date",lesson_day);
 
             mFirestore.collection("lessons")
                     .add(lesson_)

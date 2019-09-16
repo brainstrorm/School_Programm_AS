@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -86,6 +88,21 @@ public class TeacherMainActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()){
                                     for (final QueryDocumentSnapshot document : task.getResult()){
+                                        final HorizontalScrollView scrollView = new HorizontalScrollView(getApplicationContext());
+                                        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+                                        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                                        linearLayout.setLayoutParams(
+                                                new LinearLayout.LayoutParams(
+                                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                                        LinearLayout.LayoutParams.MATCH_PARENT
+                                                )
+                                        );
+                                        scrollView.setLayoutParams(
+                                                new LinearLayout.LayoutParams(
+                                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                                        LinearLayout.LayoutParams.WRAP_CONTENT
+                                                )
+                                        );
                                         final Group group = document.toObject(Group.class);
                                         final Button class_ = new Button(getApplicationContext());
                                         class_.setId(id);
@@ -126,7 +143,75 @@ public class TeacherMainActivity extends AppCompatActivity {
                                                 startActivity(intentTodayTimetableActivity);
                                             }
                                         });
-                                        mLinearLayout.addView(class_);
+                                        Button btn_delete = new Button(getApplicationContext());
+                                        btn_delete.setBackgroundResource(R.drawable.delete_group);
+                                        btn_delete.setLayoutParams(
+                                                new LinearLayout.LayoutParams(
+                                                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                        LinearLayout.LayoutParams.MATCH_PARENT
+                                                )
+                                        );
+                                        btn_delete.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                mFirestore.collection("lessons").whereEqualTo("group", document.getId())
+                                                        .get()
+                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                              if(task.isSuccessful()){
+                                                                  for(final QueryDocumentSnapshot document: task.getResult()){
+                                                                      document.getReference().delete();
+                                                                  }
+                                                              }
+                                                            }
+                                                        });
+                                                mFirestore.collection("users").whereEqualTo("group", document.getId()).whereEqualTo("role", "pupil")
+                                                        .get()
+                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                if(task.isSuccessful()){
+                                                                    for(final QueryDocumentSnapshot document: task.getResult()){
+                                                                        document.getReference().update("group", "");
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+                                                mFirestore.collection("groups").document(document.getId()).delete();
+                                                mLinearLayout.removeView(scrollView);
+                                            }
+                                        });
+                                        Button btn_replace = new Button(getApplicationContext());
+                                        btn_replace.setBackgroundResource(R.drawable.replace_group);
+                                        btn_replace.setLayoutParams(
+                                                new LinearLayout.LayoutParams(
+                                                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                        LinearLayout.LayoutParams.MATCH_PARENT
+                                                )
+                                        );
+                                        btn_replace.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                /*int maxKey = 0;
+                                                for(String key: lessons.keySet()){
+                                                    EditText lessonET = (EditText) findViewById(lessons.get(key));
+                                                    if(Integer.parseInt(key) > (Integer)lesson.getId()){
+                                                        lessonET.setId(Integer.parseInt(key)-1);
+                                                        Toast.makeText(getApplicationContext(), Integer.toString(lessonET.getId()), Toast.LENGTH_SHORT).show();
+                                                        lessons.put(Integer.toString(lessonET.getId()), lessonET.getId());
+                                                        maxKey = Integer.parseInt(key);
+                                                    }
+                                                }
+                                                lessons.remove(Integer.toString(maxKey));*/
+                                                //mLinearLayout.removeView(scrollView);
+                                            }
+                                        });
+                                        linearLayout.addView(class_);
+                                        linearLayout.addView(btn_delete);
+                                        linearLayout.addView(btn_replace);
+                                        scrollView.addView(linearLayout);
+                                        mLinearLayout.addView(scrollView);
                                         Toast.makeText(TeacherMainActivity.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
                                     }
                                 }else{
