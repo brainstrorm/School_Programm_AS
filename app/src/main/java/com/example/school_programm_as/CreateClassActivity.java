@@ -3,9 +3,12 @@ package com.example.school_programm_as;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -18,6 +21,8 @@ import android.widget.Toast;
 import com.example.school_programm_as.R;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class CreateClassActivity extends AppCompatActivity {
 
@@ -66,6 +71,34 @@ public class CreateClassActivity extends AppCompatActivity {
         intentBack.putExtra("USER_ID_MESSAGE", userId);
         EditText class_name = (EditText) findViewById(R.id.editText7);
         if(class_name.getText().toString().trim().equals("")) {
+            mFirestore.collection("lessons").whereEqualTo("group", groupId)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(final QueryDocumentSnapshot document: task.getResult()){
+                                    document.getReference().delete();
+                                }
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+            mFirestore.collection("users").whereEqualTo("group", groupId).whereEqualTo("role", "pupil")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(final QueryDocumentSnapshot document: task.getResult()){
+                                    document.getReference().update("group", "");
+                                }
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Обновление поля group учеников не выполнено", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
             DocumentReference docRefGroup = mFirestore.collection("groups").document(groupId);
             docRefGroup.delete();
         }
@@ -206,4 +239,49 @@ public class CreateClassActivity extends AppCompatActivity {
         }
     }
 
+    /*@Override
+    protected void onStop() {
+        Intent intent = getIntent();
+        String groupId = "";
+        Bundle extras = intent.getExtras();
+        if(intent.getAction().equals("TeacherMainActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("CreateTimetableActivity")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        mFirestore.collection("lessons").whereEqualTo("group", groupId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(final QueryDocumentSnapshot document: task.getResult()){
+                                document.getReference().delete();
+                            }
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        mFirestore.collection("users").whereEqualTo("group", groupId).whereEqualTo("role", "pupil")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(final QueryDocumentSnapshot document: task.getResult()){
+                                document.getReference().update("group", "");
+                            }
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Обновление поля group учеников не выполнено", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        DocumentReference docRefGroup = mFirestore.collection("groups").document(groupId);
+        docRefGroup.delete();
+        super.onStop();
+    }*/
 }

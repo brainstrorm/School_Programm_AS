@@ -89,6 +89,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                     for (final QueryDocumentSnapshot document : task.getResult()){
                                         final HorizontalScrollView scrollView = new HorizontalScrollView(getApplicationContext());
+                                        scrollView.setId(id);
                                         LinearLayout linearLayout = new LinearLayout(getApplicationContext());
                                         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                                         linearLayout.setLayoutParams(
@@ -163,6 +164,8 @@ public class TeacherMainActivity extends AppCompatActivity {
                                                                   for(final QueryDocumentSnapshot document: task.getResult()){
                                                                       document.getReference().delete();
                                                                   }
+                                                              }else{
+                                                                  Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
                                                               }
                                                             }
                                                         });
@@ -175,6 +178,8 @@ public class TeacherMainActivity extends AppCompatActivity {
                                                                     for(final QueryDocumentSnapshot document: task.getResult()){
                                                                         document.getReference().update("group", "");
                                                                     }
+                                                                }else{
+                                                                    Toast.makeText(getApplicationContext(), "Обновление поля group учеников не выполнено", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             }
                                                         });
@@ -193,18 +198,14 @@ public class TeacherMainActivity extends AppCompatActivity {
                                         btn_replace.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                /*int maxKey = 0;
-                                                for(String key: lessons.keySet()){
-                                                    EditText lessonET = (EditText) findViewById(lessons.get(key));
-                                                    if(Integer.parseInt(key) > (Integer)lesson.getId()){
-                                                        lessonET.setId(Integer.parseInt(key)-1);
-                                                        Toast.makeText(getApplicationContext(), Integer.toString(lessonET.getId()), Toast.LENGTH_SHORT).show();
-                                                        lessons.put(Integer.toString(lessonET.getId()), lessonET.getId());
-                                                        maxKey = Integer.parseInt(key);
-                                                    }
-                                                }
-                                                lessons.remove(Integer.toString(maxKey));*/
-                                                //mLinearLayout.removeView(scrollView);
+                                                /*if(id > 1) {
+                                                    HorizontalScrollView class_1 = (HorizontalScrollView) findViewById(id - 1);
+                                                    HorizontalScrollView class_2 = (HorizontalScrollView) findViewById(id);
+                                                    class_1.setVisibility(View.GONE);
+                                                    class_2.setVisibility(View.GONE);
+                                                    class_2.setVisibility(View.VISIBLE);
+                                                    class_1.setVisibility(View.VISIBLE);
+                                                }*/
                                             }
                                         });
                                         linearLayout.addView(class_);
@@ -212,6 +213,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                                         linearLayout.addView(btn_replace);
                                         scrollView.addView(linearLayout);
                                         mLinearLayout.addView(scrollView);
+                                        id++;
                                         Toast.makeText(TeacherMainActivity.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
                                     }
                                 }else{
