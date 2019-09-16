@@ -167,7 +167,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView13"
-        app:layout_constraintVertical_bias="0.022"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/lessons_for_today" />
 
     <Button
@@ -202,22 +202,34 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView13"
         app:layout_constraintVertical_bias="0.995" />
 
-    <LinearLayout
-        android:id="@+id/timetable"
-        android:layout_width="match_parent"
-        android:layout_height="244dp"
-        android:divider="@drawable/empty_tall_divider"
-        android:drawableRight="@drawable/icons8_qr_code_64"
-        android:fontFamily="@font/helveticaneuemed"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:showDividers="middle"
-        android:textStyle="bold"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="411dp"
+        android:layout_height="256dp"
         app:layout_constraintBottom_toTopOf="@+id/button20"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView19"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/imageView19">
+
+
+        <LinearLayout
+            android:id="@+id/timetable"
+            android:layout_width="match_parent"
+            android:layout_height="244dp"
+            android:divider="@drawable/empty_tall_divider"
+            android:drawableRight="@drawable/icons8_qr_code_64"
+            android:fontFamily="@font/helveticaneuemed"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:showDividers="middle"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/button20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+    </ScrollView>
 
     <TextView
         android:id="@+id/noLessons"
