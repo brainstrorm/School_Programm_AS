@@ -134,10 +134,13 @@ public class TeacherMainActivity extends AppCompatActivity {
                                                 Toast.makeText(TeacherMainActivity.this, intentTodayTimetableActivity.getStringExtra(TeacherMainActivity.GROUP_ID_MESSAGE), Toast.LENGTH_SHORT).show();
                                                 Intent intent = getIntent();
                                                 if(intent.getAction().equals("CreateClassActivity")){
-                                                    userId = intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE);
+                                                    userId = intent.getStringExtra("USER_ID_MESSAGE");
                                                 }
                                                 if(intent.getAction().equals("LoginFormActivity")){
                                                     userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+                                                }
+                                                if(intent.getAction().equals("TodayTimetableActivity")){
+                                                    userId = intent.getStringExtra("USER_ID_MESSAGE");
                                                 }
                                                 extras.putString("USER_ID_MESSAGE", userId);
                                                 intentTodayTimetableActivity.putExtras(extras);
@@ -245,10 +248,13 @@ public class TeacherMainActivity extends AppCompatActivity {
                         extras.putString("GROUP_ID_MESSAGE", groupId);
                         Intent intent = getIntent();
                         if(intent.getAction().equals("CreateClassActivity")){
-                            userId = intent.getStringExtra(CreateClassActivity.EXTRA_MESSAGE);
+                            userId = intent.getStringExtra("USER_ID_MESSAGE");
                         }
                         if(intent.getAction().equals("LoginFormActivity")){
                             userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+                        }
+                        if(intent.getAction().equals("TodayTimetableActivity")){
+                            userId = intent.getStringExtra("USER_ID_MESSAGE");
                         }
                         extras.putString("USER_ID_MESSAGE", userId);
                         intentCreateClass.putExtras(extras);

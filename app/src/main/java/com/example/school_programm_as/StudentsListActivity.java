@@ -174,6 +174,7 @@ public class StudentsListActivity extends AppCompatActivity {
         intentTodayTimetableActivity.setAction("StudentsListActivity");
         Bundle extras = new Bundle();
         extras.putString("USER_ID_MESSAGE", getIntent().getExtras().getString("USER_ID_MESSAGE"));
+        Toast.makeText(getApplicationContext(), extras.getString("USER_ID_MESSAGE"), Toast.LENGTH_SHORT).show();
         extras.putString("GROUP_ID_MESSAGE", getIntent().getExtras().getString("GROUP_ID_MESSAGE"));
         intentTodayTimetableActivity.putExtras(extras);
         startActivity(intentTodayTimetableActivity);
