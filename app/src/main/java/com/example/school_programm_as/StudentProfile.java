@@ -1,13 +1,11 @@
 package com.example.school_programm_as;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -26,7 +24,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 
@@ -155,11 +152,10 @@ public class StudentProfile extends AppCompatActivity {
                                         final Lesson lesson = document.toObject(Lesson.class);
                                         final TextView class_ = new TextView(getApplicationContext());
                                         class_.setId(id);
-                                        class_.setTextSize(20);
+                                        class_.setTextSize(22);
                                         class_.setTextColor(0xFF8E7B89);
                                         Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
                                         class_.setTypeface(font);
-                                        class_.setTypeface(null, Typeface.BOLD);
 
 
 
@@ -182,20 +178,20 @@ public class StudentProfile extends AppCompatActivity {
                                             }
 
 
-                                            if (today.equals(sdfout.format(dayOfTheWeek))) {
+                                         //   if (today.equals(sdfout.format(dayOfTheWeek))) {
 
 
-                                                class_.setText(lesson.name);
+                                            class_.setText(lesson.name);
                                                 cnt++;
 
                                                 if (document.get(userId).equals("present")) {
 
-                                                    class_.setBackground(getDrawable(R.drawable.group_76));
+                                                    class_.setBackground(getDrawable(R.drawable.icon_nopresent));
                                                 }
 
                                                 if (document.get(userId).equals("notpresent")) {
 
-                                                    class_.setBackground(getDrawable(R.drawable.group_14));
+                                                    class_.setBackground(getDrawable(R.drawable.icon_notpresent));
 
                                                 }
                                                 if (document.get(userId).equals("latecomer")) {
@@ -203,7 +199,7 @@ public class StudentProfile extends AppCompatActivity {
                                                     class_.setBackground(getDrawable(R.drawable.student_profile_latecomer));
 
                                                 }
-                                            }
+                                           // }
                                         }
                                         if(cnt == 0) {
                                             Text.setText("Занятий нет");

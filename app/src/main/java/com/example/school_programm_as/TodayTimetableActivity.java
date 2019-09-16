@@ -34,7 +34,7 @@ public class TodayTimetableActivity extends AppCompatActivity {
     private LinearLayout mLinearLayout;
     private int id = 1;
     private String userId;
-    int cnt;
+   private   int cnt = 0;
 
     SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
     SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
@@ -148,12 +148,12 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                 }
 
                         }
+                        if (cnt == 0) {
+                            Text.setText("Занятий нет");
                         }
+                    }
 
                 });
-        if (cnt == 0) {
-            Text.setText("Занятий нет");
-        }
 
     }
 
