@@ -70,7 +70,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -85,6 +84,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout3"
+        app:layout_constraintVertical_bias="0.74"
         app:srcCompat="@drawable/teachers" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
