@@ -43,7 +43,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
     private TextView TVDay;
     private LinearLayout mlinearLayout;
     private GestureDetector gestureDetector;
-    private ArrayList<Integer> lessons = new ArrayList<>();
+    private HashMap<String, Integer> lessons = new HashMap<String, Integer>();
     private EditText ETLesson;
     private String day;
     private GestureDetector initGestureDetector() {
@@ -142,27 +142,6 @@ public class CreateTimetableActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 )
         );
-        /*lesson.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                Button b = new Button(getApplicationContext());
-                b.setId(countID++);
-                b.setBackgroundResource(R.drawable.delete_lesson);
-                b.setLayoutParams(
-                        new LinearLayout.LayoutParams(
-                                LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT
-                        )
-                );
-                linearLayout.addView(b);
-                return gestureDetector.onTouchEvent(event);
-            }
-        });*/
-        /*lesson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });*/
         Button btn_delete = new Button(getApplicationContext());
         btn_delete.setBackgroundResource(R.drawable.delete_subject);
         btn_delete.setLayoutParams(
@@ -174,7 +153,17 @@ public class CreateTimetableActivity extends AppCompatActivity {
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //lessons.remove(lesson.getId());
+                int maxKey = 0;
+                for(String key: lessons.keySet()){
+                    EditText lessonET = (EditText) findViewById(lessons.get(key));
+                    if(Integer.parseInt(key) > (Integer)lesson.getId()){
+                        lessonET.setId(Integer.parseInt(key)-1);
+                        Toast.makeText(getApplicationContext(), Integer.toString(lessonET.getId()), Toast.LENGTH_SHORT).show();
+                        lessons.put(Integer.toString(lessonET.getId()), lessonET.getId());
+                        maxKey = Integer.parseInt(key);
+                    }
+                }
+                lessons.remove(Integer.toString(maxKey));
                 mlinearLayout.removeView(scrollView);
             }
         });
@@ -182,7 +171,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
         linearLayout.addView(btn_delete);
         scrollView.addView(linearLayout);
         mlinearLayout.addView(scrollView);
-        lessons.add(lesson.getId());
+        lessons.put(Integer.toString(lesson.getId()), lesson.getId());
         countID++;
     }
 
@@ -190,8 +179,8 @@ public class CreateTimetableActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         String groupId = extras.getString("GROUP_ID_MESSAGE");
-        for(int i = 0; i < lessons.size(); i++){
-            EditText lessonET = (EditText) findViewById(lessons.get(i));
+        for(String key: lessons.keySet()){
+            EditText lessonET = (EditText) findViewById(lessons.get(key));
             Map<String, Object> lesson_ = new HashMap<>();
             lesson_.put("name", lessonET.getText().toString().trim());
             lesson_.put("number", lessonET.getId());
