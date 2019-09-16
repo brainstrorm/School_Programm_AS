@@ -2,6 +2,8 @@ package com.example.school_programm_as.admin.presentation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -86,9 +88,17 @@ public class ListOfPupilsActivity extends AppCompatActivity {
             currentView = view;
         }
 
-        void bind(Pupil pupil) {
+        void bind(final Pupil pupil) {
             TextView textView = currentView.findViewById(R.id.FirstPupil);
             textView.setText(String.format("%s %s", pupil.name, pupil.surname));
+            currentView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DialogFragment dialog = new BillChangeFragment(pupil);
+                    FragmentManager manager = ListOfPupilsActivity.this.getSupportFragmentManager();
+                    dialog.show(manager, "ID");
+                }
+            });
         }
     }
 

@@ -9,4 +9,7 @@
     <string name="title_activity_today_timetable">TodayTimetableActivity</string>
     <string name="title_activity_my_qrcode">MyQRCodeActivity</string>
     <string name="title_activity_parent_main">ParentMainActivity</string>
+    <string name="change_bill_plus">Зачислить</string>
+    <string name="change_bill_minus">Отнять</string>
+    <string name="sample_bill_change">0</string>
 </resources>
