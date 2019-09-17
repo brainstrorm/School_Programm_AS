@@ -33,14 +33,12 @@ import java.util.Comparator;
 
 public class ListOfPupilsActivity extends AppCompatActivity {
 
-    private static final String EXTRA_GROUP_NAME = "group.name";
     private static final String EXTRA_GROUP_ID = "group.ID";
     private static final String EXTRA_ADMIN_ID = "admin.ID";
     private static final String EXTRA_TEACHER_ID = "teacher.ID";
     private FirebaseFirestore mFirebase;
 
     private RecyclerView recyclerView;
-    private PupilAdapter adapter;
     private TextView name;
     public static Intent provideIntent(Context packageContext, final String group, final String adminId, final String teacherId) {
         Intent intent = new Intent(packageContext, ListOfPupilsActivity.class);
@@ -59,7 +57,7 @@ public class ListOfPupilsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.ListOfPupils);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false));
 
-        name = (TextView) findViewById(R.id.Name);
+        name = findViewById(R.id.Name);
 
         mFirebase = FirebaseFirestore.getInstance();
         mFirebase.collection("groups").document(groupId)
@@ -115,6 +113,8 @@ public class ListOfPupilsActivity extends AppCompatActivity {
                     dialog.show(manager, "ID");
                 }
             });
+            TextView hexagon = currentView.findViewById(R.id.PupilBill);
+            hexagon.setText(pupil.bill);
         }
     }
 
