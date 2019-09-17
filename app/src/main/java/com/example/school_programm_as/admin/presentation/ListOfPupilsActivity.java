@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -102,6 +103,7 @@ public class ListOfPupilsActivity extends AppCompatActivity {
             currentView = view;
         }
 
+        @SuppressLint("DefaultLocale")
         void bind(final Pupil pupil) {
             TextView textView = currentView.findViewById(R.id.FirstPupil);
             textView.setText(String.format("%s %s", pupil.name, pupil.surname));
@@ -113,8 +115,9 @@ public class ListOfPupilsActivity extends AppCompatActivity {
                     dialog.show(manager, "ID");
                 }
             });
-            TextView hexagon = currentView.findViewById(R.id.PupilBill);
-            hexagon.setText(pupil.bill);
+            View constraint = currentView.findViewById(R.id.constraintLayout2);
+            TextView hexagon = constraint.findViewById(R.id.PupilBill);
+            hexagon.setText(String.format("%d", pupil.bill));
         }
     }
 

@@ -39,7 +39,7 @@
             android:noHistory="true" />
         <activity
             android:name=".StudentProfile"
-            android:noHistory="true" />
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MyQRCodeActivity"

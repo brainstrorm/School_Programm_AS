@@ -1,6 +1,5 @@
 package com.example.school_programm_as.admin.presentation;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +52,7 @@ public class BillChangeFragment extends DialogFragment {
                 dismiss();
             }
         });
+
         return view;
     }
 
