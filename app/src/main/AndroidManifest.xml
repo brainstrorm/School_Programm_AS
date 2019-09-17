@@ -9,9 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.presentation.ListOfPupilsActivity"></activity>
-        <activity android:name=".admin.presentation.ClassesListActivity" />
-        <activity android:name=".admin.presentation.AdminActivity" />
+        <activity
+            android:name=".admin.presentation.ListOfPupilsActivity"
+            android:noHistory="true"/>
+        <activity
+            android:name=".admin.presentation.ClassesListActivity"
+            android:noHistory="true"/>
+        <activity
+            android:name=".admin.presentation.AdminActivity"
+            android:noHistory="true"/>
         <activity
             android:name=".ParentQRScanActivity"
             android:label="@string/title_activity_parent_qrscan"

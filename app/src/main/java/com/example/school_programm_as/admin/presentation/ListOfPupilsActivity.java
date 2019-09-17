@@ -88,7 +88,6 @@ public class ListOfPupilsActivity extends AppCompatActivity {
                                 }
                             });
                             recyclerView.setAdapter(new PupilAdapter(pupils));
-                            //TODO() add ArrayList to adapter and set adapter to RecyclerView
                         }
                     }
                 });
