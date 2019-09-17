@@ -12,10 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.school_programm_as.admin.presentation.AdminActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import android.view.View;
@@ -29,8 +32,9 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
     private FirebaseAuth mAuth;
     private EditText ETEmail;
     private EditText ETPassword;
-
+    private FirebaseFirestore mFirestore;
     private String message;
+    private String role = "";
 
 
     @Override
@@ -42,6 +46,7 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
 
 
         mAuth = FirebaseAuth.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();
 
         message = intent.getStringExtra(LoginAuthorization.EXTRA_MESSAGE);
         ImageView imageView =  findViewById(R.id.image_authorization);
@@ -89,34 +94,54 @@ public class LoginFormActivity extends AppCompatActivity implements View.OnClick
                             Toast.makeText(LoginFormActivity.this, "Авторизация прошла успешно",
                                     Toast.LENGTH_SHORT).show();
                             if(message.equals("student")){
-                                Intent intentPupilMainActivity = new Intent(LoginFormActivity.this, StudentProfile.class);
-                                intentPupilMainActivity.setAction("LoginFormActivity");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                String userUid = user.getUid();
+                                userUid = userUid.replaceAll("\\s", "");
+                                mFirestore.collection("users").document(userUid)
+                                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        User user1 = documentSnapshot.toObject(User.class);
+                                        role = user1.role;
+                                        if(role.equals("pupil")) {
+                                            Intent intentPupilMainActivity = new Intent(LoginFormActivity.this, StudentProfile.class);
+                                            intentPupilMainActivity.setAction("LoginFormActivity");
+                                            Toast.makeText(LoginFormActivity.this, user1.userId, Toast.LENGTH_SHORT).show();
 
-                                    String userUid = user.getUid();
-                                    userUid = userUid.replaceAll("\\s","");
-
-                                Toast.makeText(LoginFormActivity.this,userUid, Toast.LENGTH_SHORT).show();
-
-                                intentPupilMainActivity.putExtra(EXTRA_MESSAGE, userUid);
+                                            intentPupilMainActivity.putExtra(EXTRA_MESSAGE, user1.userId);
 
 
-                                startActivity(intentPupilMainActivity);
+                                            startActivity(intentPupilMainActivity);
+                                        }else{
+                                            Toast.makeText(getApplicationContext(), "Вы не ученик", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             }else if(message.equals("teacher")) {
                                 Intent intentTeacherMainActivity = new Intent(LoginFormActivity.this, TeacherMainActivity.class);
                                 intentTeacherMainActivity.setAction("LoginFormActivity");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                String userUid = user.getUid();
+                                userUid = userUid.replaceAll("\\s","");
+                                mFirestore.collection("users").document(userUid)
+                                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        User user1 = documentSnapshot.toObject(User.class);
+                                        role = user1.role;
+                                        if(role.equals("teacher")) {
+                                            Intent intentTeacherMainActivity = new Intent(LoginFormActivity.this, TeacherMainActivity.class);
+                                            intentTeacherMainActivity.setAction("LoginFormActivity");
+                                            Toast.makeText(LoginFormActivity.this, user1.userId, Toast.LENGTH_SHORT).show();
 
-                                    String userUid = user.getUid();
-                                    userUid = userUid.replaceAll("\\s","");
+                                            intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, user1.userId);
 
-
-                                Toast.makeText(LoginFormActivity.this, userUid, Toast.LENGTH_SHORT).show();
-
-                                intentTeacherMainActivity.putExtra(EXTRA_MESSAGE, userUid);
-
-                                startActivity(intentTeacherMainActivity);
-
+                                            startActivity(intentTeacherMainActivity);
+                                        }else{
+                                            Toast.makeText(getApplicationContext(), "Вы не учитель", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             }else if(message.equals("parent")){
 
                                 Intent intentParentMainActivity = new Intent(LoginFormActivity.this, ParentMainActivity.class);
