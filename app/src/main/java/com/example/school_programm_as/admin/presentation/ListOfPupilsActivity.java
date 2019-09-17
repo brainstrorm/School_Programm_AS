@@ -39,6 +39,7 @@ public class ListOfPupilsActivity extends AppCompatActivity {
     private static final String EXTRA_TEACHER_ID = "teacher.ID";
     private FirebaseFirestore mFirebase;
 
+    private PupilAdapter adapter;
     private RecyclerView recyclerView;
     private TextView name;
     public static Intent provideIntent(Context packageContext, final String group, final String adminId, final String teacherId) {
@@ -87,7 +88,8 @@ public class ListOfPupilsActivity extends AppCompatActivity {
                                     return pupil.name.compareTo(t1.name);
                                 }
                             });
-                            recyclerView.setAdapter(new PupilAdapter(pupils));
+                            adapter = new PupilAdapter(pupils);
+                            recyclerView.setAdapter(adapter);
                         }
                     }
                 });
@@ -157,5 +159,9 @@ public class ListOfPupilsActivity extends AppCompatActivity {
                 startActivity(ClassesListActivity.provideIntent(ListOfPupilsActivity.this, user, adminId));
             }
         });
+    }
+
+    public void updateStudentBill(Pupil pupil) {
+        adapter.notifyDataSetChanged();
     }
 }

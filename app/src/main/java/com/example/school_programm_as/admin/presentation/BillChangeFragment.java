@@ -1,6 +1,7 @@
 package com.example.school_programm_as.admin.presentation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,13 +60,22 @@ public class BillChangeFragment extends DialogFragment {
     private void changeBill(boolean plus) {
         try {
             final int bill = BillChangeFragment.this.pupil.bill;
-            final int[] edited = {Integer.parseInt(editText.getText().toString())};
+            final int[] edited = {0};
+            try {
+                edited[0] = Integer.parseInt(editText.getText().toString());
+            } catch (NumberFormatException e) {
+                Log.d("AdminActivity", "Empty input");
+            }
             if (!plus)
                 edited[0] = -edited[0];
             final FirebaseFirestore mFirestrore = FirebaseFirestore.getInstance();
             mFirestrore.collection("users")
                     .document(pupil.userId)
                     .update(new HashMap<String, Object>(){{ put("bill", bill + edited[0]); }});
+            ListOfPupilsActivity activity = (ListOfPupilsActivity) getActivity();
+            pupil.bill += edited[0];
+            if (activity != null)
+                activity.updateStudentBill(pupil);
         } catch (ArithmeticException e) {
             Toast.makeText(getContext(), "Incorrect input data", Toast.LENGTH_SHORT).show();
         }
