@@ -205,7 +205,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="411dp"
-        android:layout_height="256dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/button20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -220,10 +220,10 @@
             android:divider="@drawable/empty_tall_divider"
             android:drawableRight="@drawable/icons8_qr_code_64"
             android:fontFamily="@font/helveticaneuemed"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
             android:paddingTop="60dp"
             android:paddingRight="30dp"
-            android:paddingLeft="30dp"
-            android:orientation="vertical"
             android:showDividers="middle"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/button20"
@@ -237,15 +237,16 @@
         android:id="@+id/noLessons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="93dp"
+        android:fontFamily="@font/helveticaneuemed"
         android:gravity="center_horizontal"
         android:paddingBottom="145dp"
         android:textSize="25dp"
-        android:fontFamily="@font/helveticaneuemed"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.929" />
+        app:layout_constraintTop_toTopOf="@+id/scrollView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
