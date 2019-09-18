@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
@@ -149,10 +150,12 @@ public class TeacherMainActivity extends AppCompatActivity {
                                         });
                                         Button btn_delete = new Button(getApplicationContext());
                                         btn_delete.setBackgroundResource(R.drawable.delete_group);
+
                                         btn_delete.setLayoutParams(
                                                 new LinearLayout.LayoutParams(
-                                                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                                                        LinearLayout.LayoutParams.MATCH_PARENT
+                                                        120,
+                                                        120
+
                                                 )
                                         );
                                         btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -194,8 +197,8 @@ public class TeacherMainActivity extends AppCompatActivity {
                                         btn_replace.setBackgroundResource(R.drawable.replace_group);
                                         btn_replace.setLayoutParams(
                                                 new LinearLayout.LayoutParams(
-                                                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                                                        LinearLayout.LayoutParams.MATCH_PARENT
+                                                        120,
+                                                        120
                                                 )
                                         );
                                         btn_replace.setOnClickListener(new View.OnClickListener() {
