@@ -92,14 +92,12 @@ public class StudentTimetableDay extends AppCompatActivity {
 
                                         for (final String cur_date: Check) {
 
-                                            String date_ = cur_date;
-
 
 
 
                                             final Button class_ = new Button(getApplicationContext());
                                             class_.setId(id);
-                                            class_.setBackgroundResource(R.drawable.class_field);
+                                            class_.setBackgroundResource(R.drawable.rectangle_10);
                                             class_.setLayoutParams(
                                                     new LinearLayout.LayoutParams(
                                                             LinearLayout.LayoutParams.MATCH_PARENT,
