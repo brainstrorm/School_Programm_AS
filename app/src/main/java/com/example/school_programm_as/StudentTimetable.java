@@ -38,7 +38,7 @@ public class StudentTimetable extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
     private LinearLayout mLinearLayout;
-    private String userId,groupId,message;
+    private String userId,groupId,date;
     private TextView Text;
     private List<Lesson> subjects = new ArrayList<>();
 
@@ -67,33 +67,16 @@ public class StudentTimetable extends AppCompatActivity {
         if(intent.getAction().equals("StudentTimetableDayActivity")) {
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
-            message = extras.getString("MESSAGE");
+            date = extras.getString("DATE_MESSAGE");
         }
 
 
         Toast.makeText(StudentTimetable.this, groupId, Toast.LENGTH_SHORT ).show();
         TextView day = (TextView) findViewById(R.id.textDay);
-        TextView timetable = (TextView) findViewById(R.id.textTimetable);
-
-        if (message.equals("пятницу") || message.equals("среду")) {
-            dayOfSubj = message.substring(0,message.length()-1)+"a";
-        }
-        else {
-            dayOfSubj = message;
-        }
-
-        timetable.setText("Занятия на " + message);
-
-        message = message.substring(0,1).toUpperCase() + message.substring(1);
-
-        if (message.equals("Пятницу") || message.equals("Среду")) {
-
-            message = message.substring(0,message.length()-1) + "а";
-
-        }
 
 
-        day.setText(message);
+
+        day.setText(date);
 
          mLinearLayout = (LinearLayout) findViewById(R.id.timetableday);
 
@@ -105,7 +88,7 @@ public class StudentTimetable extends AppCompatActivity {
 
 
 
-            mFirestore.collection("lessons").whereEqualTo("group",groupId).get()
+            mFirestore.collection("lessons").whereEqualTo("group",groupId).whereEqualTo("date",date).get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -135,7 +118,7 @@ public class StudentTimetable extends AppCompatActivity {
 
                                         String day = sdfout.format(dayOfTheWeek);
 
-                                        if (day.equals(dayOfSubj)) {
+                                        //if (day.equals(dayOfSubj)) {
 
                                             class_.setTextSize(25);
                                             class_.setGravity(1);
@@ -144,7 +127,7 @@ public class StudentTimetable extends AppCompatActivity {
                                             // class_.setText(lesson.name);
                                             mLinearLayout.addView(class_);
                                             cnt++;
-                                        }
+                                        //}
                                     }
 
 
@@ -210,6 +193,8 @@ public class StudentTimetable extends AppCompatActivity {
 
         extras.putString("USER_ID_MESSAGE", userId);
         extras.putString("GROUP_ID_MESSAGE", groupId);
+       // extras.putString("DATE_MESSAGE", date);
+
         if(getIntent().getExtras().getString("PARENT_ID_MESSAGE") != null)
             extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
         intentStudentTimetableDayActivity.putExtras(extras);
