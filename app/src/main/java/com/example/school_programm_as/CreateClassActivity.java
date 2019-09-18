@@ -105,7 +105,28 @@ public class CreateClassActivity extends AppCompatActivity {
         startActivity(intentBack);
     }
 
-    public void Monday(View view){
+    public void plusDay(View view){
+        Intent plusDay = new Intent(this, CreateTimetableActivity.class);
+        Intent intent = getIntent();
+        String groupId = "";
+        Bundle extras = intent.getExtras();
+        if(intent.getAction().equals("TeacherMainActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("CreateTimetableActivity")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        Bundle extras_ = new Bundle();
+        extras_.putString("GROUP_ID_MESSAGE", groupId);
+        extras_.putString("USER_ID_MESSAGE", userId);
+        plusDay.putExtras(extras_);
+        //Toast.makeText(this, intent.getStringExtra(TeacherMainActivity.USER_ID_MESSAGE), Toast.LENGTH_SHORT).show();
+        startActivity(plusDay);
+    }
+
+    /*public void Monday(View view){
         Intent intentMonday = new Intent(this, CreateTimetableActivity.class);
         String message = "monday";
         Intent intent = getIntent();
@@ -213,7 +234,7 @@ public class CreateClassActivity extends AppCompatActivity {
         extras_.putString("USER_ID_MESSAGE", userId);
         intentFriday.putExtras(extras_);
         startActivity(intentFriday);
-    }
+    }*/
 
     public void saveClass(View view){
         Intent intentSaveClass = new Intent(this, TeacherMainActivity.class);

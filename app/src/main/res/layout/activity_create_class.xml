@@ -7,115 +7,33 @@
     android:layout_height="match_parent"
     tools:context=".CreateClassActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="527dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/text_field"
+        android:ems="10"
+        android:fontFamily="@font/helveticaneuemed"
+        android:hint="Новая группа"
+        android:inputType="text"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:textColorHint="#000"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.35">
-
-        <EditText
-            android:id="@+id/editText7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/text_field"
-            android:ems="10"
-            android:fontFamily="@font/helveticaneuemed"
-            android:hint="название класса"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textColor="#000"
-            android:textColorHint="#000"
-            app:layout_constraintBottom_toTopOf="@+id/imageView4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.652"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.591" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/set_timetable_by_days"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.549"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="412dp"
-            android:layout_marginTop="140dp"
-            android:divider="@drawable/empty_tall_divider_2"
-            android:orientation="vertical"
-            android:showDividers="middle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:id="@+id/imageButtonMonday"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/mondey"
-                android:onClick="Monday" />
-
-            <ImageButton
-                android:id="@+id/imageButton10"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tuesday"
-                android:onClick="Tuesday" />
-
-            <ImageButton
-                android:id="@+id/imageButton9"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/wednesday"
-                android:onClick="Wednesday" />
-
-            <ImageButton
-                android:id="@+id/imageButton8"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/thursday"
-                android:onClick="Thursday" />
-
-            <ImageButton
-                android:id="@+id/imageButton7"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/friday"
-                android:onClick="Friday" />
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintVertical_bias="0.05" />
 
     <ImageButton
         android:id="@+id/imageButton4"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="69dp"
-        android:background="@drawable/save_class"
+        android:background="@drawable/save_group_name"
         android:onClick="saveClass"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -142,7 +60,7 @@
             android:onClick="back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView7"
-            app:layout_constraintHorizontal_bias="0.301"
+            app:layout_constraintHorizontal_bias="0.179"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.488" />
@@ -158,7 +76,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.425"
-            app:srcCompat="@drawable/create_class" />
+            app:srcCompat="@drawable/new_group" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="52dp"
+            android:layout_height="51dp"
+            android:onClick="plusDay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.797"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/plus_lesson" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
