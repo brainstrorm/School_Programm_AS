@@ -14,4 +14,7 @@
     <string name="change_bill_plus">Зачислить</string>
     <string name="change_bill_minus">Отнять</string>
     <string name="sample_bill_change">0</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

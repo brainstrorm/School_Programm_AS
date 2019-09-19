@@ -124,11 +124,12 @@ public class TeacherMainActivity extends AppCompatActivity {
                                         class_.setAllCaps(false);
 
                                         class_.setText(group.name);
+
                                         class_.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                Intent intentTodayTimetableActivity = new Intent(TeacherMainActivity.this, TodayTimetableActivity.class);
-                                                intentTodayTimetableActivity.setAction("TeacherMainActivity");
+                                                Intent intentTodayTimetableActivity = new Intent(TeacherMainActivity.this, CreateClassActivity.class);
+                                                intentTodayTimetableActivity.setAction("ExistingGroup");
                                                 Bundle extras = new Bundle();
                                                 String message = document.getId();
                                                 extras.putString("GROUP_ID_MESSAGE", message);
