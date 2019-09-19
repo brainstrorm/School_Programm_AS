@@ -236,7 +236,7 @@ public class CreateClassActivity extends AppCompatActivity {
                 extras_.putString("DATE_MESSAGE", date);
                 openDate.putExtras(extras_);
                 //Toast.makeText(this, intent.getStringExtra(TeacherMainActivity.USER_ID_MESSAGE), Toast.LENGTH_SHORT).show();
-                //juzdf
+                //juzghhg
                 startActivity(openDate);
 
             }
