@@ -100,6 +100,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
                 Log.d(TAG, "OnDateSet: date:" + day + "/" + month + "/" + year);
                 date = day + "." + month + "." + year;
                 mSetDate.setText(date);
+
             }
         };
 
@@ -214,9 +215,31 @@ public class CreateTimetableActivity extends AppCompatActivity {
                 Log.d(TAG, "OnDateSet: date:" + day + "/" + month + "/" + year);
                 date = day + "." + month + "." + year;
                 mSetDate.setText(date);
+                Intent intent = getIntent();
+                Bundle extras = intent.getExtras();
+                String groupId = extras.getString("GROUP_ID_MESSAGE");
+                for(String key: lessons.keySet()){
+                    EditText lessonET = (EditText) findViewById(lessons.get(key));
+
+                    mFirestore.collection("lessons").whereEqualTo("group", groupId)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if(task.isSuccessful()){
+                                        for(final QueryDocumentSnapshot document: task.getResult()){
+                                            Log.d(TAG, "new date:" + date + ", lessonId" + document.getId());
+                                            document.getReference().update("date", date);
+                                        }
+                                    }else{
+                                        Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
+
             }
         };
-
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -229,27 +252,6 @@ public class CreateTimetableActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        String groupId = extras.getString("GROUP_ID_MESSAGE");
-        for(String key: lessons.keySet()){
-            EditText lessonET = (EditText) findViewById(lessons.get(key));
-
-            mFirestore.collection("lessons").whereEqualTo("group", groupId)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if(task.isSuccessful()){
-                                for(final QueryDocumentSnapshot document: task.getResult()){
-                                    document.getReference().update("date", date);
-                                }
-                            }else{
-                                Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }
 
     }
 
