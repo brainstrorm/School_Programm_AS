@@ -123,6 +123,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                                         class_.setAllCaps(false);
 
                                         class_.setText(group.name);
+
                                         class_.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
