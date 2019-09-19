@@ -35,6 +35,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -75,6 +76,8 @@ public class CreateTimetableActivity extends AppCompatActivity {
         String day = extras.getString("DAY_MESSAGE");
         mlinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         mSetDate = (TextView) findViewById(R.id.TVDate);
+        mSetDate.setText(intent.getExtras().getString("DATE_MESSAGE"));
+        date = mSetDate.getText().toString();
 
         mSetDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +109,24 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
         mFirestore = FirebaseFirestore.getInstance();
 
+        if(!intent.getExtras().getString("DATE_MESSAGE").equals("")){
+            mFirestore.collection("lessons")
+                    .whereEqualTo("group", intent.getExtras().getString("GROUP_ID_MESSAGE"))
+                    .whereEqualTo("date", intent.getExtras().getString("DATE_MESSAGE"))
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(QueryDocumentSnapshot document: task.getResult()){
+                                    String name = document.get("name").toString();
+                                    plusLesson(name);
+                                }
+                            }
+                        }
+                    });
+        }
+
 
     }
 
@@ -123,7 +144,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
         }
     }
     public void plusLesson(String name){
-        final HorizontalScrollView scrollView = new HorizontalScrollView(getApplicationContext());
+        /*final HorizontalScrollView scrollView = new HorizontalScrollView(getApplicationContext());
         LinearLayout linearLayout = new LinearLayout(getApplicationContext());
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.setLayoutParams(
@@ -137,19 +158,21 @@ public class CreateTimetableActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 )
-        );
-        final EditText lesson = new EditText(getApplicationContext());
+        );*/
+        final TextView lesson = new TextView(getApplicationContext());
         lesson.setId(countID);
         Toast.makeText(CreateTimetableActivity.this, " " + lesson.getId(), Toast.LENGTH_SHORT).show();
         lesson.setBackgroundResource(R.drawable.lesson_field);
         lesson.setText(name);
+        lesson.setTextSize(30);
+        lesson.setPadding(50, 20, 0, 0);
         lesson.setLayoutParams(
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 )
         );
-        Button btn_delete = new Button(getApplicationContext());
+        /*Button btn_delete = new Button(getApplicationContext());
         btn_delete.setBackgroundResource(R.drawable.delete_subject);
         btn_delete.setLayoutParams(
                 new LinearLayout.LayoutParams(
@@ -173,11 +196,11 @@ public class CreateTimetableActivity extends AppCompatActivity {
                 lessons.remove(Integer.toString(maxKey));
                 mlinearLayout.removeView(scrollView);
             }
-        });
-        linearLayout.addView(lesson);
-        linearLayout.addView(btn_delete);
-        scrollView.addView(linearLayout);
-        mlinearLayout.addView(scrollView);
+        });*/
+        //linearLayout.addView(lesson);
+        //linearLayout.addView(btn_delete);
+        //scrollView.addView(linearLayout);
+        mlinearLayout.addView(lesson);
         lessons.put(Integer.toString(lesson.getId()), lesson.getId());
         countID++;
     }
@@ -186,24 +209,21 @@ public class CreateTimetableActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         String groupId = extras.getString("GROUP_ID_MESSAGE");
-        for(String key: lessons.keySet()){
-            EditText lessonET = (EditText) findViewById(lessons.get(key));
-
-            mFirestore.collection("lessons").whereEqualTo("group", groupId)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if(task.isSuccessful()){
-                                for(final QueryDocumentSnapshot document: task.getResult()){
-                                    document.getReference().delete();
-                                }
-                            }else{
-                                Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
+        mFirestore.collection("lessons").whereEqualTo("group", groupId).whereEqualTo("date", mSetDate.getText().toString())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(final QueryDocumentSnapshot document: task.getResult()){
+                                document.getReference().delete();
                             }
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
                         }
-                    });
-        }
+                    }
+                });
+        number = 1;
         mlinearLayout.removeAllViews();
     }
 
@@ -218,25 +238,22 @@ public class CreateTimetableActivity extends AppCompatActivity {
                 Intent intent = getIntent();
                 Bundle extras = intent.getExtras();
                 String groupId = extras.getString("GROUP_ID_MESSAGE");
-                for(String key: lessons.keySet()){
-                    EditText lessonET = (EditText) findViewById(lessons.get(key));
 
-                    mFirestore.collection("lessons").whereEqualTo("group", groupId)
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if(task.isSuccessful()){
-                                        for(final QueryDocumentSnapshot document: task.getResult()){
-                                            Log.d(TAG, "new date:" + date + ", lessonId" + document.getId());
-                                            document.getReference().update("date", date);
-                                        }
-                                    }else{
-                                        Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
+                mFirestore.collection("lessons").whereEqualTo("group", groupId)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    for(final QueryDocumentSnapshot document: task.getResult()){
+                                        Log.d(TAG, "new date:" + date + ", lessonId" + document.getId());
+                                        document.getReference().update("date", date);
                                     }
+                                }else{
+                                    Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                }
+                            }
+                        });
 
             }
         };
@@ -262,6 +279,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         extras.putString("USER_ID_MESSAGE", intent.getExtras().getString("USER_ID_MESSAGE"));
         extras.putString("GROUP_ID_MESSAGE", intent.getExtras().getString("GROUP_ID_MESSAGE"));
+        extras.putString("GROUP_NAME_MESSAGE", intent.getExtras().getString("GROUP_NAME_MESSAGE"));
         intentBackToCreateClassActivity.putExtras(extras);
         startActivity(intentBackToCreateClassActivity);
     }
