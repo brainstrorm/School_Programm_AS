@@ -65,11 +65,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.488" />
 
-        <ImageView
-            android:id="@+id/imageView7"
+        <TextView
+            android:id="@+id/xGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@drawable/new_group"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -107,6 +108,8 @@
             android:id="@+id/datesList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="@drawable/empty_tall_divider_2"
+            android:showDividers="middle"
             android:orientation="vertical" />
     </ScrollView>
 

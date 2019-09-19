@@ -76,6 +76,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
         String day = extras.getString("DAY_MESSAGE");
         mlinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         mSetDate = (TextView) findViewById(R.id.TVDate);
+        TVDay = (TextView) findViewById(R.id.xDay);
         mSetDate.setText(intent.getExtras().getString("DATE_MESSAGE"));
         date = mSetDate.getText().toString();
 
@@ -110,6 +111,8 @@ public class CreateTimetableActivity extends AppCompatActivity {
         mFirestore = FirebaseFirestore.getInstance();
 
         if(!intent.getExtras().getString("DATE_MESSAGE").equals("")){
+            TVDay.setBackgroundColor(0000);
+            TVDay.setText(intent.getExtras().getString("DATE_MESSAGE"));
             mFirestore.collection("lessons")
                     .whereEqualTo("group", intent.getExtras().getString("GROUP_ID_MESSAGE"))
                     .whereEqualTo("date", intent.getExtras().getString("DATE_MESSAGE"))

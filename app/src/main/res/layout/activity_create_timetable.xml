@@ -64,15 +64,15 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/plus_lesson" />
 
-            <ImageView
-                android:id="@+id/imageView20"
+            <TextView
+                android:id="@+id/xDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/new_day"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/new_day" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

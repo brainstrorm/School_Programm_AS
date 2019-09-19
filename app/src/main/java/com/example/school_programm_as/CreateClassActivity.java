@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.vision.L;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.school_programm_as.R;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -45,27 +47,42 @@ public class CreateClassActivity extends AppCompatActivity {
     private HashSet<String> dates;
 
     private LinearLayout mlinearLayout;
+    private TextView TVGroup;
+    private EditText nameField;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mlinearLayout = (LinearLayout) findViewById(R.id.datesList);
+        TVGroup = (TextView) findViewById(R.id.xGroup);
+        nameField = (EditText) findViewById(R.id.editText7);
         dates = new HashSet<>();
+        mFirestore = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
+        String groupId = intent.getExtras().getString("GROUP_ID_MESSAGE");
         if(intent.getAction().equals("TeacherMainActivity")) {
             userId = intent.getExtras().getString("USER_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("ExistingGroup")){
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
+            /*mFirestore.collection("groups").document(groupId)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            TVGroup.setText(documentSnapshot.get("name").toString());
+                            nameField.setText(documentSnapshot.get("name").toString());
+                        }
+                    });*/
         }
         if(intent.getAction().equals("CreateTimetableActivity")){
             userId = intent.getExtras().getString("USER_ID_MESSAGE");
             /*EditText class_name = (EditText) findViewById(R.id.editText7);
             class_name.setText(intent.getExtras().getString("GROUP_NAME_MESSAGE"));*/
         }
-        String groupId = intent.getExtras().getString("GROUP_ID_MESSAGE");
         Toast.makeText(this, userId, Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_create_class);
         ConstraintLayout toolbar = findViewById(R.id.toolbar);
-
-        mFirestore = FirebaseFirestore.getInstance();
 
         mFirestore.collection("lessons").whereEqualTo("group", groupId)
                 .get()
@@ -95,6 +112,10 @@ public class CreateClassActivity extends AppCompatActivity {
         String groupId = "";
         Bundle extras = intent.getExtras();
         if(intent.getAction().equals("TeacherMainActivity")) {
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("ExistingGroup")){
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
         }
@@ -150,6 +171,10 @@ public class CreateClassActivity extends AppCompatActivity {
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
         }
+        if(intent.getAction().equals("ExistingGroup")){
+            userId = extras.getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
         if(intent.getAction().equals("CreateTimetableActivity")){
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
@@ -196,6 +221,10 @@ public class CreateClassActivity extends AppCompatActivity {
                     groupId = extras.getString("GROUP_ID_MESSAGE");
                 }
                 if(intent.getAction().equals("CreateTimetableActivity")){
+                    userId = extras.getString("USER_ID_MESSAGE");
+                    groupId = extras.getString("GROUP_ID_MESSAGE");
+                }
+                if(intent.getAction().equals("ExistingGroup")){
                     userId = extras.getString("USER_ID_MESSAGE");
                     groupId = extras.getString("GROUP_ID_MESSAGE");
                 }
@@ -261,7 +290,7 @@ public class CreateClassActivity extends AppCompatActivity {
         if(!class_name.getText().toString().trim().equals("")) {
             DocumentReference docRefGroup = mFirestore.collection("groups").document(groupId);
             docRefGroup.update("name", class_name.getText().toString().trim());
-            startActivity(intentSaveClass);
+            //startActivity(intentSaveClass);
         }else{
             Toast.makeText(this, "Введите название группы!", Toast.LENGTH_SHORT).show();
         }
