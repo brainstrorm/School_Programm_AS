@@ -24,9 +24,6 @@ import java.util.Set;
 public class StudentTimetableDay extends AppCompatActivity {
 
 
-    public final static String EXTRA_MESSAGE = "com.example.school_programm_AS.MESSAGE";
-    public final static String ID_MESSAGE = "ID";
-    public final static String ID_MESSAGE_USER = "ID";
     private String groupId,userId;
     private Set<String> Check = new HashSet<>();
     private FirebaseFirestore mFirestore;
