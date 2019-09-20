@@ -90,6 +90,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                                     for (final QueryDocumentSnapshot document : task.getResult()){
                                         final HorizontalScrollView scrollView = new HorizontalScrollView(getApplicationContext());
                                         scrollView.setId(id);
+                                        scrollView.setHorizontalScrollBarEnabled(false);
                                         LinearLayout linearLayout = new LinearLayout(getApplicationContext());
                                         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                                         linearLayout.setLayoutParams(
