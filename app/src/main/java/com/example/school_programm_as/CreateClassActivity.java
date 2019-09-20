@@ -49,6 +49,9 @@ public class CreateClassActivity extends AppCompatActivity {
     private LinearLayout mlinearLayout;
     private TextView TVGroup;
     private EditText nameField;
+
+    private String groupName;
+    private String groupId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,26 +62,18 @@ public class CreateClassActivity extends AppCompatActivity {
         dates = new HashSet<>();
         mFirestore = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
-        String groupId = intent.getExtras().getString("GROUP_ID_MESSAGE");
+        groupId = intent.getExtras().getString("GROUP_ID_MESSAGE");
         if(intent.getAction().equals("TeacherMainActivity")) {
             userId = intent.getExtras().getString("USER_ID_MESSAGE");
         }
         if(intent.getAction().equals("ExistingGroup")){
             userId = intent.getExtras().getString("USER_ID_MESSAGE");
-            /*mFirestore.collection("groups").document(groupId)
-                    .get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            TVGroup.setText(documentSnapshot.get("name").toString());
-                            nameField.setText(documentSnapshot.get("name").toString());
-                        }
-                    });*/
+
         }
         if(intent.getAction().equals("CreateTimetableActivity")){
             userId = intent.getExtras().getString("USER_ID_MESSAGE");
-            /*EditText class_name = (EditText) findViewById(R.id.editText7);
-            class_name.setText(intent.getExtras().getString("GROUP_NAME_MESSAGE"));*/
+            //EditText class_name = (EditText) findViewById(R.id.editText7);
+            //nameField.setHint(intent.getExtras().getString("GROUP_NAME_MESSAGE"));
         }
         Toast.makeText(this, userId, Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_create_class);
@@ -103,6 +98,33 @@ public class CreateClassActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    protected void onResume() {
+        nameField = (EditText) findViewById(R.id.editText7);
+        TVGroup = (TextView) findViewById(R.id.xGroup);
+        TVGroup.setBackgroundColor(0000);
+        groupId = getIntent().getExtras().getString("GROUP_ID_MESSAGE");
+        if(getIntent().getAction().equals("ExistingGroup")) {
+            FirebaseFirestore.getInstance().collection("groups").document(groupId)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            groupName = documentSnapshot.get("name").toString();
+                            nameField.setText(groupName);
+                            TVGroup.setText(groupName);
+                        }
+                    });
+        }else if(getIntent().getAction().equals("CreateTimetableActivity") && !getIntent().getExtras().getString("GROUP_NAME_MESSAGE").equals("")){
+            groupName = getIntent().getExtras().getString("GROUP_NAME_MESSAGE");
+            nameField.setText(groupName);
+            TVGroup.setText(groupName);//кста шрифт
+        }else{
+            TVGroup.setBackgroundResource(R.drawable.new_group);
+        }
+        super.onResume();
     }
 
     public void back(View view){
