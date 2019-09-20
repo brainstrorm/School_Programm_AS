@@ -1,6 +1,6 @@
 package com.example.school_programm_as;
 
-public class Lesson {
+public class Lesson implements Comparable<Lesson>{
     public String date;
     public String group;
     public String name;
@@ -17,6 +17,8 @@ public class Lesson {
     }
 
 
+
+
     public String getName() {
         return name;
     }
@@ -31,5 +33,12 @@ public class Lesson {
 
     public int getNumber() {
         return number;
+    }
+
+    public int compareTo(Lesson other) {
+        if(this.getNumber() >= other.getNumber())
+            return 1;
+        else
+        return -1 ;
     }
 }

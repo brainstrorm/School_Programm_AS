@@ -27,19 +27,19 @@
             android:label="@string/title_activity_students_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".StudentTimetableDay"
+            android:label="@string/title_activity_students_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StudentTimetable"
+            android:label="@string/title_activity_students_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".ParentMainActivity"
             android:label="@string/title_activity_parent_main"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".StudentTimetable"
-            android:noHistory="true" />
-        <activity
-            android:name=".MyQR"
-            android:noHistory="true" />
-        <activity
-            android:name=".StudentTimetableDay"
-            android:noHistory="true" />
         <activity
             android:name=".QRScan"
             android:noHistory="true" />

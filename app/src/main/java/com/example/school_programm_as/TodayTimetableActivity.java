@@ -24,7 +24,9 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class TodayTimetableActivity extends AppCompatActivity {
@@ -43,6 +45,7 @@ public class TodayTimetableActivity extends AppCompatActivity {
     String today = sdfout.format(d);
     Date dayOfTheWeek;
 
+    private List<Lesson> subjects = new ArrayList<>();
 
     public final static String GROUP_ID_MESSAGE = "GROUP_ID_MESSAGE";
     public final static String USER_ID_MESSAGE = "USER_ID_MESSAGE";
@@ -85,12 +88,9 @@ public class TodayTimetableActivity extends AppCompatActivity {
 
 
 
-        Query docRef = mFirestore.collection("lessons").whereEqualTo("group", groupId);
-
-        docRef.orderBy("number");
 
 
-                docRef.get()
+        mFirestore.collection("lessons").whereEqualTo("group", groupId).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -111,6 +111,42 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                     if (today.equals(sdfout.format(dayOfTheWeek))) {
 
                                         cnt++;
+
+                                        subjects.add(lesson);
+
+                                          }
+
+                                    }
+                            }
+                            id = 0;
+                            for (int j = 0 ; j < subjects.size(); j++) {
+
+                                for (int i = 0; i < subjects.size() - 1; i++) {
+                                    Lesson p = subjects.get(i);
+                                    Lesson cnt;
+                                    Lesson next = subjects.get(i + 1);
+                                    if (p.getNumber() >= next.getNumber()) {
+                                        cnt = p;
+                                        subjects.set(i, next);
+                                        subjects.set(i + 1, cnt);
+                                    }
+                                }
+                            }
+
+                            for(final QueryDocumentSnapshot document: task.getResult()) {
+
+                                final Lesson lesson = subjects.get(id);
+                                if (lesson.date != null) {
+
+                                    try {
+                                        dayOfTheWeek = sdfin.parse(lesson.date);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                    if (today.equals(sdfout.format(dayOfTheWeek))) {
+
                                         final Button lesson_ = new Button(getApplicationContext());
                                         lesson_.setId(id);
                                         lesson_.setBackgroundResource(R.drawable.class_field);
@@ -122,17 +158,17 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                         );
 
 
-                                        lesson_.setTextSize(25);
-                                        lesson_.setTextColor(0xFFFFFFFF);
                                         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
+                                        lesson_.setTextColor(0xFFFFFFFF);
+                                        lesson_.setTextSize(22);
                                         lesson_.setTypeface(font);
                                         lesson_.setTypeface(null, Typeface.BOLD);
                                         lesson_.setAllCaps(false);
 
 
-                                        lesson_.setText(lesson.name);
 
 
+                                        lesson_.setText(subjects.get(id).name);
                                         lesson_.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
@@ -151,8 +187,8 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                         mLinearLayout.addView(lesson_);
                                     }
                                 }
-
-                                }
+                                id++;
+                            }
 
                         }
                         if (cnt == 0) {

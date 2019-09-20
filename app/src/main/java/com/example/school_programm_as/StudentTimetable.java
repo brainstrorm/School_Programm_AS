@@ -18,9 +18,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firestore.v1beta1.StructuredQuery;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -33,9 +38,9 @@ public class StudentTimetable extends AppCompatActivity {
 
     private FirebaseFirestore mFirestore;
     private LinearLayout mLinearLayout;
-    private String userId,groupId,message;
+    private String userId,groupId,date;
     private TextView Text;
-    private List<Lesson> subjects;
+    private List<Lesson> subjects = new ArrayList<>();
 
 
     Date dayOfTheWeek = null;
@@ -62,33 +67,16 @@ public class StudentTimetable extends AppCompatActivity {
         if(intent.getAction().equals("StudentTimetableDayActivity")) {
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
-            message = extras.getString("MESSAGE");
+            date = extras.getString("DATE_MESSAGE");
         }
 
 
         Toast.makeText(StudentTimetable.this, groupId, Toast.LENGTH_SHORT ).show();
         TextView day = (TextView) findViewById(R.id.textDay);
-        TextView timetable = (TextView) findViewById(R.id.textTimetable);
-
-        if (message.equals("пятницу") || message.equals("среду")) {
-            dayOfSubj = message.substring(0,message.length()-1)+"a";
-        }
-        else {
-            dayOfSubj = message;
-        }
-
-        timetable.setText("Занятия на " + message);
-
-        message = message.substring(0,1).toUpperCase() + message.substring(1);
-
-        if (message.equals("Пятницу") || message.equals("Среду")) {
-
-            message = message.substring(0,message.length()-1) + "а";
-
-        }
 
 
-        day.setText(message);
+
+        day.setText(date);
 
          mLinearLayout = (LinearLayout) findViewById(R.id.timetableday);
 
@@ -97,10 +85,10 @@ public class StudentTimetable extends AppCompatActivity {
 
         if (!groupId.equals("")) {
 
-            Query docRef = mFirestore.collection("lessons").whereEqualTo("group", groupId);
 
-            docRef.orderBy("number");
-                    docRef.get()
+
+
+            mFirestore.collection("lessons").whereEqualTo("group",groupId).whereEqualTo("date",date).get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -110,7 +98,7 @@ public class StudentTimetable extends AppCompatActivity {
                                     final TextView class_ = new TextView(getApplicationContext());
                                     class_.setId(id);
                                     class_.setTextColor(0xFF8E7B89);
-                                    Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
+                                    Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
                                     class_.setTypeface(font);
 
                                     class_.setLayoutParams(
@@ -130,23 +118,59 @@ public class StudentTimetable extends AppCompatActivity {
 
                                         String day = sdfout.format(dayOfTheWeek);
 
-                                        if (day.equals(dayOfSubj)) {
+                                        //if (day.equals(dayOfSubj)) {
 
                                             class_.setTextSize(25);
                                             class_.setGravity(1);
 
-
-                                            class_.setText(lesson.name);
+                                            subjects.add(lesson);
+                                            // class_.setText(lesson.name);
                                             mLinearLayout.addView(class_);
                                             cnt++;
-                                        }
+                                        //}
                                     }
 
 
                                     id++;
                                     Toast.makeText(StudentTimetable.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
+
+                                for (int j = 0 ; j < subjects.size(); j++) {
+                                    for (int i = 0; i < subjects.size() - 1; i++) {
+                                        Lesson p = subjects.get(i);
+                                        Lesson cnt;
+                                        Lesson next = subjects.get(i + 1);
+                                        if (p.getNumber() >= next.getNumber()) {
+                                            cnt = p;
+                                            subjects.set(i, next);
+                                            subjects.set(i + 1, cnt);
+                                        }
+                                    }
+                                }
+
+                                for (int i = 0 ; i < subjects.size(); i++) {
+                                    final TextView class_ = new TextView(getApplicationContext());
+                                    class_.setId(id);
+                                    class_.setTextColor(0xFF8E7B89);
+                                    Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
+                                    class_.setTypeface(font);
+                                    class_.setTextSize(25);
+                                    class_.setGravity(1);
+
+
+                                    class_.setLayoutParams(
+                                            new LinearLayout.LayoutParams(
+                                                    LinearLayout.LayoutParams.MATCH_PARENT,
+                                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                                            )
+                                    );
+
+                                    class_.setText(subjects.get(i).name);
+                                    mLinearLayout.addView(class_);
+
+                                }
+
+                        } else {
                                 Toast.makeText(StudentTimetable.this, "Информация о группах не получена", Toast.LENGTH_SHORT).show();
                             }
 
@@ -156,7 +180,10 @@ public class StudentTimetable extends AppCompatActivity {
                         }
                     });
         }
-    }
+
+            }
+
+
 
     public void Back(View view){
         Intent intentStudentTimetableDayActivity = new Intent(getApplicationContext(), StudentTimetableDay.class);
@@ -166,6 +193,8 @@ public class StudentTimetable extends AppCompatActivity {
 
         extras.putString("USER_ID_MESSAGE", userId);
         extras.putString("GROUP_ID_MESSAGE", groupId);
+       // extras.putString("DATE_MESSAGE", date);
+
         if(getIntent().getExtras().getString("PARENT_ID_MESSAGE") != null)
             extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
         intentStudentTimetableDayActivity.putExtras(extras);
