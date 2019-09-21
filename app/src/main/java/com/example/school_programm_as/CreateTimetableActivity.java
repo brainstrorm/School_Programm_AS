@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.school_programm_as.admin.presentation.BillChangeFragment;
 import com.example.school_programm_as.admin.presentation.ListOfPupilsActivity;
+import com.example.school_programm_as.teacher.TeacherListOfStudents;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -146,7 +147,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Введите дату", Toast.LENGTH_SHORT).show();
         }
     }
-    public void plusLesson(String name){
+    public void plusLesson(final String name){
         /*final HorizontalScrollView scrollView = new HorizontalScrollView(getApplicationContext());
         LinearLayout linearLayout = new LinearLayout(getApplicationContext());
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -175,6 +176,14 @@ public class CreateTimetableActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 )
         );
+        lesson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(TeacherListOfStudents.provideIntent(CreateTimetableActivity.this,
+                        getIntent().getStringExtra(GROUP_ID_MESSAGE),
+                        name);
+            }
+        });
         /*Button btn_delete = new Button(getApplicationContext());
         btn_delete.setBackgroundResource(R.drawable.delete_subject);
         btn_delete.setLayoutParams(
