@@ -1,50 +1,33 @@
 package com.example.school_programm_as;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.school_programm_as.admin.presentation.BillChangeFragment;
-import com.example.school_programm_as.admin.presentation.ListOfPupilsActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.example.school_programm_as.teacher.TeacherListOfStudents;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
 
 
 public class CreateTimetableActivity extends AppCompatActivity {
@@ -56,6 +39,24 @@ public class CreateTimetableActivity extends AppCompatActivity {
     private static final String TAG = "CreateTimetableActivity";
     private TextView mSetDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    private static String savedDateMessage;
+    private static String savedGroupId;
+    private static String savedGroupName;
+    private static String savedUserId;
+    /**
+     * Method provides intent to get back
+     * @param packageContext - activity, which returns to current
+     * @return Intent to startActivity
+     */
+    public static Intent provideBackIntent(Context packageContext) {
+        Intent mIntent = new Intent(packageContext, CreateTimetableActivity.class);
+        mIntent.putExtra("DATE_MESSAGE", savedDateMessage);
+        mIntent.putExtra("GROUP_ID_MESSAGE", savedGroupId);
+        mIntent.putExtra("USER_ID_MESSAGE", savedUserId);
+        mIntent.putExtra("GROUP_NAME_MESSAGE", savedGroupName);
+        return mIntent;
+    }
 
     private FirebaseFirestore mFirestore;
     private TextView TVDay;
@@ -73,11 +74,14 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        String day = extras.getString("DAY_MESSAGE");
+        savedGroupId = extras.getString("GROUP_ID_MESSAGE");
+        savedGroupName = extras.getString("GROUP_NAME_MESSAGE");
+        savedUserId = extras.getString("USER_ID_MESSAGE");
         mlinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         mSetDate = (TextView) findViewById(R.id.TVDate);
         TVDay = (TextView) findViewById(R.id.xDay);
-        mSetDate.setText(intent.getExtras().getString("DATE_MESSAGE"));
+        savedDateMessage = extras.getString("DATE_MESSAGE");
+        mSetDate.setText(savedDateMessage);
         date = mSetDate.getText().toString();
 
         mSetDate.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +150,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Введите дату", Toast.LENGTH_SHORT).show();
         }
     }
-    public void plusLesson(String name){
+    public void plusLesson(final String name){
         /*final HorizontalScrollView scrollView = new HorizontalScrollView(getApplicationContext());
         LinearLayout linearLayout = new LinearLayout(getApplicationContext());
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -175,6 +179,14 @@ public class CreateTimetableActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 )
         );
+        lesson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(TeacherListOfStudents.provideIntent(CreateTimetableActivity.this,
+                        getIntent().getStringExtra(GROUP_ID_MESSAGE),
+                        name));
+            }
+        });
         /*Button btn_delete = new Button(getApplicationContext());
         btn_delete.setBackgroundResource(R.drawable.delete_subject);
         btn_delete.setLayoutParams(
