@@ -105,6 +105,11 @@ public class CreateClassActivity extends AppCompatActivity {
         nameField = (EditText) findViewById(R.id.editText7);
         TVGroup = (TextView) findViewById(R.id.xGroup);
         TVGroup.setBackgroundColor(0000);
+        TVGroup.setTextSize(22);
+        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
+        TVGroup.setTextColor(0xFFFFFFFF);
+        TVGroup.setTypeface(font);
+        TVGroup.setTypeface(null, Typeface.BOLD);
         groupId = getIntent().getExtras().getString("GROUP_ID_MESSAGE");
         if(getIntent().getAction().equals("ExistingGroup")) {
             FirebaseFirestore.getInstance().collection("groups").document(groupId)

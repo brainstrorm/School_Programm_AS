@@ -5,6 +5,7 @@ public class Lesson implements Comparable<Lesson>{
     public String group;
     public String name;
     public int number;
+    public int state;
 
     public Lesson() {
     }
@@ -22,6 +23,8 @@ public class Lesson implements Comparable<Lesson>{
     public String getName() {
         return name;
     }
+
+    public int getState() { return state; }
 
     public String getDate() {
         return date;

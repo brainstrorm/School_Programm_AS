@@ -72,10 +72,10 @@ public class TeacherMainActivity extends AppCompatActivity {
         mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
         mFirestore = FirebaseFirestore.getInstance();
-        DocumentReference docRef = mFirestore.collection("users").document(userId);
+        final DocumentReference docRef = mFirestore.collection("users").document(userId);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+            public void onSuccess(final DocumentSnapshot documentSnapshot) {
                 User user_ = documentSnapshot.toObject(User.class);
                 name = user_.name;
                 surname = user_.surname;
@@ -87,8 +87,8 @@ public class TeacherMainActivity extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    for (final QueryDocumentSnapshot document : task.getResult()){
+                                if(task.isSuccessful()) {
+                                    for (final QueryDocumentSnapshot document : task.getResult()) {
                                         final HorizontalScrollView scrollView = new HorizontalScrollView(getApplicationContext());
                                         scrollView.setId(id);
                                         scrollView.setHorizontalScrollBarEnabled(false);
@@ -108,104 +108,106 @@ public class TeacherMainActivity extends AppCompatActivity {
                                         );
                                         final Group group = document.toObject(Group.class);
                                         final Button class_ = new Button(getApplicationContext());
-                                        class_.setId(id);
-                                        class_.setBackgroundResource(R.drawable.class_field);
-                                        class_.setLayoutParams(
-                                                new LinearLayout.LayoutParams(
-                                                        LinearLayout.LayoutParams.MATCH_PARENT,
-                                                        LinearLayout.LayoutParams.WRAP_CONTENT
-                                                )
-                                        );
+                                        if (!group.name.equals("")) {
+                                            class_.setGravity(17);
+                                            class_.setId(id);
+                                            class_.setBackgroundResource(R.drawable.class_field);
+                                            class_.setLayoutParams(
+                                                    new LinearLayout.LayoutParams(
+                                                            LinearLayout.LayoutParams.MATCH_PARENT,
+                                                            LinearLayout.LayoutParams.WRAP_CONTENT
+                                                    )
+                                            );
 
-                                        class_.setTextSize(25);
-                                        class_.setTextColor(0xFFFFFFFF);
-                                        Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
-                                        class_.setTypeface(font);
-                                        class_.setTypeface(null, Typeface.BOLD);
-                                        class_.setAllCaps(false);
+                                            class_.setTextSize(25);
+                                            class_.setTextColor(0xFFFFFFFF);
+                                            Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
+                                            class_.setTypeface(font);
+                                            class_.setTypeface(null, Typeface.BOLD);//fonter
+                                            class_.setAllCaps(false);
+                                            class_.setGravity(1);
+                                            class_.setText(group.name);
 
-                                        class_.setText(group.name);
-
-                                        class_.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                Intent intentTodayTimetableActivity = new Intent(TeacherMainActivity.this, CreateClassActivity.class);
-                                                intentTodayTimetableActivity.setAction("ExistingGroup");
-                                                Bundle extras = new Bundle();
-                                                String message = document.getId();
-                                                extras.putString("GROUP_ID_MESSAGE", message);
-                                                Toast.makeText(TeacherMainActivity.this, intentTodayTimetableActivity.getStringExtra(TeacherMainActivity.GROUP_ID_MESSAGE), Toast.LENGTH_SHORT).show();
-                                                Intent intent = getIntent();
-                                                if(intent.getAction().equals("CreateClassActivity")){
-                                                    userId = intent.getStringExtra("USER_ID_MESSAGE");
+                                            class_.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    Intent intentTodayTimetableActivity = new Intent(TeacherMainActivity.this, CreateClassActivity.class);
+                                                    intentTodayTimetableActivity.setAction("ExistingGroup");
+                                                    Bundle extras = new Bundle();
+                                                    String message = document.getId();
+                                                    extras.putString("GROUP_ID_MESSAGE", message);
+                                                    Toast.makeText(TeacherMainActivity.this, intentTodayTimetableActivity.getStringExtra(TeacherMainActivity.GROUP_ID_MESSAGE), Toast.LENGTH_SHORT).show();
+                                                    Intent intent = getIntent();
+                                                    if (intent.getAction().equals("CreateClassActivity")) {
+                                                        userId = intent.getStringExtra("USER_ID_MESSAGE");
+                                                    }
+                                                    if (intent.getAction().equals("LoginFormActivity")) {
+                                                        userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
+                                                    }
+                                                    if (intent.getAction().equals("TodayTimetableActivity")) {
+                                                        userId = intent.getStringExtra("USER_ID_MESSAGE");
+                                                    }
+                                                    extras.putString("USER_ID_MESSAGE", userId);
+                                                    intentTodayTimetableActivity.putExtras(extras);
+                                                    startActivity(intentTodayTimetableActivity);
                                                 }
-                                                if(intent.getAction().equals("LoginFormActivity")){
-                                                    userId = intent.getStringExtra(LoginFormActivity.EXTRA_MESSAGE);
-                                                }
-                                                if(intent.getAction().equals("TodayTimetableActivity")){
-                                                    userId = intent.getStringExtra("USER_ID_MESSAGE");
-                                                }
-                                                extras.putString("USER_ID_MESSAGE", userId);
-                                                intentTodayTimetableActivity.putExtras(extras);
-                                                startActivity(intentTodayTimetableActivity);
-                                            }
-                                        });
-                                        Button btn_delete = new Button(getApplicationContext());
-                                        btn_delete.setBackgroundResource(R.drawable.delete_group);
+                                            });
+                                            Button btn_delete = new Button(getApplicationContext());
+                                            btn_delete.setBackgroundResource(R.drawable.delete_group);
 
-                                        btn_delete.setLayoutParams(
-                                                new LinearLayout.LayoutParams(
-                                                        120,
-                                                        120
+                                            btn_delete.setLayoutParams(
+                                                    new LinearLayout.LayoutParams(
+                                                            120,
+                                                            120
 
-                                                )
-                                        );
-                                        btn_delete.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                mFirestore.collection("lessons").whereEqualTo("group", document.getId())
-                                                        .get()
-                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                              if(task.isSuccessful()){
-                                                                  for(final QueryDocumentSnapshot document: task.getResult()){
-                                                                      document.getReference().delete();
-                                                                  }
-                                                              }else{
-                                                                  Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
-                                                              }
-                                                            }
-                                                        });
-                                                mFirestore.collection("users").whereEqualTo("group", document.getId()).whereEqualTo("role", "pupil")
-                                                        .get()
-                                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                                if(task.isSuccessful()){
-                                                                    for(final QueryDocumentSnapshot document: task.getResult()){
-                                                                        document.getReference().update("group", "");
+                                                    )
+                                            );
+                                            btn_delete.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    mFirestore.collection("lessons").whereEqualTo("group", document.getId())
+                                                            .get()
+                                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        for (final QueryDocumentSnapshot document : task.getResult()) {
+                                                                            document.getReference().delete();
+                                                                        }
+                                                                    } else {
+                                                                        Toast.makeText(getApplicationContext(), "Удаление уроков не  выполнено", Toast.LENGTH_SHORT).show();
                                                                     }
-                                                                }else{
-                                                                    Toast.makeText(getApplicationContext(), "Обновление поля group учеников не выполнено", Toast.LENGTH_SHORT).show();
                                                                 }
-                                                            }
-                                                        });
-                                                mFirestore.collection("groups").document(document.getId()).delete();
-                                                mLinearLayout.removeView(scrollView);
-                                            }
-                                        });
-                                        Button btn_replace = new Button(getApplicationContext());
-                                        btn_replace.setBackgroundResource(R.drawable.replace_group);
-                                        btn_replace.setLayoutParams(
-                                                new LinearLayout.LayoutParams(
-                                                        120,
-                                                        120
-                                                )
-                                        );
-                                        btn_replace.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
+                                                            });
+                                                    mFirestore.collection("users").whereEqualTo("group", document.getId()).whereEqualTo("role", "pupil")
+                                                            .get()
+                                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        for (final QueryDocumentSnapshot document : task.getResult()) {
+                                                                            document.getReference().update("group", "");
+                                                                        }
+                                                                    } else {
+                                                                        Toast.makeText(getApplicationContext(), "Обновление поля group учеников не выполнено", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
+                                                    mFirestore.collection("groups").document(document.getId()).delete();
+                                                    mLinearLayout.removeView(scrollView);
+                                                }
+                                            });
+                                            Button btn_replace = new Button(getApplicationContext());
+                                            btn_replace.setBackgroundResource(R.drawable.replace_group);
+                                            btn_replace.setLayoutParams(
+                                                    new LinearLayout.LayoutParams(
+                                                            120,
+                                                            120
+                                                    )
+                                            );
+                                            btn_replace.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
                                                 /*if(id > 1) {
                                                     HorizontalScrollView class_1 = (HorizontalScrollView) findViewById(id - 1);
                                                     HorizontalScrollView class_2 = (HorizontalScrollView) findViewById(id);
@@ -214,24 +216,27 @@ public class TeacherMainActivity extends AppCompatActivity {
                                                     class_2.setVisibility(View.VISIBLE);
                                                     class_1.setVisibility(View.VISIBLE);
                                                 }*/
-                                            }
-                                        });
-                                        linearLayout.addView(class_);
-                                        linearLayout.addView(btn_delete);
-                                        linearLayout.addView(btn_replace);
-                                        scrollView.addView(linearLayout);
-                                        mLinearLayout.addView(scrollView);
-                                        id++;
-                                        Toast.makeText(TeacherMainActivity.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT ).show();
+                                                }
+                                            });
+                                            linearLayout.addView(class_);
+                                            linearLayout.addView(btn_delete);
+                                            linearLayout.addView(btn_replace);
+                                            scrollView.addView(linearLayout);
+                                            mLinearLayout.addView(scrollView);
+                                            id++;
+                                            Toast.makeText(TeacherMainActivity.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }else{
-                                    Toast.makeText(TeacherMainActivity.this, "Информация о группах не получена", Toast.LENGTH_SHORT ).show();
-                                }
-                            }
+                                }else {
+                                            Toast.makeText(TeacherMainActivity.this, "Информация о группах не получена", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
                         });
             }
         });
     }
+
 
     public void createClass(View view){
         //Создание новой ячейки в Firestore в коллекции groups и заполнение ее полей

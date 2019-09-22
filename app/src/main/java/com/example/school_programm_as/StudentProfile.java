@@ -26,8 +26,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class StudentProfile extends AppCompatActivity {
@@ -43,6 +45,8 @@ public class StudentProfile extends AppCompatActivity {
     private TextView Name, Bills, Place, Teacher, TodayBills;
     private LinearLayout mLinearLayout;
     private String userId,groupId;
+    private List<Lesson> subjects = new ArrayList<>();
+
     private String userIdforStudentTimetableDay;
     private String groupIdforStudentTimetableDay;
     int cnt;
@@ -150,67 +154,116 @@ public class StudentProfile extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()){
-                                    for (final QueryDocumentSnapshot document : task.getResult()){
+                                    for (final QueryDocumentSnapshot document : task.getResult()) {
                                         final Lesson lesson = document.toObject(Lesson.class);
-                                        final TextView class_ = new TextView(getApplicationContext());
-                                        class_.setId(id);
-                                        class_.setTextSize(22);
-                                        class_.setTextColor(0xFF8E7B89);
-                                        Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helveticaneuemed.ttf");
-                                        class_.setTypeface(font);
 
 
-                                            class_.setLayoutParams(
-                                                    new LinearLayout.LayoutParams(
-                                                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                                                            LinearLayout.LayoutParams.WRAP_CONTENT
-                                                    )
-                                            );
+
+                                        if (lesson.date != null) {
+
+                                            try {
+                                                dayOfTheWeek = sdfin.parse("22.09.2019");
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
 
 
-                                            if (lesson.date != null) {
+                                            if (today.equals(sdfout.format(dayOfTheWeek))) {
 
-                                                try {
-                                                    dayOfTheWeek = sdfin.parse(lesson.date);
-                                                } catch (ParseException e) {
-                                                    e.printStackTrace();
+
+                                                if (document.get(userId) != null) {
+                                                    switch (document.get(userId).toString()) {
+                                                        case "present":
+                                                            lesson.state = 0;
+                                                            break;
+
+                                                        case "notpresent":
+                                                            lesson.state = 1;
+                                                            break;
+
+                                                        case "latecomer":
+                                                            lesson.state = 2;
+                                                            break;
+
+                                                        default:
+                                                            break;
+                                                    }
                                                 }
 
+                                                subjects.add(lesson);
 
-                                          if (today.equals(sdfout.format(dayOfTheWeek))) {
-
-
-                                            class_.setText(lesson.name);
                                                 cnt++;
 
-                                                    if (document.get(userId).equals("present")) {
 
-                                                        class_.setBackground(getDrawable(R.drawable.group_76));
-                                                    }
-
-                                                    if (document.get(userId).equals("notpresent")) {
-
-                                                        class_.setBackground(getDrawable(R.drawable.group_14));
-
-                                                    }
-                                                    if (document.get(userId).equals("latecomer")) {
-
-                                                        class_.setBackground(getDrawable(R.drawable.student_profile_latecomer));
-
-                                                    }
-                                                }
                                             }
-                                            if (cnt == 0) {
+                                        }
+                                        mLinearLayout = findViewById(R.id.timetable);
+                                        id++;
+                                    }
+                                    id = 0;
+                                    for (int j = 0 ; j < subjects.size(); j++) {
+                                        for (int i = 0; i < subjects.size() - 1; i++) {
+                                            Lesson p = subjects.get(i);
+                                            Lesson cnt;
+                                            Lesson next = subjects.get(i + 1);
+                                            if (p.getNumber() >= next.getNumber()) {
+                                                cnt = p;
+                                                subjects.set(i, next);
+                                                subjects.set(i + 1, cnt);
+                                            }
+                                        }
+                                    }
+
+                                    for (final QueryDocumentSnapshot document : task.getResult()) {
+                                        final TextView class_ = new TextView(getApplicationContext());
+
+                                        class_.setLayoutParams(
+                                                new LinearLayout.LayoutParams(
+                                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                                        LinearLayout.LayoutParams.WRAP_CONTENT
+                                                )
+                                        );
+
+                                         switch (subjects.get(id).state) {
+                                                case 0:
+                                                    class_.setBackground(getDrawable(R.drawable.group_76));
+                                                    break;
+
+                                                case 1:
+                                                    class_.setBackground(getDrawable(R.drawable.group_14));
+                                                    break;
+
+                                                case 2:
+                                                    class_.setBackground(getDrawable(R.drawable.student_profile_latecomer));
+
+                                                    break;
+
+                                                default:
+                                                    class_.setBackground(getDrawable(R.drawable.group_14));
+
+                                                    break;
+                                            }
+
+
+
+
+                                        class_.setTextSize(22);
+                                        class_.setTextColor(0xFF8E7B89);
+                                        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
+                                        class_.setTypeface(font);
+                                        class_.setText(subjects.get(id).name);
+                                        mLinearLayout.addView(class_);
+                                        id++;
+                                    }
+
+
+                                    if (cnt == 0) {
                                                 Text.setText("Занятий нет");
                                             }
 
 
-                                            mLinearLayout = findViewById(R.id.timetable);
-                                            mLinearLayout.addView(class_);
-                                            id++;
-                                            Toast.makeText(StudentProfile.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT).show();
-                                        }
-                                    } else {
+                                                 Toast.makeText(StudentProfile.this, "Информация о группах успешно получена", Toast.LENGTH_SHORT).show();
+                                        } else {
                                         Toast.makeText(StudentProfile.this, "Информация о группах не получена", Toast.LENGTH_SHORT).show();
                                     }
                                 }
