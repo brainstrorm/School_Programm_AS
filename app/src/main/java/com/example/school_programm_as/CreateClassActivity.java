@@ -33,6 +33,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class CreateClassActivity extends AppCompatActivity {
 
@@ -44,7 +46,7 @@ public class CreateClassActivity extends AppCompatActivity {
     private Button button_back;
     private String userId;
     private int countId = 1;
-    private HashSet<String> dates;
+    private Set<String> dates;
 
     private LinearLayout mlinearLayout;
     private TextView TVGroup;
@@ -59,7 +61,7 @@ public class CreateClassActivity extends AppCompatActivity {
         mlinearLayout = (LinearLayout) findViewById(R.id.datesList);
         TVGroup = (TextView) findViewById(R.id.xGroup);
         nameField = (EditText) findViewById(R.id.editText7);
-        dates = new HashSet<>();
+        dates = new TreeSet<>();
         mFirestore = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
         groupId = intent.getExtras().getString("GROUP_ID_MESSAGE");
