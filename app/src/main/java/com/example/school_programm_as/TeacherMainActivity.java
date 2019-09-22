@@ -123,7 +123,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                                             class_.setTextColor(0xFFFFFFFF);
                                             Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
                                             class_.setTypeface(font);
-                                            class_.setTypeface(null, Typeface.BOLD);//font
+                                            class_.setTypeface(null, Typeface.BOLD);//fonter
                                             class_.setAllCaps(false);
                                             class_.setGravity(1);
                                             class_.setText(group.name);
