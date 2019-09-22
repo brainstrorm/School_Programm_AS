@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.school_programm_as.Pupil;
 import com.example.school_programm_as.R;
+import com.example.school_programm_as.admin.domain.UpdateBillInteface;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public class BillChangeFragment extends DialogFragment {
     private EditText editText;
     private Pupil pupil;
 
-    BillChangeFragment(Pupil pupil) {
+    public BillChangeFragment(Pupil pupil) {
         this.pupil = pupil;
     }
 
@@ -72,7 +73,7 @@ public class BillChangeFragment extends DialogFragment {
             mFirestrore.collection("users")
                     .document(pupil.userId)
                     .update(new HashMap<String, Object>(){{ put("bill", bill + edited[0]); }});
-            ListOfPupilsActivity activity = (ListOfPupilsActivity) getActivity();
+            UpdateBillInteface activity = (UpdateBillInteface) getActivity();
             pupil.bill += edited[0];
             if (activity != null)
                 activity.updateStudentBill(pupil);

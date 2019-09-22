@@ -83,7 +83,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="414dp"
+        android:layout_height="0dp"
         android:divider="@drawable/empty_tall_divider_2"
         android:orientation="vertical"
         android:showDividers="middle"
@@ -92,8 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/TVDate">
 
 
     </LinearLayout>
@@ -114,15 +113,14 @@
         android:id="@+id/TVDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:background="@drawable/date_field"
-        android:paddingLeft="80dp"
         android:hint="01.01.2019"
+        android:paddingLeft="80dp"
         android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
-        app:layout_constraintVertical_bias="0.513" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
     <ImageButton
         android:id="@+id/deleteLessons"

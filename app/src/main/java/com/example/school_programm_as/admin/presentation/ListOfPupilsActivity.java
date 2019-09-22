@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.school_programm_as.Pupil;
 import com.example.school_programm_as.R;
 import com.example.school_programm_as.User;
+import com.example.school_programm_as.admin.domain.UpdateBillInteface;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ListOfPupilsActivity extends AppCompatActivity {
+public class ListOfPupilsActivity extends AppCompatActivity implements UpdateBillInteface {
 
     private static final String EXTRA_GROUP_ID = "group.ID";
     private static final String EXTRA_ADMIN_ID = "admin.ID";

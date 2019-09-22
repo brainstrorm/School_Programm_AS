@@ -183,8 +183,9 @@ public class CreateTimetableActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(TeacherListOfStudents.provideIntent(CreateTimetableActivity.this,
-                        getIntent().getStringExtra(GROUP_ID_MESSAGE),
-                        name));
+                        getIntent().getStringExtra("GROUP_ID_MESSAGE"),
+                        name,
+                        savedDateMessage));
             }
         });
         /*Button btn_delete = new Button(getApplicationContext());
