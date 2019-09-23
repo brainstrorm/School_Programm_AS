@@ -13,6 +13,7 @@
         <activity
             android:name=".admin.presentation.ListOfPupilsActivity"
             android:noHistory="true" />
+        <activity android:name=".MyQR" android:noHistory="true"/>
         <activity
             android:name=".admin.presentation.ClassesListActivity"
             android:noHistory="true" />

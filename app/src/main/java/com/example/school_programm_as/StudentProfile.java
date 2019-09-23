@@ -1,18 +1,16 @@
 package com.example.school_programm_as;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,7 +25,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -162,7 +159,7 @@ public class StudentProfile extends AppCompatActivity {
                                         if (lesson.date != null) {
 
                                             try {
-                                                dayOfTheWeek = sdfin.parse("22.09.2019");
+                                                dayOfTheWeek = sdfin.parse(lesson.date);
                                             } catch (ParseException e) {
                                                 e.printStackTrace();
                                             }
