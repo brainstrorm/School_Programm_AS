@@ -254,7 +254,15 @@ public class CreateTimetableActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month++;
                 Log.d(TAG, "OnDateSet: date:" + day + "/" + month + "/" + year);
-                date = day + "." + month + "." + year;
+                String day_ = "" + day;
+                String month_ = "" + month;
+                if(month < 10){
+                    day_ = "0" + day_;
+                }
+                if(month < 10){
+                    month_ = "0" + month_;
+                }
+                date = day_ + "." + month_ + "." + year;
                 String oldDate = mSetDate.getText().toString();
                 mSetDate.setText(date);
                 Intent intent = getIntent();
