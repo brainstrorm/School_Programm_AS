@@ -107,7 +107,13 @@ public class ParentQRScanActivity extends AppCompatActivity {
                         Intent intentParentMainActivity = new Intent(getApplicationContext(), ParentMainActivity.class);
                         intentParentMainActivity.setAction("ParentQRScanActivity");
                         intentParentMainActivity.putExtra("PARENT_ID_MESSAGE", intent.getStringExtra("PARENT_ID_MESSAGE"));
-                        startActivity(intentParentMainActivity);
+                        /*try {
+                            Thread.sleep(1000);
+                        }catch (Exception e){
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }*/
+                        //startActivity(intentParentMainActivity);
+                        Toast.makeText(getApplicationContext(), "Ребенок добавлен.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
