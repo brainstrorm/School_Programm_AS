@@ -211,7 +211,7 @@ public class StudentProfile extends AppCompatActivity {
                                         }
                                     }
 
-                                    for (final QueryDocumentSnapshot document : task.getResult()) {
+                                    for (int i = 0; i < subjects.size(); i++) {
                                         final TextView class_ = new TextView(getApplicationContext());
 
                                         class_.setLayoutParams(
@@ -221,7 +221,7 @@ public class StudentProfile extends AppCompatActivity {
                                                 )
                                         );
                                         if (subjects.size() != 0) {
-                                            switch (subjects.get(id).state) {
+                                            switch (subjects.get(i).state) {
                                                 case 0:
                                                     class_.setBackground(getDrawable(R.drawable.group_76));
                                                     break;
@@ -246,7 +246,7 @@ public class StudentProfile extends AppCompatActivity {
                                             class_.setTextColor(0xFF8E7B89);
                                             Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
                                             class_.setTypeface(font);
-                                            class_.setText(subjects.get(id).name);
+                                            class_.setText(subjects.get(i).name);
                                             mLinearLayout.addView(class_);
                                             id++;
                                         }
