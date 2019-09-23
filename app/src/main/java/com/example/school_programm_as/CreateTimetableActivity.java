@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -106,6 +107,10 @@ public class CreateTimetableActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month++;
                 Log.d(TAG, "OnDateSet: date:" + day + "/" + month + "/" + year);
+                mSetDate.setTextSize(22);
+                mSetDate.setTextColor(0xFF8E7B89);
+                Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
+                mSetDate.setTypeface(font);
                 date = day + "." + month + "." + year;
                 mSetDate.setText(date);
 
