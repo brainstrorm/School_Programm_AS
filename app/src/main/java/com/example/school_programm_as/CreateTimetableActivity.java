@@ -256,7 +256,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
                 Log.d(TAG, "OnDateSet: date:" + day + "/" + month + "/" + year);
                 String day_ = "" + day;
                 String month_ = "" + month;
-                if(month < 10){
+                if(day < 10){
                     day_ = "0" + day_;
                 }
                 if(month < 10){
