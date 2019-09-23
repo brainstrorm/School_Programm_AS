@@ -76,7 +76,7 @@ public class CreateClassActivity extends AppCompatActivity {
         }
         if(intent.getAction().equals("ExistingGroup")){
             userId = intent.getExtras().getString("USER_ID_MESSAGE");
-            //QR.setVisibility(View.GONE);
+            ///QR.setVisibility(View.GONE);
 
         }
         if(intent.getAction().equals("CreateTimetableActivity")){
