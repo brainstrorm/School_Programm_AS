@@ -89,13 +89,14 @@ public class MyQRCodeActivity extends AppCompatActivity {
     }
 
     public void back(View view){
-        Intent intentTodayTimetableActivity = new Intent(this, TodayTimetableActivity.class);
+        Intent intentTodayTimetableActivity = new Intent(this, CreateClassActivity.class);
         intentTodayTimetableActivity.setAction("MyQRCodeActivity");
         Bundle extras = new Bundle();
         Intent intent = getIntent();
         Bundle extras_ = intent.getExtras();
         extras.putString("USER_ID_MESSAGE", extras_.getString("USER_ID_MESSAGE"));
-        extras.putString("ID_MESSAGE", extras_.getString("GROUP_ID_MESSAGE"));
+        extras.putString("GROUP_ID_MESSAGE", extras_.getString("GROUP_ID_MESSAGE"));
+        extras.putString("GROUP_NAME_MESSAGE", extras_.getString("GROUP_NAME_MESSAGE"));
         intentTodayTimetableActivity.putExtras(extras);
         startActivity(intentTodayTimetableActivity);
     }

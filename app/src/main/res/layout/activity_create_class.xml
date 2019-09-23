@@ -90,6 +90,19 @@
             app:layout_constraintStart_toEndOf="@+id/imageView7"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/plus_lesson" />
+
+        <ImageButton
+            android:id="@+id/imageButton6"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="61dp"
+            android:layout_height="51dp"
+            android:onClick="QRCode"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/xGroup"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icons8_qr_code_96" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView

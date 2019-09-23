@@ -138,7 +138,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
     }
 
     public void plusLesson_(View view){
-        if(mSetDate.getText() != "") {
+        if(!mSetDate.getText().equals("")) {
             Intent intent = getIntent();
             Bundle extras = intent.getExtras();
             String groupId = extras.getString("GROUP_ID_MESSAGE");
@@ -250,12 +250,13 @@ public class CreateTimetableActivity extends AppCompatActivity {
                 month++;
                 Log.d(TAG, "OnDateSet: date:" + day + "/" + month + "/" + year);
                 date = day + "." + month + "." + year;
+                String oldDate = mSetDate.getText().toString();
                 mSetDate.setText(date);
                 Intent intent = getIntent();
                 Bundle extras = intent.getExtras();
                 String groupId = extras.getString("GROUP_ID_MESSAGE");
 
-                mFirestore.collection("lessons").whereEqualTo("group", groupId)
+                mFirestore.collection("lessons").whereEqualTo("group", groupId).whereEqualTo("date", oldDate)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override

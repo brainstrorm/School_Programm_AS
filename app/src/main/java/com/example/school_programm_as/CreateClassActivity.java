@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class CreateClassActivity extends AppCompatActivity {
 
     private String groupName;
     private String groupId;
+    private ImageButton QR;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,15 +63,20 @@ public class CreateClassActivity extends AppCompatActivity {
         mlinearLayout = (LinearLayout) findViewById(R.id.datesList);
         TVGroup = (TextView) findViewById(R.id.xGroup);
         nameField = (EditText) findViewById(R.id.editText7);
+        QR = (ImageButton) findViewById(R.id.imageButton6);
         dates = new TreeSet<>();
         mFirestore = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
         groupId = intent.getExtras().getString("GROUP_ID_MESSAGE");
+        if(intent.getAction().equals("MyQRCodeActivity")) {
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
+        }
         if(intent.getAction().equals("TeacherMainActivity")) {
             userId = intent.getExtras().getString("USER_ID_MESSAGE");
         }
         if(intent.getAction().equals("ExistingGroup")){
             userId = intent.getExtras().getString("USER_ID_MESSAGE");
+            //QR.setVisibility(View.GONE);
 
         }
         if(intent.getAction().equals("CreateTimetableActivity")){
@@ -113,7 +120,7 @@ public class CreateClassActivity extends AppCompatActivity {
         TVGroup.setTypeface(font);
         TVGroup.setTypeface(null, Typeface.BOLD);
         groupId = getIntent().getExtras().getString("GROUP_ID_MESSAGE");
-        if(getIntent().getAction().equals("ExistingGroup")) {
+        if(getIntent().getAction().equals("ExistingGroup") || getIntent().getAction().equals("MyQRCodeActivity")) {
             FirebaseFirestore.getInstance().collection("groups").document(groupId)
                     .get()
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -152,6 +159,10 @@ public class CreateClassActivity extends AppCompatActivity {
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
 
+        }
+        if(intent.getAction().equals("MyQRCodeActivity")) {
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
         }
         Toast.makeText(this, userId, Toast.LENGTH_SHORT).show();
         intentBack.putExtra("USER_ID_MESSAGE", userId);
@@ -208,6 +219,10 @@ public class CreateClassActivity extends AppCompatActivity {
             userId = extras.getString("USER_ID_MESSAGE");
             groupId = extras.getString("GROUP_ID_MESSAGE");
         }
+        if(intent.getAction().equals("MyQRCodeActivity")) {
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
+            groupId = extras.getString("GROUP_ID_MESSAGE");
+        }
         Bundle extras_ = new Bundle();
         extras_.putString("GROUP_ID_MESSAGE", groupId);
         extras_.putString("USER_ID_MESSAGE", userId);
@@ -255,6 +270,10 @@ public class CreateClassActivity extends AppCompatActivity {
                 }
                 if(intent.getAction().equals("ExistingGroup")){
                     userId = extras.getString("USER_ID_MESSAGE");
+                    groupId = extras.getString("GROUP_ID_MESSAGE");
+                }
+                if(intent.getAction().equals("MyQRCodeActivity")) {
+                    userId = intent.getExtras().getString("USER_ID_MESSAGE");
                     groupId = extras.getString("GROUP_ID_MESSAGE");
                 }
                 Bundle extras_ = new Bundle();
@@ -316,6 +335,9 @@ public class CreateClassActivity extends AppCompatActivity {
         if(intent.getAction().equals("CreateTimetableActivity")){
             userId = extras.getString("USER_ID_MESSAGE");
         }
+        if(intent.getAction().equals("MyQRCodeActivity")) {
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
+        }
         intentSaveClass.putExtra("USER_ID_MESSAGE", userId);
         if(!class_name.getText().toString().trim().equals("")) {
             DocumentReference docRefGroup = mFirestore.collection("groups").document(groupId);
@@ -324,6 +346,32 @@ public class CreateClassActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Введите название группы!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void QRCode(View view){
+        Intent intent = getIntent();
+        groupId = intent.getExtras().getString("GROUP_ID_MESSAGE");
+        if(intent.getAction().equals("TeacherMainActivity")) {
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("ExistingGroup")){
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
+
+        }
+        if(intent.getAction().equals("CreateTimetableActivity")){
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
+        }
+        if(intent.getAction().equals("MyQRCodeActivity")) {
+            userId = intent.getExtras().getString("USER_ID_MESSAGE");
+        }
+        Intent intent1 = new Intent(getApplicationContext(), MyQRCodeActivity.class);
+        Bundle extras = new Bundle();
+        extras.putString("USER_ID_MESSAGE", userId);
+        extras.putString("GROUP_ID_MESSAGE", groupId);
+        //nameField = (EditText) findViewById(R.id.editText7);
+        extras.putString("GROUP_NAME_MESSAGE", nameField.getText().toString());
+        intent1.putExtras(extras);
+        startActivity(intent1);
     }
 
     /*@Override
