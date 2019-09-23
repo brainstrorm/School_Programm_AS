@@ -223,8 +223,8 @@ public class StudentProfile extends AppCompatActivity {
                                                         LinearLayout.LayoutParams.WRAP_CONTENT
                                                 )
                                         );
-
-                                         switch (subjects.get(id).state) {
+                                        if (subjects.size() != 0) {
+                                            switch (subjects.get(id).state) {
                                                 case 0:
                                                     class_.setBackground(getDrawable(R.drawable.group_76));
                                                     break;
@@ -245,15 +245,14 @@ public class StudentProfile extends AppCompatActivity {
                                             }
 
 
-
-
-                                        class_.setTextSize(22);
-                                        class_.setTextColor(0xFF8E7B89);
-                                        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
-                                        class_.setTypeface(font);
-                                        class_.setText(subjects.get(id).name);
-                                        mLinearLayout.addView(class_);
-                                        id++;
+                                            class_.setTextSize(22);
+                                            class_.setTextColor(0xFF8E7B89);
+                                            Typeface font = Typeface.createFromAsset(getAssets(), "fonts/helveticaneuemed.ttf");
+                                            class_.setTypeface(font);
+                                            class_.setText(subjects.get(id).name);
+                                            mLinearLayout.addView(class_);
+                                            id++;
+                                        }
                                     }
 
 
