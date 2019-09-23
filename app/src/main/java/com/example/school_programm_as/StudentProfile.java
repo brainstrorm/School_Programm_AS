@@ -159,7 +159,7 @@ public class StudentProfile extends AppCompatActivity {
                                         if (lesson.date != null) {
 
                                             try {
-                                                dayOfTheWeek = sdfin.parse("22.09.2019");
+                                                dayOfTheWeek = sdfin.parse(lesson.date);
                                             } catch (ParseException e) {
                                                 e.printStackTrace();
                                             }
