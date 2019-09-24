@@ -45,11 +45,7 @@ public class StudentTimetable extends AppCompatActivity {
 
     Date dayOfTheWeek = null;
 
-    SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
-    SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
 
-
-    private String dayOfSubj;
     private int id = 1;
     private int cnt = 0;
     @Override
@@ -110,13 +106,8 @@ public class StudentTimetable extends AppCompatActivity {
 
 
                                     if (lesson.date != null) {
-                                        try {
-                                            dayOfTheWeek = sdfin.parse(lesson.date);
-                                        } catch (ParseException e) {
-                                            e.printStackTrace();
-                                        }
 
-                                        String day = sdfout.format(dayOfTheWeek);
+                                        String day = lesson.date;
 
                                         //if (day.equals(dayOfSubj)) {
 
