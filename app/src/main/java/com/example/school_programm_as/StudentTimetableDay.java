@@ -85,7 +85,7 @@ public class StudentTimetableDay extends AppCompatActivity {
 
 
 
-                                            final Button class_ = new Button(getApplicationContext());
+                                            final Button class_ = new Button(getApplicationContext());//push
                                             class_.setId(id);
                                             class_.setBackgroundResource(R.drawable.rectangle_10);
                                             class_.setLayoutParams(
