@@ -156,8 +156,14 @@ public class QRScan extends AppCompatActivity {
                 txt_result.post(new Runnable() {
                     @Override
                     public void run() {
-                        txt_result.setText(data);
-                        groupId = data;
+                        String new_data;
+                        if(data.length() > 20){
+                            new_data = data.substring(0,20);
+                        }else{
+                            new_data = data;
+                        }
+                        txt_result.setText(new_data);
+                        groupId = new_data;
                         if((!groupId.equals("")) || (!groupId.equals(null))) {
                             mFirestore.collection("lessons").whereEqualTo("group", groupId)
                                     .get()
@@ -177,6 +183,7 @@ public class QRScan extends AppCompatActivity {
                                                     Toast.makeText(QRScan.this, "null", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
+                                            Toast.makeText(getApplicationContext(), "Вы добавлены в группу", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         }else{

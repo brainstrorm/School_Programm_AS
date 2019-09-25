@@ -123,7 +123,6 @@ public class StudentProfile extends AppCompatActivity {
 
                 groupId = pupil_.group;
 
-
                 if((groupId != null) && (groupId != "")) {
                     DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
                     docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
