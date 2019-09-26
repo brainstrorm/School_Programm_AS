@@ -18,7 +18,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class StudentTimetableDay extends AppCompatActivity {
@@ -77,10 +81,23 @@ public class StudentTimetableDay extends AppCompatActivity {
                                         Check.add(lesson.date);
 
                                     }
+                                    List<String> CheckNew = new ArrayList<>(Check);
+                                    Collections.sort(CheckNew, new Comparator<String>() {
+                                        @Override
+                                        public int compare(String s, String t1) {
+                                            String[] firstDay = s.split("\\.");
+                                            String[] secondDay = t1.split("\\.");
+                                            if (firstDay[2].compareTo(secondDay[2]) == 0) {
+                                                if (firstDay[1].compareTo(secondDay[1]) == 0) {
+                                                    return firstDay[0].compareTo(secondDay[0]);
+                                                }
+                                                return firstDay[1].compareTo(secondDay[1]);
+                                            }
+                                            return firstDay[2].compareTo(secondDay[2]);
+                                        }
+                                    });
 
-
-
-                                        for (final String cur_date: Check) {
+                                        for (final String cur_date: CheckNew) {
 
 
 

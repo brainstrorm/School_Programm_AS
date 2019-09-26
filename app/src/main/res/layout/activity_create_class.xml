@@ -58,8 +58,6 @@
             android:background="@drawable/icons8_back_96"
             android:onClick="back"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView7"
-            app:layout_constraintHorizontal_bias="0.179"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.488" />
@@ -71,9 +69,8 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/new_group"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton6"
+            app:layout_constraintStart_toEndOf="@+id/button17"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.425"
             app:srcCompat="@drawable/new_group" />
@@ -99,8 +96,6 @@
             android:onClick="QRCode"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/xGroup"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/icons8_qr_code_96" />
     </androidx.constraintlayout.widget.ConstraintLayout>

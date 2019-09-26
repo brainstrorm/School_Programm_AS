@@ -33,7 +33,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -59,7 +63,7 @@ public class CreateClassActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_create_class);
         mlinearLayout = (LinearLayout) findViewById(R.id.datesList);
         TVGroup = (TextView) findViewById(R.id.xGroup);
         nameField = (EditText) findViewById(R.id.editText7);
@@ -85,7 +89,6 @@ public class CreateClassActivity extends AppCompatActivity {
             //nameField.setHint(intent.getExtras().getString("GROUP_NAME_MESSAGE"));
         }
         Toast.makeText(this, userId, Toast.LENGTH_SHORT).show();
-        setContentView(R.layout.activity_create_class);
         ConstraintLayout toolbar = findViewById(R.id.toolbar);
 
         mFirestore.collection("lessons").whereEqualTo("group", groupId)
@@ -100,8 +103,23 @@ public class CreateClassActivity extends AppCompatActivity {
                         }else{
                             Toast.makeText(getApplicationContext(), "Не найдены дни", Toast.LENGTH_SHORT).show();
                         }
+                        List<String> newDates = new ArrayList<>(dates);
+                        Collections.sort(newDates, new Comparator<String>() {
+                            @Override
+                            public int compare(String s, String t1) {
+                                String[] firstDay = s.split("\\.");
+                                String[] secondDay = t1.split("\\.");
+                                if (firstDay[2].compareTo(secondDay[2]) == 0) {
+                                    if (firstDay[1].compareTo(secondDay[1]) == 0) {
+                                        return firstDay[0].compareTo(secondDay[0]);
+                                    }
+                                    return firstDay[1].compareTo(secondDay[1]);
+                                }
+                                return firstDay[2].compareTo(secondDay[2]);
+                            }
+                        });
                         String groupId = getIntent().getExtras().getString("GROUP_ID_MESSAGE");
-                        for (String date: dates) {
+                        for (String date: newDates) {
                             plusDate(date, groupId);
                         }
                     }
