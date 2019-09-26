@@ -39,11 +39,9 @@ public class TodayTimetableActivity extends AppCompatActivity {
     private String userId;
    private   int cnt = 0;
 
-    SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
     SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
     Date d = new Date();
-    String today = sdfout.format(d);
-    Date dayOfTheWeek;
+    String today = sdfin.format(d);
 
     private List<Lesson> subjects = new ArrayList<>();
 
@@ -101,14 +99,9 @@ public class TodayTimetableActivity extends AppCompatActivity {
 
                                 if (lesson.date != null) {
 
-                                    try {
-                                        dayOfTheWeek = sdfin.parse(lesson.date);
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
 
 
-                                    if (today.equals(sdfout.format(dayOfTheWeek))) {
+                                    if (today.equals(lesson.date)) {
 
                                         cnt++;
 
@@ -138,14 +131,10 @@ public class TodayTimetableActivity extends AppCompatActivity {
                                 final Lesson lesson = subjects.get(id);
                                 if (lesson.date != null) {
 
-                                    try {
-                                        dayOfTheWeek = sdfin.parse(lesson.date);
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
 
 
-                                    if (today.equals(sdfout.format(dayOfTheWeek))) {
+
+                                    if (today.equals(lesson.date)){
 
                                         final Button lesson_ = new Button(getApplicationContext());
                                         lesson_.setId(id);

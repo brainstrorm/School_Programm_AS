@@ -51,11 +51,9 @@ public class StudentProfile extends AppCompatActivity {
     private Button logout_back;
     private Button QRCode;
 
-    SimpleDateFormat sdfout = new SimpleDateFormat("EEEE");
     SimpleDateFormat sdfin = new SimpleDateFormat("dd.MM.yyyy");
     Date d = new Date();
-    String today = sdfout.format(d);
-    Date dayOfTheWeek;
+    String today = sdfin.format(d);
 
     private int id = 1;
 
@@ -125,7 +123,6 @@ public class StudentProfile extends AppCompatActivity {
 
                 groupId = pupil_.group;
 
-
                 if((groupId != null) && (groupId != "")) {
                     DocumentReference docRef_groups = mFirestore.collection("groups").document(groupId);
                     docRef_groups.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -158,14 +155,9 @@ public class StudentProfile extends AppCompatActivity {
 
                                         if (lesson.date != null) {
 
-                                            try {
-                                                dayOfTheWeek = sdfin.parse(lesson.date);
-                                            } catch (ParseException e) {
-                                                e.printStackTrace();
-                                            }
 
 
-                                            if (today.equals(sdfout.format(dayOfTheWeek))) {
+                                            if (today.equals(lesson.date)) {
 
 
                                                 if (document.get(userId) != null) {

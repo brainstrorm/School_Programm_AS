@@ -56,7 +56,7 @@ public class MyQR extends AppCompatActivity {
             smallerDimension = smallerDimension * 3 / 4;
 
             qrgEncoder = new QRGEncoder(
-                    userId, null,
+                    userId + "3", null,
                     QRGContents.Type.TEXT,
                     smallerDimension);
             try {

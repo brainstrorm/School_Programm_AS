@@ -96,8 +96,14 @@ public class ParentQRScanActivity extends AppCompatActivity {
                 txt_result.post(new Runnable() {
                     @Override
                     public void run() {
-                        txt_result.setText(data);
-                        pupilId = data;
+                        String new_data;
+                        if(data.length() > 28){
+                            new_data = data.substring(0,28);
+                        }else{
+                            new_data = data;
+                        }
+                        txt_result.setText(new_data);
+                        pupilId = new_data;
                         Intent intent = getIntent();
                         final String parentId = intent.getStringExtra("PARENT_ID_MESSAGE");
                         Toast.makeText(getApplicationContext(), parentId, Toast.LENGTH_SHORT).show();
