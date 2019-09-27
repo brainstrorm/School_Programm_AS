@@ -165,7 +165,7 @@ public class TeacherListOfStudents extends AppCompatActivity implements UpdateBi
                     resource = R.drawable.group_14;
                     break;
                 }
-                case "latecomer": {
+                default: {
                     resource = R.drawable.student_profile_latecomer;
                 }
             }
