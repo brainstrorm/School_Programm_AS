@@ -54,7 +54,7 @@ public class PresentChangeFragment extends DialogFragment implements View.OnClic
                 break;
             }
             case R.id.Latecomer: {
-                status = "latecomer";
+                status = "respectfull";
                 break;
             }
             default: {
