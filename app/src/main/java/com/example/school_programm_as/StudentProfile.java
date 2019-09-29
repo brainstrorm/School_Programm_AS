@@ -64,6 +64,7 @@ public class StudentProfile extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+        mFirestore = FirebaseFirestore.getInstance();
 
         final TextView Text;
         Text = findViewById(R.id.noLessons);
@@ -91,6 +92,14 @@ public class StudentProfile extends AppCompatActivity {
         if(intent.getAction().equals("ParentMainActivity")){
             logout_back.setBackgroundResource(R.drawable.back_arrow);
             userId = intent.getExtras().getString("PUPIL_ID_MESSAGE");
+            /*mFirestore.collection("users").document(userId)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            groupId = documentSnapshot.get("group").toString();
+                        }
+                    });*/
             QRCode.setVisibility(View.INVISIBLE);
         }
 
@@ -104,7 +113,7 @@ public class StudentProfile extends AppCompatActivity {
 
 
 
-        mFirestore = FirebaseFirestore.getInstance();
+
         DocumentReference docRef_users = mFirestore.collection("users").document(userId);
         docRef_users.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override

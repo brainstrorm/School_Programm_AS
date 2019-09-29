@@ -135,7 +135,7 @@ public class StudentTimetableDay extends AppCompatActivity {
                                                     extras.putString("GROUP_ID_MESSAGE", message);
                                                     extras.putString("DATE_MESSAGE", message_date);
                                                     extras.putString("USER_ID_MESSAGE", userId);
-
+                                                    extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
                                                     Toast.makeText(StudentTimetableDay.this, "Выполнено", Toast.LENGTH_SHORT).show();
 
                                                     intentStudentTimetableToday.putExtras(extras);
