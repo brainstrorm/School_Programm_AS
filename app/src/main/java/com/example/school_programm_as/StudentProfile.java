@@ -170,10 +170,9 @@ public class StudentProfile extends AppCompatActivity {
                                                             lesson.state = 1;
                                                             break;
 
-                                                        case "latecomer":
+                                                        case "respectfull":
                                                             lesson.state = 2;
                                                             break;
-
                                                         default:
                                                             break;
                                                     }
