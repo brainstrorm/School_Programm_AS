@@ -184,7 +184,7 @@ public class StudentTimetable extends AppCompatActivity {
 
         extras.putString("USER_ID_MESSAGE", userId);
         extras.putString("GROUP_ID_MESSAGE", groupId);
-       // extras.putString("DATE_MESSAGE", date);
+       /// extras.putString("DATE_MESSAGE", date);
 
         if(getIntent().getExtras().getString("PARENT_ID_MESSAGE") != null)
             extras.putString("PARENT_ID_MESSAGE", getIntent().getExtras().getString("PARENT_ID_MESSAGE"));
